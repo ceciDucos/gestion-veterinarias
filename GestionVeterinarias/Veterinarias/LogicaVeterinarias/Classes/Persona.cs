@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace LogicaVeterinarias.Classes
 {
-    class Persona
+    abstract class Persona
     {
+        public string Nombre { get; set; }
+        public long Cedula { get; set; }
+        public string Telefono { get; set; }
+
+        public Persona() { }
+
+        public Persona(string nombre, long cedula, string telefono) 
+        {
+            this.Nombre = nombre;
+            this.Cedula = cedula;
+            this.Telefono = telefono;
+        }
     }
 }
