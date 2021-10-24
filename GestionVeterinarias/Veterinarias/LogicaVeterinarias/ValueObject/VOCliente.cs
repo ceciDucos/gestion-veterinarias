@@ -8,10 +8,9 @@ namespace LogicaVeterinarias.ValueObject
 {
     class VOCliente
     {
-        /*
-         rp: me queda la duda con el tema de la herencia, si aca tenemos que poner tambien los atr del padre. 
-         me suena que si.
-         */
+        public long Cedula { get;}
+        public String Nombre { get;}
+        public String Telefono{ get;}
         public String Direccion { get;}
         public String Correo { get; }
         public String Clave { get; }
@@ -19,8 +18,11 @@ namespace LogicaVeterinarias.ValueObject
         public List<VOMascota> Mascotas{ get; }
 
 
-        public VOCliente(String Direccion, String Correo, String Clave, bool Activo)
+        public VOCliente(long Cedula, String Nombre, String Telefono, String Direccion, String Correo, String Clave, bool Activo)
         {
+            this.Cedula = Cedula;
+            this.Nombre = Nombre;
+            this.Telefono = Telefono;
             this.Direccion = Direccion;
             this.Correo = Correo;
             this.Clave = Clave;

@@ -8,7 +8,6 @@ namespace LogicaVeterinarias.ValueObject
 {
     class VOVeterinaria
     {
-        public int Id { get;}
         public String  Nombre { get; }
         public String  Direccion { get; }
         public String  Telefono { get; }
@@ -18,9 +17,8 @@ namespace LogicaVeterinarias.ValueObject
 
 
 
-        public VOVeterinaria(int Id, String Nombre, String Direccion, String Telefono)
+        public VOVeterinaria(String Nombre, String Direccion, String Telefono)
         {
-            this.Id = Id;
             this.Nombre = Nombre;
             this.Direccion = Direccion;
             this.Telefono = Telefono;
