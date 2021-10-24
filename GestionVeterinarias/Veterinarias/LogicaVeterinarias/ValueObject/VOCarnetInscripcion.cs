@@ -9,15 +9,11 @@ namespace LogicaVeterinarias.ValueObject
     class VOCarnetInscripcion
     {
         public bool Expedido { get; }
-        public byte[] foto { get; }
-
-
-
-        public VOCarnetInscripcion(bool Expedido, byte[] Foto)
+        public byte[] Foto { get; }
+        public VOCarnetInscripcion(bool expedido, byte[] foto)
         {
-            this.Expedido = Expedido;
-            this.Foto = Foto;
-
+            this.Expedido = expedido;
+            this.Foto = foto;
         }
 
     }

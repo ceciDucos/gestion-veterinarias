@@ -9,26 +9,23 @@ namespace LogicaVeterinarias.ValueObject
     class VOCliente
     {
         public long Cedula { get; }
-        public String Nombre { get; }
-        public String Telefono { get; }
-        public String Direccion { get; }
-        public String Correo { get; }
-        public String Clave { get; }
+        public string Nombre { get; }
+        public string Telefono { get; }
+        public string Direccion { get; }
+        public string Correo { get; }
+        public string Clave { get; }
         public bool Activo { get; }
         public List<VOMascota> Mascotas { get; }
-
-
-        public VOCliente(long Cedula, String Nombre, String Telefono, String Direccion, String Correo, String Clave, bool Activo)
+        public VOCliente(long cedula, string nombre, string telefono, string direccion, string correo, string clave, bool activo)
         {
-            this.Cedula = Cedula;
-            this.Nombre = Nombre;
-            this.Telefono = Telefono;
-            this.Direccion = Direccion;
-            this.Correo = Correo;
-            this.Clave = Clave;
-            this.Activo = Activo;
+            this.Cedula = cedula;
+            this.Nombre = nombre;
+            this.Telefono = telefono;
+            this.Direccion = direccion;
+            this.Correo = correo;
+            this.Clave = clave;
+            this.Activo = activo;
             this.Mascotas = new List<VOMascota>();
-
         }
 
     }

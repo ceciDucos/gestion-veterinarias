@@ -9,18 +9,18 @@ namespace LogicaVeterinarias.ValueObject
     class VOMascota
     {
         public TipoAnimal Animal { get; }
-        public String Nombre { get; }
+        public string Nombre { get; }
         public Raza Raza { get; }
         public int Edad { get; }
         public bool VacunaAlDia { get; }
 
-        public VOMascota(TipoAnimal Animal, String Nombre, Raza Raza, int Edad, bool VacunaAlDia)
+        public VOMascota(TipoAnimal animal, string nombre, Raza raza, int edad, bool vacunaAlDia)
         {
-            this.Animal = Animal;
-            this.Nombre = Nombre;
-            this.Edad = Edad;
-            this.VacunaAlDia = VacunaAlDia;
-
+            this.Animal = animal;
+            this.Nombre = nombre;
+            this.Raza = raza;
+            this.Edad = edad;
+            this.VacunaAlDia = vacunaAlDia;
         }
 
     }

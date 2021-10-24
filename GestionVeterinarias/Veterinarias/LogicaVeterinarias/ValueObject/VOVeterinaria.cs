@@ -8,25 +8,20 @@ namespace LogicaVeterinarias.ValueObject
 {
     class VOVeterinaria
     {
-        public String Nombre { get; }
-        public String Direccion { get; }
-        public String Telefono { get; }
-        public Dictionary<VOVeterinario> Veterinarios { get; }
-        public Dictionary<VOCliente> Clientes { get; }
-        public Dictionary<VOConsulta> Consultas { get; }
-
-
-
-        public VOVeterinaria(String Nombre, String Direccion, String Telefono)
+        public string Nombre { get; }
+        public string Direccion { get; }
+        public string Telefono { get; }
+        public Dictionary<long, VOVeterinario> Veterinarios { get; }
+        public Dictionary<long, VOCliente> Clientes { get; }
+        public Dictionary<int, VOConsulta> Consultas { get; }
+        public VOVeterinaria(string nombre, string direccion, string telefono)
         {
-            this.Nombre = Nombre;
-            this.Direccion = Direccion;
-            this.Telefono = Telefono;
-            this.Veterinarios = new Dictionary<VOVeterinario>;
-            this.Clientes = new Dictionary<VOCliente>;
-            this.Consultas = new Dictionary<VOConsulta>;
-
-
+            this.Nombre = nombre;
+            this.Direccion = direccion;
+            this.Telefono = telefono;
+            this.Veterinarios = new Dictionary<long, VOVeterinario>();
+            this.Clientes = new Dictionary<long, VOCliente>();
+            this.Consultas = new Dictionary<int, VOConsulta>();
         }
 
     }
