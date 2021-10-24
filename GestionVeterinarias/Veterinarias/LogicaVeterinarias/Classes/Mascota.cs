@@ -11,7 +11,7 @@ namespace LogicaVeterinarias.Classes
     {
         private int id;
         public int Id { get { return id; }}
-        public Animal TipoAnimal { get; set; }
+        public TipoAnimal TipoAnimal { get; set; }
         public string Raza { get; set; }
         public int Edad { get; set; }
         public bool VacunasAlDia { get; set; }

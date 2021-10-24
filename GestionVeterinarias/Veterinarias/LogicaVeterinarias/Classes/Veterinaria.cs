@@ -26,36 +26,32 @@ namespace LogicaVeterinarias.Classes
             this.Nombre = nombre;
             this.Direccion = direccion;
             this.Telefono = telefono;
-            this.DiccionarioVeterinarios = new Dictionary<int, Veterinario>();
-            this.DiccionarioClientes = new Dictionary<int, Cliente>();
+            this.DiccionarioVeterinarios = new Dictionary<long, Veterinario>();
+            this.DiccionarioClientes = new Dictionary<long, Cliente>();
             this.DiccionarioConsultas = new Dictionary<int, Consulta>();
         }
 
-        public void AddVeterinario(VOVeterinario vo)
+        public void AddVeterinario(Veterinario veterinario)
         {
-            Veterinario venterinario = new Veterinario(vo.GetCedula(), vo.GetNombre(), vo.GetTelefono, vo.GetHorario);
-            this.DiccionarioVeterinarios.Add(vo.GetCedula(), venterinario);
+            this.DiccionarioVeterinarios.Add(veterinario.GetCedula(), venterinario);
         }
 
-        public void AddCliente(VOCliente vo)
+        public void AddCliente(Cliente cliente)
         {
-            Cliente cliente = new Cliente(vo.GetCedula(), vo.GetNombre(), vo.GetTelefono, vo.GetDireccion, vo.GetCorreo(), 
-                vo.getActivo(), vo.getDiccionarioMascotas());
-            this.DiccionarioClientes.Add(vo.GetCedula(), cliente);
+            this.DiccionarioClientes.Add(cliente.GetCedula(), cliente);
         }
 
-        public void AddConsulta(VOConsulta vo)
+        public void AddConsulta(Consulta consulta)
         {
-            Consulta consulta = new Consulta(vo.GetNumero(), vo.GetFecha(), vo.GetDescripcion(), vo.GetCalificacion(), vo.GetMascota()o);
-            this.DiccionarioConsultas.Add(vo.GetNumero(), consulta);
+            this.DiccionarioConsultas.Add(consulta.GetNumero(), consulta);
         }
 
-        public void RemoveVeterinario(int id)
+        public void RemoveVeterinario(long id)
         {
              this.DiccionarioVeterinarios.Remove(id);
         }
 
-        public void RemoveCliente(int id)
+        public void RemoveCliente(long id)
         {
              this.DiccionarioCliente.Remove(id);
         }
