@@ -9,17 +9,15 @@ namespace LogicaVeterinarias.ValueObject
     class VOVeterinario
     {
         public long Cedula { get; }
-        public String Nombre { get; }
-        public String Telefono { get; }
-        public String Horario { get; }
-
-        public VOVeterinario(long Cedula, String Nombre, String Telefono, String Horario)
+        public string Nombre { get; }
+        public string Telefono { get; }
+        public string Horario { get; }
+        public VOVeterinario(long cedula, string nombre, string telefono, string horario)
         {
-            this.Cedula = Cedula;
-            this.Nombre = Nombre;
-            this.Telefono = Telefono;
-            this.Horario = Horario;
-
+            this.Cedula = cedula;
+            this.Nombre = nombre;
+            this.Telefono = telefono;
+            this.Horario = horario;
         }
 
     }

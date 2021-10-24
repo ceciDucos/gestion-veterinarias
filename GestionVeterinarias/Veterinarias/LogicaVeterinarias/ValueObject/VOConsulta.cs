@@ -8,22 +8,16 @@ namespace LogicaVeterinarias.ValueObject
 {
     class VOConsulta
     {
-
         public DateTime Fecha { get; }
-        public String Descripcion { get; }
+        public string Descripcion { get; }
         public int Calificacion { get; }
         public VOMascota Mascota { get; }
-
-
-
-        public VOConsulta(DateTime Fecha, String Descripcion, int Calificacion, VOMascota Mascota)
+        public VOConsulta(DateTime fecha, string descripcion, int calificacion, VOMascota mascota)
         {
-            this.Fecha = Fecha;
-            this.Descripcion = Descripcion;
-            this.Calificacion = Calificacion;
-            this.Mascota = Mascota;
-
-
+            this.Fecha = fecha;
+            this.Descripcion = descripcion;
+            this.Calificacion = calificacion;
+            this.Mascota = mascota;
         }
 
     }
