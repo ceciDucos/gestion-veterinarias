@@ -8,13 +8,15 @@ namespace LogicaVeterinarias.Classes
 {
     class CarnetInscripcion
     {
-        int Numero { get; }
-        DateTime Expedido { get; set; }
-        byte[] Foto { get; set; }
+        private int numero; 
+
+        public int Numero { get { return numero; } }
+        public DateTime Expedido { get; set; }
+        public byte[] Foto { get; set; }
 
         public CarnetInscripcion(int num, DateTime date, byte[] photo)
         {
-            Numero = num;
+            numero = num;
             Expedido = date;
             Foto = photo;
         }

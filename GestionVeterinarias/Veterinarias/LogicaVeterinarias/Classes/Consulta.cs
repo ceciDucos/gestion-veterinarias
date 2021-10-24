@@ -22,6 +22,7 @@ namespace LogicaVeterinarias.Classes
             Calificacion = calif;
             Fecha = date;
             Descripcion = desc;
+            Mascota = pet;
         }
     }
 }
