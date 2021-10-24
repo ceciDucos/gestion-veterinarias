@@ -1,0 +1,2 @@
+C:\Users\rodri\Source\Repos\gestion-veterinarias\GestionVeterinarias\Veterinarias\LogicaVeterinarias\obj\Debug\LogicaVeterinarias.csproj.AssemblyReference.cache
+C:\Users\rodri\Source\Repos\gestion-veterinarias\GestionVeterinarias\Veterinarias\LogicaVeterinarias\obj\Debug\LogicaVeterinarias.csproj.CoreCompileInputs.cache

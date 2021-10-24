@@ -1,7 +1,14 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\GestionVeterinarias",
+    "\\GestionVeterinarias\\Veterinarias",
+    "\\GestionVeterinarias\\Veterinarias\\LogicaVeterinarias",
+    "\\GestionVeterinarias\\Veterinarias\\LogicaVeterinarias\\Classes",
+    "\\GestionVeterinarias\\Veterinarias\\LogicaVeterinarias\\Controller",
+    "\\GestionVeterinarias\\Veterinarias\\LogicaVeterinarias\\Enum",
+    "\\GestionVeterinarias\\Veterinarias\\LogicaVeterinarias\\ValueObject"
   ],
-  "SelectedNode": "\\C:\\Users\\CC\\Desktop\\gestion-veterinaria",
+  "SelectedNode": "\\GestionVeterinarias\\Veterinarias\\LogicaVeterinarias\\Classes",
   "PreviewInSolutionExplorer": false
 }
