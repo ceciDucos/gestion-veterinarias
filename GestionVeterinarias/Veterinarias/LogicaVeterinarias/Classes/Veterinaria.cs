@@ -9,8 +9,7 @@ namespace LogicaVeterinarias.Classes
 {
     class Veterinaria
     {
-        private int id;
-        public int Id { get { return id; }}
+        public int Id { get; }
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
@@ -22,7 +21,6 @@ namespace LogicaVeterinarias.Classes
 
         public Veterinaria(int id, string nombre, string direccion, string telefono)
         { 
-            this.id = id;
             this.Nombre = nombre;
             this.Direccion = direccion;
             this.Telefono = telefono;
@@ -46,14 +44,14 @@ namespace LogicaVeterinarias.Classes
             this.DiccionarioConsultas.Add(consulta.GetNumero(), consulta);
         }
 
-        public void RemoveVeterinario(long id)
+        public void RemoveVeterinario(long cedula)
         {
-             this.DiccionarioVeterinarios.Remove(id);
+             this.DiccionarioVeterinarios.Remove(cedula);
         }
 
-        public void RemoveCliente(long id)
+        public void RemoveCliente(long cedula)
         {
-             this.DiccionarioCliente.Remove(id);
+             this.DiccionarioCliente.Remove(cedula);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace LogicaVeterinarias.Classes
     abstract class Persona
     {
         public string Nombre { get; set; }
-        public long Cedula { get; set; }
+        public long Cedula { get; }
         public string Telefono { get; set; }
 
         public Persona() { }
