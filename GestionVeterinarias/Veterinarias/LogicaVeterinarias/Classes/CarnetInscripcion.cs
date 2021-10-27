@@ -14,11 +14,11 @@ namespace LogicaVeterinarias.Classes
         public DateTime Expedido { get; set; }
         public byte[] Foto { get; set; }
 
-        public CarnetInscripcion(int num, DateTime date, byte[] photo)
+        public CarnetInscripcion(int num, DateTime fecha, byte[] foto)
         {
-            numero = num;
-            Expedido = date;
-            Foto = photo;
+            this.numero = num;
+            this.Expedido = fecha;
+            this.Foto = foto;
         }
     }
 }

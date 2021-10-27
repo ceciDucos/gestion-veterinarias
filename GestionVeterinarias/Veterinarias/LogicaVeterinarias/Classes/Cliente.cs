@@ -10,7 +10,7 @@ namespace LogicaVeterinarias.Classes
     {
         public string Direccion { get; set; }
         public string Correo { get; set; }
-        public string Contraseña { get; set; }
+        public string Clave { get; set; }
         public bool Activo { get; set; }
         public Dictionary<Mascota> DiccionarioMascotas { get; }
 
@@ -19,12 +19,12 @@ namespace LogicaVeterinarias.Classes
 
         }
 
-        public Cliente(string dir, string mail, string pass, bool active) : base(name,ci,tel)
+        public Cliente(string dir, string mail, string pass, bool activo) : base(nombre, ci, tel)
         {
-            Direccion = dir;
-            Correo = mail;
-            Contraseña = pass;
-            Activo = active;
+            this.Direccion = dir;
+            this.Correo = mail;
+            this.Clave = pass;
+            this.Activo = activo;
             this.DiccionarioMascotas = new Dictionary<int, Mascota>();
         }
     }

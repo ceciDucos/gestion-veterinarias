@@ -16,13 +16,13 @@ namespace LogicaVeterinarias.Classes
         public string Descripcion { get; set; }
         public Mascota Mascota { get; set; }
 
-        public Consulta(int num, int calif, DateTime date, string desc, Mascota pet)
+        public Consulta(int num, int calif, DateTime fecha, string desc, Mascota mascota)
         {
-            numero = num;
-            Calificacion = calif;
-            Fecha = date;
-            Descripcion = desc;
-            Mascota = pet;
+            this.numero = num;
+            this.Calificacion = calif;
+            this.Fecha = fecha;
+            this.Descripcion = desc;
+            this.Mascota = mascota;
         }
     }
 }
