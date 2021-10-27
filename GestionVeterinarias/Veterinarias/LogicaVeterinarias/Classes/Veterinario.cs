@@ -14,7 +14,7 @@ namespace LogicaVeterinarias.Classes
 
         public Veterinario(string nombre, long cedula, string telefono, string horario) : base(nombre, cedula, telefono)
         {
-            this.Horario = horario;
+            Horario = horario;
         }
     }
 }
