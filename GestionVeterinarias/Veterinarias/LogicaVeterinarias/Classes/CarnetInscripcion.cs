@@ -8,5 +8,17 @@ namespace LogicaVeterinarias.Classes
 {
     class CarnetInscripcion
     {
+        private int numero; 
+
+        public int Numero { get { return numero; } }
+        public DateTime Expedido { get; set; }
+        public byte[] Foto { get; set; }
+
+        public CarnetInscripcion(int num, DateTime fecha, byte[] foto)
+        {
+            this.numero = num;
+            this.Expedido = fecha;
+            this.Foto = foto;
+        }
     }
 }
