@@ -12,14 +12,14 @@ namespace LogicaVeterinarias.Classes
         public string Correo { get; set; }
         public string Clave { get; set; }
         public bool Activo { get; set; }
-        public Dictionary<Mascota> DiccionarioMascotas { get; }
+        public Dictionary<int, Mascota> DiccionarioMascotas { get; }
 
         public Cliente()
         {
 
         }
 
-        public Cliente(string dir, string mail, string pass, bool activo) : base(nombre, ci, tel)
+        public Cliente(string nombre, long ci, string tel, string dir, string mail, string pass, bool activo) : base(nombre, ci, tel)
         {
             this.Direccion = dir;
             this.Correo = mail;
