@@ -13,9 +13,9 @@ namespace LogicaVeterinarias.Classes
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
-        public Dictionary<Veterinario> DiccionarioVeterinarios { get; }
-        public Dictionary<Cliente> DiccionarioClientes { get; }
-        public Dictionary<Consulta> DiccionarioConsultas { get; }
+        public Dictionary<long, Veterinario> DiccionarioVeterinarios { get; }
+        public Dictionary<long, Cliente> DiccionarioClientes { get; }
+        public Dictionary<int, Consulta> DiccionarioConsultas { get; }
 
         public Veterinaria() { }
 
