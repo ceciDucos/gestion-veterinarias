@@ -15,7 +15,9 @@ namespace PersistenciaVeterinarias.DAOS
         public bool Member(SqlConnection connection, long cedula) 
         {
             SqlCommand command = new SqlCommand("SELECT * FROM Clientes INNER JOIN Personas ON Personas.cedula = Clientes.cedula WHERE Cedula = @Cedula)", connection);
-		    SqlParameter cedulaParameter = new SqlParameter(){
+            //SqlCommand command = new SqlCommand("SELECT * FROM Clientes WHERE cedula = @Cedula)", connection);
+
+            SqlParameter cedulaParameter = new SqlParameter(){
 		        ParameterName = "@Cedula",
 		        Value = cedula,
 		        SqlDbType = SqlDbType.BigInt

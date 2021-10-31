@@ -62,27 +62,29 @@ namespace LogicaVeterinarias.Controller
             string correo = vocliente.Correo;
             string clave = vocliente.Clave;
             bool activo = vocliente.Activo;
-
             SqlConnection connection = null;
-
             try 
             {
                 connection = this.manejadorConexion.GetConnection();
+                Console.Write("0");
                 connection.Open();
-
+                Console.Write("1");
                 if (this.daoClientes.Member(connection, cedula)) 
                 {
+                    Console.Write("2");
                     Console.Write("Anduvo el member");
                     Cliente cliente = new Cliente(nombre, cedula, telefono, direccion, correo, clave, activo);
                     //this.daoClientes.Add(connection, cliente);
                 }
+                Console.Write("3");
             }
             catch (SqlException)
             { 
                 throw new PersistenciaException("Ocurrió un error agregando un nuevo cliente");
             }
-            catch (Exception)
-            { 
+            catch (Exception e)
+            {
+                Console.Write(e);
                 throw new GeneralException("Ocurrió un error al crear el cliente");
             }
             finally
