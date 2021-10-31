@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace PersistenciaVeterinarias.DAOS
 {
@@ -20,17 +22,19 @@ namespace PersistenciaVeterinarias.DAOS
 	        };
 	        command.Parameters.Add(cedulaParameter);
 
-            SqlDataReader myReader = myCommand.ExecuteReader();
+            SqlDataReader myReader = command.ExecuteReader();
             return myReader.Read() ? true : false;
+        }
+
+
+        /*
+        public void Add(SqlConnection connection, )
+        {
+
         }
 
         /*
         public bool Find(SqlConnection connection) 
-        {
-            
-        }
-
-        public bool Add(SqlConnection connection) 
         {
             
         }

@@ -70,8 +70,9 @@ namespace LogicaVeterinarias.Controller
                 connection = this.manejadorConexion.GetConnection();
                 connection.Open();
 
-                if (!this.daoClientes.Member(connection, cedula)) 
+                if (this.daoClientes.Member(connection, cedula)) 
                 {
+                    Console.Write("Anduvo el member");
                     Cliente cliente = new Cliente(nombre, cedula, telefono, direccion, correo, clave, activo);
                     //this.daoClientes.Add(connection, cliente);
                 }
