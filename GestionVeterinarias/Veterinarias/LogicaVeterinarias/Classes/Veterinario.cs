@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace LogicaVeterinarias.Classes
 {
-    class Veterinario
+    class Veterinario : Persona
     {
+        public string Horario { get; set; }
+
+        public Veterinario() { }
+
+        public Veterinario(string nombre, long cedula, string telefono, string horario) : base(nombre, cedula, telefono)
+        {
+            Horario = horario;
+        }
     }
 }
