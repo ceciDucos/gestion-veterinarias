@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaVeterinarias.ValueObject
 {
-    class VOCliente
+    public class VOCliente
     {
         public long Cedula { get; }
         public string Nombre { get; }

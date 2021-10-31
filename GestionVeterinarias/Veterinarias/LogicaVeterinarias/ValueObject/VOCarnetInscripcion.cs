@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaVeterinarias.ValueObject
 {
-    class VOCarnetInscripcion
+    public class VOCarnetInscripcion
     {
         public bool Expedido { get; }
         public byte[] Foto { get; }

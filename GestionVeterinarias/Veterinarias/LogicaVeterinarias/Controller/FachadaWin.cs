@@ -1,24 +1,25 @@
-﻿using LogicaVeterinarias.ValueObject;
+﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LogicaVeterinarias.ValueObject;
+using LogicaVeterinarias.Classes;
+using LogicaVeterinarias.ExceptionClasses;
 using PersistenciaVeterinarias.DAOS;
+
+using System.Data.SqlClient;
 //using System.Web.Services;
 
 namespace LogicaVeterinarias.Controller
 {
     //class FachadaWin : System.Web.Services.WebService
-    class FachadaWin
+    public class FachadaWin
     {
         private DAOClientes daoClientes;
         private ManejadorConexion manejadorConexion;
 
         public FachadaWin() 
         {
-            this.daoClientes = new DAOClientes();
-            this.manejadorConexion = ManejadorConexion.Instance;
+            daoClientes = new DAOClientes();
+            manejadorConexion = ManejadorConexion.GetInstance();
         }
 
         //[WebMethod]
@@ -66,26 +67,26 @@ namespace LogicaVeterinarias.Controller
 
             try 
             {
-                connection = this.manejadorConexion.GetConection();
+                connection = this.manejadorConexion.GetConnection();
                 connection.Open();
 
-                if (!this.daoClientes.member(connection, cedula)) 
+                if (!this.daoClientes.Member(connection, cedula)) 
                 {
                     Cliente cliente = new Cliente(nombre, cedula, telefono, direccion, correo, clave, activo);
-                    this.daoClientes.addCliente(cliente);
+                    //this.daoClientes.Add(connection, cliente);
                 }
             }
-            catch (SqlException error)
+            catch (SqlException)
             { 
                 throw new PersistenciaException("Ocurrió un error agregando un nuevo cliente");
             }
-            catch (Exception error)
+            catch (Exception)
             { 
                 throw new GeneralException("Ocurrió un error al crear el cliente");
             }
             finally
             {
-                if(connection.ConnectionState == State.Open)
+                if(connection.State.Equals("Open"))
                 {
                     connection.Close();
                 }

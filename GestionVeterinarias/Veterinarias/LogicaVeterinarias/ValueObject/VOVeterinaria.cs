@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaVeterinarias.ValueObject
 {
-    class VOVeterinaria
+    public class VOVeterinaria
     {
         public string Nombre { get; }
         public string Direccion { get; }

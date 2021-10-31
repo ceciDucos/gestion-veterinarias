@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaVeterinarias.ValueObject
 {
-    class VOConsulta
+    public class VOConsulta
     {
         public int Numero { get; }
         public DateTime Fecha { get; }

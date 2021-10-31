@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace LogicaVeterinarias.Controller
 {
-    class ManejadorConexion
+    public class ManejadorConexion
     {
         private static ManejadorConexion instance;
 
@@ -20,10 +21,10 @@ namespace LogicaVeterinarias.Controller
             return instance;
         }
 
-        public static SqlConnection GetConnection()
+        public SqlConnection GetConnection()
         {
             String connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
-            using (SqlConnection connection = new SqlConnection(connectionString));
+            using (SqlConnection connection = new SqlConnection(connectionString))
             return connection;
         }
     }

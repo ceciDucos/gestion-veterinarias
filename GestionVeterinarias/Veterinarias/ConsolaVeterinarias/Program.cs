@@ -1,4 +1,5 @@
 ﻿using System;
+using LogicaVeterinarias.Controller;
 
 namespace ConsolaVeterinarias
 {
@@ -6,7 +7,7 @@ namespace ConsolaVeterinarias
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            FachadaWin fachadaWin = new FachadaWin();
         }
     }
 }
