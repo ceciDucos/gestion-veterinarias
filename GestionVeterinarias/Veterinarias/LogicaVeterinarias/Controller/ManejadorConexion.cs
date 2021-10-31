@@ -15,7 +15,7 @@ namespace LogicaVeterinarias.Controller
         {
             if (instance == null)
             {
-                instance = new Singleton();
+                instance = new ManejadorConexion();
             }
             return instance;
         }
