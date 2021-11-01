@@ -57,10 +57,18 @@ namespace PersistenciaVeterinarias.DAOS
             
         }
 
-        public bool Remove(SqlConnection connection) 
-        {
-            
-        }
         */
+
+        public void Remove(SqlConnection connection, long cedula) 
+        {
+            //Elimino Cliente
+            SqlCommand commandCliente = new SqlCommand($"DELETE FROM Clientes WHERE Cedula = {cedula}", connection);
+            //Elimino Persona
+            SqlCommand commandPersona = new SqlCommand($"DELETE FROM Personas WHERE Cedula = {cedula}", connection);
+
+            commandCliente.ExecuteNonQuery();
+            commandPersona.ExecuteNonQuery();
+        }
+        
     }
 }

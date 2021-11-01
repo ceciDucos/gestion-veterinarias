@@ -99,7 +99,32 @@ namespace LogicaVeterinarias.Controller
         //[WebMethod]
         public void  EliminarCliente(long cedula)
         {
-            //hacer
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                if (daoClientes.Member(connection, cedula))
+                {
+                    daoClientes.Remove(connection, cedula);
+                }
+            }
+            catch (SqlException e)
+            {
+                throw e;
+                throw new PersistenciaException("Ocurrió un error agregando un nuevo cliente");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al crear el cliente");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         //[WebMethod]
