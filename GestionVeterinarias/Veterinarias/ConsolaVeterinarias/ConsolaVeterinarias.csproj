@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0613BFA6-C9BF-4A62-859D-881BB96B6B68}</ProjectGuid>
+    <ProjectGuid>{D4A85088-5595-4C49-B36C-AD3778AAF383}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>ConsolaVeterinarias</RootNamespace>
     <AssemblyName>ConsolaVeterinarias</AssemblyName>
@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogicaVeterinarias\LogicaVeterinarias.csproj">
-      <Project>{BC885C91-8B5E-4307-BC1B-6629462BBA16}</Project>
+      <Project>{bc885c91-8b5e-4307-bc1b-6629462bba16}</Project>
       <Name>LogicaVeterinarias</Name>
     </ProjectReference>
   </ItemGroup>

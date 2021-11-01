@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenciaVeterinarias", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraficaWinVeterinarias", "GraficaWinVeterinarias\GraficaWinVeterinarias.csproj", "{F6460A37-F1C8-4F26-B778-E2DD1ED4487E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsolaVeterinarias", "ConsolaVeterinarias\ConsolaVeterinarias.csproj", "{0613BFA6-C9BF-4A62-859D-881BB96B6B68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsolaVeterinarias", "ConsolaVeterinarias\ConsolaVeterinarias.csproj", "{D4A85088-5595-4C49-B36C-AD3778AAF383}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{F6460A37-F1C8-4F26-B778-E2DD1ED4487E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6460A37-F1C8-4F26-B778-E2DD1ED4487E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6460A37-F1C8-4F26-B778-E2DD1ED4487E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0613BFA6-C9BF-4A62-859D-881BB96B6B68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0613BFA6-C9BF-4A62-859D-881BB96B6B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0613BFA6-C9BF-4A62-859D-881BB96B6B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0613BFA6-C9BF-4A62-859D-881BB96B6B68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4A85088-5595-4C49-B36C-AD3778AAF383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4A85088-5595-4C49-B36C-AD3778AAF383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4A85088-5595-4C49-B36C-AD3778AAF383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4A85088-5595-4C49-B36C-AD3778AAF383}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
