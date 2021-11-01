@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaVeterinarias.ValueObject
+namespace ModelosVeterinarias.ValueObject
 {
     public class VOConsulta
     {

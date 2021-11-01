@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaVeterinarias.Classes
+namespace ModelosVeterinarias.Classes
 {
-    class Consulta
+    public class Consulta
     {
         private int numero;
 

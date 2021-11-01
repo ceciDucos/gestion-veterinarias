@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaVeterinarias.ExceptionClasses
+namespace ModelosVeterinarias.ExceptionClasses
 {
     [Serializable]
     public class PersistenciaException : Exception

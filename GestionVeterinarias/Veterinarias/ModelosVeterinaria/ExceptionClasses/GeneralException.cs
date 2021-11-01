@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LogicaVeterinarias.ExceptionClasses
+namespace ModelosVeterinarias.ExceptionClasses
 {
     [Serializable]
     public class GeneralException : Exception

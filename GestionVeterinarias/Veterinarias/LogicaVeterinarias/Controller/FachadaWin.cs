@@ -1,8 +1,8 @@
 ﻿
 using System;
-using LogicaVeterinarias.ValueObject;
-using LogicaVeterinarias.Classes;
-using LogicaVeterinarias.ExceptionClasses;
+using ModelosVeterinarias.ValueObject;
+using ModelosVeterinarias.Classes;
+using ModelosVeterinarias.ExceptionClasses;
 using PersistenciaVeterinarias.DAOS;
 
 using System.Data.SqlClient;
@@ -70,14 +70,14 @@ namespace LogicaVeterinarias.Controller
                 if (!daoClientes.Member(connection, cedula)) 
                 {
                     Cliente cliente = new Cliente(nombre, cedula, telefono, direccion, correo, clave, activo);
-                    // this.daoClientes.Add(connection, cliente);
+                    daoClientes.Add(connection, cliente);
                 }
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
                 throw new PersistenciaException("Ocurrió un error agregando un nuevo cliente");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new GeneralException("Ocurrió un error al crear el cliente");
             }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaVeterinarias.Classes
+namespace ModelosVeterinarias.Classes
 {
-    abstract class Persona
+    public abstract class Persona
     {
         public string Nombre { get; set; }
         public long Cedula { get; }

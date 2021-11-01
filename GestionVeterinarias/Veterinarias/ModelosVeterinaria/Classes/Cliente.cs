@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaVeterinarias.Classes
+namespace ModelosVeterinarias.Classes
 {
-    class Cliente : Persona
+    public class Cliente : Persona
     {
         public string Direccion { get; set; }
         public string Correo { get; set; }

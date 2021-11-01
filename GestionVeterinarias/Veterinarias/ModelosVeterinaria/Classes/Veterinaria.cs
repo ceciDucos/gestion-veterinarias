@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace LogicaVeterinarias.Classes
+namespace ModelosVeterinarias.Classes
 {
-    class Veterinaria
+    public class Veterinaria
     {
         public int Id { get; }
         public string Nombre { get; set; }

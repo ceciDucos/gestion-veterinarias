@@ -54,6 +54,10 @@
       <Project>{bc885c91-8b5e-4307-bc1b-6629462bba16}</Project>
       <Name>LogicaVeterinarias</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ModelosVeterinaria\ModelosVeterinarias.csproj">
+      <Project>{7c7e48f5-4cbb-4049-9679-870d1b69f638}</Project>
+      <Name>ModelosVeterinarias</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

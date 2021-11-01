@@ -42,31 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExceptionClasses\GeneralException.cs" />
-    <Compile Include="ExceptionClasses\PersistenciaException.cs" />
-    <Compile Include="Classes\CarnetInscripcion.cs" />
-    <Compile Include="Classes\Cliente.cs" />
-    <Compile Include="Classes\Consulta.cs" />
-    <Compile Include="Classes\Mascota.cs" />
-    <Compile Include="Classes\Persona.cs" />
-    <Compile Include="Classes\Veterinaria.cs" />
-    <Compile Include="Classes\Veterinario.cs" />
-    <Compile Include="Classes\Enum\TipoAnimal.cs" />
-    <Compile Include="Classes\Enum\Raza.cs" />
     <Compile Include="Controller\FachadaWeb.cs" />
     <Compile Include="Controller\FachadaWin.cs" />
     <Compile Include="Controller\IFachadaWeb.cs" />
     <Compile Include="Controller\IFachadaWin.cs" />
     <Compile Include="Controller\ManejadorConexion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValueObject\VOCarnetInscripcion.cs" />
-    <Compile Include="ValueObject\VOCliente.cs" />
-    <Compile Include="ValueObject\VOConsulta.cs" />
-    <Compile Include="ValueObject\VOMascota.cs" />
-    <Compile Include="ValueObject\VOVeterinaria.cs" />
-    <Compile Include="ValueObject\VOVeterinario.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ModelosVeterinaria\ModelosVeterinarias.csproj">
+      <Project>{7c7e48f5-4cbb-4049-9679-870d1b69f638}</Project>
+      <Name>ModelosVeterinarias</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PersistenciaVeterinarias\PersistenciaVeterinarias.csproj">
       <Project>{6341c5e5-675d-419e-9e11-8e35657eceef}</Project>
       <Name>PersistenciaVeterinarias</Name>
