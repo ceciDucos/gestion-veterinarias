@@ -18,7 +18,7 @@ namespace LogicaVeterinarias.Controller
         private DAOClientes daoClientes;
         private ManejadorConexion manejadorConexion;
 
-        public FachadaWin() 
+        public FachadaWin()
         {
             daoCarnetInscripcion = new DAOCarnetInscripcion();
             daoVeterinarias = new DAOVeterinarias();
@@ -109,11 +109,11 @@ namespace LogicaVeterinarias.Controller
             string clave = vocliente.Clave;
             bool activo = vocliente.Activo;
             SqlConnection connection = null;
-            try 
+            try
             {
                 connection = manejadorConexion.GetConnection();
                 connection.Open();
-                if (!daoClientes.Member(connection, cedula)) 
+                if (!daoClientes.Member(connection, cedula))
                 {
                     Cliente cliente = new Cliente(nombre, cedula, telefono, direccion, correo, clave, activo);
                     daoClientes.Add(connection, cliente);
