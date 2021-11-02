@@ -177,10 +177,9 @@ namespace LogicaVeterinarias.Controller
                     daoClientes.Add(connection, cliente);
                 }
             }
-            catch (SqlException ex)
+            catch (SqlException)
             {
-                throw ex;
-                //throw new PersistenciaException("Ocurrió un error agregando un nuevo cliente");
+                throw new PersistenciaException("Ocurrió un error agregando un nuevo cliente");
             }
             catch (Exception)
             {
