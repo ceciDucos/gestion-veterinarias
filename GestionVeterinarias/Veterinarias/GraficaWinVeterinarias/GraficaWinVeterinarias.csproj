@@ -89,5 +89,11 @@
     <Folder Include="Controllers\" />
     <Folder Include="Windows\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogicaVeterinarias\LogicaVeterinarias.csproj">
+      <Project>{bc885c91-8b5e-4307-bc1b-6629462bba16}</Project>
+      <Name>LogicaVeterinarias</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
