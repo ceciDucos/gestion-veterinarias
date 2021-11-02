@@ -48,6 +48,7 @@
     <Compile Include="ConnectionPool\IConexion.cs" />
     <Compile Include="ConnectionPool\IPoolConexion.cs" />
     <Compile Include="ConnectionPool\PoolConexion.cs" />
+    <Compile Include="DAOS\DAOCarnetInscripcion.cs" />
     <Compile Include="DAOS\DAOClientes.cs" />
     <Compile Include="DAOS\DAOConsultas.cs" />
     <Compile Include="DAOS\DAOMascotas.cs" />

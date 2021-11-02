@@ -13,11 +13,15 @@ namespace LogicaVeterinarias.Controller
     //class FachadaWin : System.Web.Services.WebService
     public class FachadaWin
     {
+        private DAOCarnetInscripcion daoCarnetInscripcion;
+        private DAOVeterinarias daoVeterinarias;
         private DAOClientes daoClientes;
         private ManejadorConexion manejadorConexion;
 
         public FachadaWin() 
         {
+            daoCarnetInscripcion = new DAOCarnetInscripcion();
+            daoVeterinarias = new DAOVeterinarias();
             daoClientes = new DAOClientes();
             manejadorConexion = ManejadorConexion.GetInstance();
         }
@@ -25,16 +29,58 @@ namespace LogicaVeterinarias.Controller
         //[WebMethod]
         public void CrearVeterianaria(VOVeterinaria voveterinaria)
         {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                daoVeterinarias.Add(connection, new Veterinaria (voveterinaria.Nombre,voveterinaria.Direccion,voveterinaria.Telefono));
+            }
+            catch (SqlException)
+            {
+                throw new PersistenciaException("Ocurrió un error agregando una nueva veterinaria");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al crear la veterinaria");
+            }
         }
 
         //[WebMethod]
         public void EditarVeterianaria(VOVeterinaria voveterinaria)
         {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                daoVeterinarias.Edit(connection, new Veterinaria(voveterinaria.Id, voveterinaria.Nombre, voveterinaria.Direccion, voveterinaria.Telefono));
+            }
+            catch (SqlException)
+            {
+                throw new PersistenciaException("Ocurrió un error editando la veterinaria");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al editar la veterinaria");
+            }
         }
 
         //[WebMethod]
         public void EliminarVeterianaria(int num)
         {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                daoVeterinarias.Delete(connection, num);
+            }
+            catch (SqlException)
+            {
+                throw new PersistenciaException("Ocurrió un error eliminando la veterinaria");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al eliminar la veterinaria");
+            }
         }
 
         //[WebMethod]
@@ -143,13 +189,41 @@ namespace LogicaVeterinarias.Controller
         }
 
         //[WebMethod]
-        public void  CrearCarne(VOCarnetInscripcion vocarnet)
+        public void CrearCarnet(byte[] foto)
         {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                daoCarnetInscripcion.Add(connection, foto);
+            }
+            catch (SqlException)
+            {
+                throw new PersistenciaException("Ocurrió un error al crear el carnet");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al crear el carnet");
+            }
         }
 
         //[WebMethod]
-        public void  EditarCarne(VOCarnetInscripcion vocarnet)
+        public void EditarCarnet(VOCarnetInscripcion vocarnet)
         {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                daoCarnetInscripcion.Edit(connection, new CarnetInscripcion(vocarnet.Numero, vocarnet.Expedido, vocarnet.Foto));
+            }
+            catch (SqlException)
+            {
+                throw new PersistenciaException("Ocurrió un error al crear el carnet");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al crear el carnet");
+            }
         }
 
         //[WebMethod]

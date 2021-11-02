@@ -8,13 +8,23 @@ namespace ModelosVeterinarias.ValueObject
 {
     public class VOCarnetInscripcion
     {
-        public bool Expedido { get; }
+        private int numero;
+
+        public int Numero { get { return numero; } }
+        public DateTime Expedido { get; }
         public byte[] Foto { get; }
-        public VOCarnetInscripcion(bool expedido, byte[] foto)
+
+        public VOCarnetInscripcion(int numero, DateTime expedido, byte[] foto)
         {
+            this.numero = numero;
             this.Expedido = expedido;
             this.Foto = foto;
         }
 
+        public VOCarnetInscripcion(DateTime expedido, byte[] foto)
+        {
+            this.Expedido = expedido;
+            this.Foto = foto;
+        }
     }
 }
