@@ -1,23 +1,25 @@
-﻿using LogicaVeterinarias.ValueObject;
+﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ModelosVeterinarias.ValueObject;
+using ModelosVeterinarias.Classes;
+using ModelosVeterinarias.ExceptionClasses;
+using PersistenciaVeterinarias.DAOS;
+
+using System.Data.SqlClient;
 //using System.Web.Services;
 
 namespace LogicaVeterinarias.Controller
 {
     //class FachadaWin : System.Web.Services.WebService
-    class FachadaWin
+    public class FachadaWin
     {
         private DAOClientes daoClientes;
         private ManejadorConexion manejadorConexion;
 
         public FachadaWin() 
         {
-            this.daoClientes = new DAOClientes();
-            this.manejadorConexion = ManejadorConexion.Instance;
+            daoClientes = new DAOClientes();
+            manejadorConexion = ManejadorConexion.GetInstance();
         }
 
         //[WebMethod]
@@ -51,7 +53,7 @@ namespace LogicaVeterinarias.Controller
         }
 
         //[WebMethod]
-        public void  CrearCliente(VOCliente vocliente)
+        public void CrearCliente(VOCliente vocliente)
         {
             string nombre = vocliente.Nombre;
             long cedula = vocliente.Cedula;
@@ -60,31 +62,28 @@ namespace LogicaVeterinarias.Controller
             string correo = vocliente.Correo;
             string clave = vocliente.Clave;
             bool activo = vocliente.Activo;
-
             SqlConnection connection = null;
-
             try 
             {
-                connection = this.manejadorConexion.GetConection();
+                connection = manejadorConexion.GetConnection();
                 connection.Open();
-
-                if (!this.daoClientes.member(connection, cedula)) 
+                if (!daoClientes.Member(connection, cedula)) 
                 {
                     Cliente cliente = new Cliente(nombre, cedula, telefono, direccion, correo, clave, activo);
-                    this.daoClientes.addCliente(cliente);
+                    daoClientes.Add(connection, cliente);
                 }
             }
-            catch (SqlException error)
-            { 
+            catch (SqlException)
+            {
                 throw new PersistenciaException("Ocurrió un error agregando un nuevo cliente");
             }
-            catch (Exception error)
-            { 
+            catch (Exception)
+            {
                 throw new GeneralException("Ocurrió un error al crear el cliente");
             }
             finally
             {
-                if(connection.ConnectionState == State.Open)
+                if(connection.State.Equals("Open"))
                 {
                     connection.Close();
                 }
@@ -100,7 +99,32 @@ namespace LogicaVeterinarias.Controller
         //[WebMethod]
         public void  EliminarCliente(long cedula)
         {
-            //hacer
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                if (daoClientes.Member(connection, cedula))
+                {
+                    daoClientes.Remove(connection, cedula);
+                }
+            }
+            catch (SqlException e)
+            {
+                throw e;
+                throw new PersistenciaException("Ocurrió un error agregando un nuevo cliente");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al crear el cliente");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         //[WebMethod]

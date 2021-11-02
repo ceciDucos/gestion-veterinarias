@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaVeterinarias.ValueObject
+namespace ModelosVeterinarias.ValueObject
 {
-    class VOVeterinario
+    public class VOVeterinario
     {
         public long Cedula { get; }
         public string Nombre { get; }

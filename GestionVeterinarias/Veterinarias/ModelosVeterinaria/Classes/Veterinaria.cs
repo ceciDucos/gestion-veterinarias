@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace LogicaVeterinarias.Classes
+namespace ModelosVeterinarias.Classes
 {
-    class Veterinaria
+    public class Veterinaria
     {
         public int Id { get; }
         public string Nombre { get; set; }
@@ -31,17 +31,17 @@ namespace LogicaVeterinarias.Classes
 
         public void AddVeterinario(Veterinario veterinario)
         {
-            this.DiccionarioVeterinarios.Add(veterinario.GetCedula(), venterinario);
+            this.DiccionarioVeterinarios.Add(veterinario.Cedula, veterinario);
         }
 
         public void AddCliente(Cliente cliente)
         {
-            this.DiccionarioClientes.Add(cliente.GetCedula(), cliente);
+            this.DiccionarioClientes.Add(cliente.Cedula, cliente);
         }
 
         public void AddConsulta(Consulta consulta)
         {
-            this.DiccionarioConsultas.Add(consulta.GetNumero(), consulta);
+            this.DiccionarioConsultas.Add(consulta.Numero, consulta);
         }
 
         public void RemoveVeterinario(long cedula)
@@ -51,7 +51,7 @@ namespace LogicaVeterinarias.Classes
 
         public void RemoveCliente(long cedula)
         {
-             this.DiccionarioCliente.Remove(cedula);
+             this.DiccionarioClientes.Remove(cedula);
         }
     }
 }

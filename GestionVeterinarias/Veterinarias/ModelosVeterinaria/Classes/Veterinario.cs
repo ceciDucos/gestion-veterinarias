@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaVeterinarias.Classes
+namespace ModelosVeterinarias.Classes
 {
-    class Veterinario : Persona
+    public class Veterinario : Persona
     {
         public string Horario { get; set; }
 

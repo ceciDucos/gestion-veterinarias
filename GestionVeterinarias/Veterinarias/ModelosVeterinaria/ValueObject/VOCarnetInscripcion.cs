@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaVeterinarias.ValueObject
+namespace ModelosVeterinarias.ValueObject
 {
-    class VOCarnetInscripcion
+    public class VOCarnetInscripcion
     {
         public bool Expedido { get; }
         public byte[] Foto { get; }

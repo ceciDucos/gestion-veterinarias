@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace LogicaVeterinarias.Controller
 {
-    class ManejadorConexion
+    public class ManejadorConexion
     {
         private static ManejadorConexion instance;
 
@@ -15,15 +16,17 @@ namespace LogicaVeterinarias.Controller
         {
             if (instance == null)
             {
-                instance = new Singleton();
+                instance = new ManejadorConexion();
             }
             return instance;
         }
 
-        public static SqlConnection GetConnection()
+        public SqlConnection GetConnection()
         {
-            String connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
-            using (SqlConnection connection = new SqlConnection(connectionString));
+            //ver porque no levanta de connecionString de app.config
+            SqlConnection connection = new SqlConnection(@"Data Source =.\SQLEXPRESS;Initial Catalog=GestionVeterinarias;Integrated Security=true");
+            //String connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            //SqlConnection connection = new SqlConnection(connectionString);
             return connection;
         }
     }

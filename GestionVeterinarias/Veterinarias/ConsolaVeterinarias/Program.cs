@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LogicaVeterinarias.Controller;
+using ModelosVeterinarias.ValueObject;
+using System;
 
 namespace ConsolaVeterinarias
 {
@@ -6,7 +8,10 @@ namespace ConsolaVeterinarias
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            FachadaWin fachadaWin = new FachadaWin();
+            //fachadaWin.CrearCliente(new VOCliente(90909077, "Ceci2", "099000999", "addressceci", "ceci@gmail.com", "pass", true));
+            //fachadaWin.EliminarCliente(90909077);
+            Console.ReadLine();
         }
     }
 }
