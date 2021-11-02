@@ -8,16 +8,16 @@ namespace ModelosVeterinarias.Classes
 {
     public abstract class Persona
     {
-        public string Nombre { get; set; }
         public long Cedula { get; }
+        public string Nombre { get; set; }
         public string Telefono { get; set; }
 
         public Persona() { }
 
-        public Persona(string nombre, long cedula, string telefono) 
+        public Persona(long cedula, string nombre, string telefono) 
         {
-            this.Nombre = nombre;
             this.Cedula = cedula;
+            this.Nombre = nombre;
             this.Telefono = telefono;
         }
     }

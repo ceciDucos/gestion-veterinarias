@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GraficaWinVeterinarias
+namespace GraficaWinVeterinarias.Forms
 {
-    public partial class Form1 : Form
+    public partial class AltaVeterinario : Form
     {
-        public Form1()
+        public AltaVeterinario()
         {
             InitializeComponent();
         }
