@@ -17,6 +17,7 @@ namespace LogicaVeterinarias.Controller
         private DAOVeterinarias daoVeterinarias;
         private DAOClientes daoClientes;
         private DAOVeterinarios daoVeterinarios;
+        private DAOConsultas daoConsultas;
         private ManejadorConexion manejadorConexion;
 
         public FachadaWin()
@@ -25,6 +26,7 @@ namespace LogicaVeterinarias.Controller
             daoVeterinarias = new DAOVeterinarias();
             daoClientes = new DAOClientes();
             daoVeterinarios = new DAOVeterinarios();
+            daoConsultas = new DAOConsultas();
             manejadorConexion = ManejadorConexion.GetInstance();
         }
 
@@ -222,14 +224,26 @@ namespace LogicaVeterinarias.Controller
                     Cliente cliente = new Cliente(cedula, nombre, telefono, direccion, correo, clave, activo);
                     daoClientes.Add(connection, cliente);
                 }
+                else 
+                {
+                    string error = string.Format("Ya existe una persona con cedula {0} en el sistema", vocliente.Cedula);
+                    throw new PersonaException(error);
+                }
             }
             catch (SqlException)
             {
                 throw new PersistenciaException("Ocurrió un error agregando un nuevo cliente");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new GeneralException("Ocurrió un error al crear el cliente");
+                if (ex is PersonaException)
+                {
+                    throw ex;
+                }
+                else
+                {
+                    throw new GeneralException("Ocurrió un error al crear el cliente");
+                }
             }
             finally
             {
@@ -241,15 +255,56 @@ namespace LogicaVeterinarias.Controller
         }
 
         //[WebMethod]
-        public void  EditarCliente(VOCliente vocliente)
+        public void EditarCliente(VOCliente vocliente)
         {
-            //hacer
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                if (daoClientes.Member(connection, vocliente.Cedula))
+                {
+                    Cliente cliente = new Cliente(vocliente.Cedula, vocliente.Nombre, vocliente.Telefono, 
+                        vocliente.Direccion, vocliente.Correo, vocliente.Clave, vocliente.Activo);
+
+                    daoClientes.Edit(connection, cliente);
+                }
+                else
+                {
+                    string error = string.Format("La persona con cedula {0} no existe en el sistema", vocliente.Cedula);
+                    throw new PersonaException(error);
+                }
+            }
+            catch (SqlException)
+            {
+                string error = string.Format("Error al intentar modificar el cliente con cedula {0} ", vocliente.Cedula);
+                throw new PersistenciaException(error);
+            }
+            catch (Exception ex)
+            {
+                if (ex is PersistenciaException || ex is PersonaException)
+                {
+                    throw ex;
+                }
+                else
+                {
+                    throw new GeneralException("Ocurrió un error al modificar el cliente");
+                }
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         //[WebMethod]
         public void  EliminarCliente(long cedula)
         {
             SqlConnection connection = null;
+            string error;
             try
             {
                 connection = manejadorConexion.GetConnection();
@@ -258,15 +313,27 @@ namespace LogicaVeterinarias.Controller
                 {
                     daoClientes.Remove(connection, cedula);
                 }
+                else
+                {
+                    error = string.Format("No existe un cliente con la cédula {0}.", cedula);
+                    throw new PersonaException(error);
+                }
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
-                throw e;
-                throw new PersistenciaException("Ocurrió un error agregando un nuevo cliente");
+                throw new PersistenciaException("Ocurrió un error remover el cliente.");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new GeneralException("Ocurrió un error al crear el cliente");
+                if (ex is PersistenciaException || ex is PersonaException)
+                {
+                    throw ex;
+                }
+                else
+                {
+                    throw new GeneralException("Ocurrió un error al eliminar el cliente.");
+                }
+                
             }
             finally
             {
@@ -331,21 +398,131 @@ namespace LogicaVeterinarias.Controller
         }
 
         //[WebMethod]
-        public void  CrearConsulta(VOConsulta voconsulta)
+        public void CrearConsulta(VOConsulta voconsulta)
         {
-            //hacer
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                if (!daoConsultas.Member(connection, voconsulta.Mascota.Id, voconsulta.Fecha))
+                {
+                    VOMascota voMascota = voconsulta.Mascota;
+                    CarnetInscripcion carnet = new CarnetInscripcion(voMascota.CarnetInscipcion.Numero, voMascota.CarnetInscipcion.Expedido, voMascota.CarnetInscipcion.Foto);
+                    Mascota mascota = new Mascota(voMascota.Id, voMascota.Animal, voMascota.Raza, voMascota.Edad, voMascota.VacunaAlDia, carnet);
+                    Consulta consulta = new Consulta(voconsulta.Numero, voconsulta.Calificacion, voconsulta.Fecha, voconsulta.Descripcion, mascota);
+                    daoConsultas.Add(connection, consulta);
+                }
+                else
+                {
+                    string error = string.Format("Ya existe una consulta agendada para la fecha {0}", voconsulta.Fecha);
+                    throw new ConsultaException(error);
+                }
+            }
+            catch (SqlException)
+            {
+                throw new PersistenciaException("Ocurrió un error agregando una consulta");
+            }
+            catch (Exception ex)
+            {
+                if (ex is ConsultaException)
+                {
+                    throw ex;
+                }
+                else
+                {
+                    throw new GeneralException("Ocurrió un error al crear la consulta");
+                }
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         //[WebMethod]
         public void  EditarConsulta(VOConsulta voconsulta)
         {
-            //hacer
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                if (daoConsultas.MemberId(connection, voconsulta.Numero))
+                {
+                    VOCarnetInscripcion voCarnet = voconsulta.Mascota.CarnetInscipcion;
+                    CarnetInscripcion carnet = new CarnetInscripcion(voCarnet.Numero, voCarnet.Expedido, voCarnet.Foto);
+
+                    Mascota mascota = new Mascota(voconsulta.Mascota.Id, voconsulta.Mascota.Animal, 
+                        voconsulta.Mascota.Raza, voconsulta.Mascota.Edad, voconsulta.Mascota.VacunaAlDia, carnet);
+
+                    Consulta consulta = new Consulta(voconsulta.Numero, voconsulta.Calificacion, voconsulta.Fecha,
+                        voconsulta.Descripcion, mascota);
+
+                    daoConsultas.Edit(connection, consulta);
+                }
+                else
+                {
+                    string error = string.Format("No se encontron consultas agendadas para la mascota {0} en la fecha {1}", 
+                        voconsulta.Mascota.Nombre, voconsulta.Fecha);
+                    throw new ConsultaException(error);
+                }
+            }
+            catch (SqlException)
+            {
+                throw new PersistenciaException("Error al intentar modificar la consulta");
+            }
+            catch (Exception ex)
+            {
+                if (ex is PersistenciaException || ex is ConsultaException)
+                {
+                    throw ex;
+                }
+                else
+                {
+                    throw new GeneralException("Ocurrió un error al modificarla consulta");
+                }
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         //[WebMethod]
-        public void  EliminarConsulta(int num)
+        public void  EliminarConsulta(int numero)
         {
-            //hacer
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                if (daoConsultas.MemberId(connection, numero))
+                {
+                    daoConsultas.Remove(connection, numero);
+                }
+            }
+            catch (SqlException)
+            {
+                throw new PersistenciaException("Ocurrió un error eliminando la consulta");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al crear el cliente");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
     }
 }
