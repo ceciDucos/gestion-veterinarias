@@ -8,12 +8,25 @@ namespace ModelosVeterinarias.ValueObject
 {
     public class VOVeterinaria
     {
+        public int Id { get; }
         public string Nombre { get; }
         public string Direccion { get; }
         public string Telefono { get; }
         public Dictionary<long, VOVeterinario> Veterinarios { get; }
         public Dictionary<long, VOCliente> Clientes { get; }
         public Dictionary<int, VOConsulta> Consultas { get; }
+
+        public VOVeterinaria(int id, string nombre, string direccion, string telefono)
+        {
+            this.Id = id;
+            this.Nombre = nombre;
+            this.Direccion = direccion;
+            this.Telefono = telefono;
+            this.Veterinarios = new Dictionary<long, VOVeterinario>();
+            this.Clientes = new Dictionary<long, VOCliente>();
+            this.Consultas = new Dictionary<int, VOConsulta>();
+        }
+
         public VOVeterinaria(string nombre, string direccion, string telefono)
         {
             this.Nombre = nombre;
@@ -23,6 +36,5 @@ namespace ModelosVeterinarias.ValueObject
             this.Clientes = new Dictionary<long, VOCliente>();
             this.Consultas = new Dictionary<int, VOConsulta>();
         }
-
     }
 }
