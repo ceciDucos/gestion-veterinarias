@@ -4,7 +4,7 @@ using ModelosVeterinarias.ValueObject;
 using ModelosVeterinarias.Classes;
 using ModelosVeterinarias.ExceptionClasses;
 using PersistenciaVeterinarias.DAOS;
-
+using System.Collections.Generic;
 using System.Data.SqlClient;
 //using System.Web.Services;
 
@@ -39,6 +39,35 @@ namespace LogicaVeterinarias.Controller
         {
         }
 
+
+        public List<VOVeterinario> ObtenerVeterinarios() {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                List<VOVeterinario> listVeterinarios = daoVeterinarios.List(connection);
+                return listVeterinarios;
+
+
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                throw new PersistenciaException("Ocurrió un error al obtener los datos");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
         //[WebMethod]
         public void CrearVeterinario(VOVeterinario voveterinario)
         {

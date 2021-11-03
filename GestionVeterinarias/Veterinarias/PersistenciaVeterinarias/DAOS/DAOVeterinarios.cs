@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using ModelosVeterinarias.Classes;
+using ModelosVeterinarias.ValueObject;
 
 namespace PersistenciaVeterinarias.DAOS
 {
@@ -124,6 +125,40 @@ namespace PersistenciaVeterinarias.DAOS
 
             
             connection.Close();
+        }
+
+        public List<VOVeterinario> List(SqlConnection connection) {
+
+
+            List<VOVeterinario> listVeterinarios = new List<VOVeterinario>();
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("select p.cedula, p.nombre, p.telefono, v.horario");
+            sb.Append(" from Persona p, Veterinario v");
+            sb.Append(" where p.cedula = v.cedula");
+
+            SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = selectCommand;
+
+            // creo y cargo el dataset
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Veterinario");
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                
+                long cedula = Convert.ToInt32(dr["cedula"]);
+                string nombre = Convert.ToString(dr["nombre"]);
+                string telefono = Convert.ToString(dr["telefono"]);
+                string horario = Convert.ToString(dr["horario"]);
+                
+                VOVeterinario voveterinario = new VOVeterinario(cedula, nombre, telefono, horario);
+
+                listVeterinarios.Add(voveterinario);
+            }
+
+            return listVeterinarios;
         }
     }
     

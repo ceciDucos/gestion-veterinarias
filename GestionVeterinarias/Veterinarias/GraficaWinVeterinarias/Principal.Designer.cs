@@ -32,8 +32,8 @@ namespace GraficaWinVeterinarias
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.veterinariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.veterinariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionVeterinariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.historicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,6 +71,13 @@ namespace GraficaWinVeterinarias
             this.clientesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.clientesToolStripMenuItem.Text = "Clientes";
             // 
+            // gestionClientesToolStripMenuItem
+            // 
+            this.gestionClientesToolStripMenuItem.Name = "gestionClientesToolStripMenuItem";
+            this.gestionClientesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gestionClientesToolStripMenuItem.Text = "Gestion Clientes";
+            this.gestionClientesToolStripMenuItem.Click += new System.EventHandler(this.gestionClientesToolStripMenuItem_Click);
+            // 
             // veterinariosToolStripMenuItem
             // 
             this.veterinariosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -79,12 +86,6 @@ namespace GraficaWinVeterinarias
             this.veterinariosToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.veterinariosToolStripMenuItem.Text = "Veterinarios";
             this.veterinariosToolStripMenuItem.Click += new System.EventHandler(this.veterinariosToolStripMenuItem_Click);
-            // 
-            // gestionClientesToolStripMenuItem
-            // 
-            this.gestionClientesToolStripMenuItem.Name = "gestionClientesToolStripMenuItem";
-            this.gestionClientesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.gestionClientesToolStripMenuItem.Text = "Gestion Clientes";
             // 
             // gestionVeterinariosToolStripMenuItem
             // 
@@ -104,7 +105,7 @@ namespace GraficaWinVeterinarias
             // historicoToolStripMenuItem
             // 
             this.historicoToolStripMenuItem.Name = "historicoToolStripMenuItem";
-            this.historicoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.historicoToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.historicoToolStripMenuItem.Text = "Historico";
             // 
             // salirToolStripMenuItem
@@ -114,14 +115,14 @@ namespace GraficaWinVeterinarias
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click_1);
             // 
-            // Form1
+            // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "Principal";
             this.Text = "Gestión veterinaria";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
