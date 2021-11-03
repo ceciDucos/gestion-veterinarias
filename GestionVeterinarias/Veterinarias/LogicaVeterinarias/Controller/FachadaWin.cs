@@ -16,6 +16,7 @@ namespace LogicaVeterinarias.Controller
         private DAOCarnetInscripcion daoCarnetInscripcion;
         private DAOVeterinarias daoVeterinarias;
         private DAOClientes daoClientes;
+        private DAOVeterinarios daoVeterinarios;
         private ManejadorConexion manejadorConexion;
 
         public FachadaWin()
@@ -23,6 +24,7 @@ namespace LogicaVeterinarias.Controller
             daoCarnetInscripcion = new DAOCarnetInscripcion();
             daoVeterinarias = new DAOVeterinarias();
             daoClientes = new DAOClientes();
+            daoVeterinarios = new DAOVeterinarios();
             manejadorConexion = ManejadorConexion.GetInstance();
         }
 
@@ -84,18 +86,120 @@ namespace LogicaVeterinarias.Controller
         }
 
         //[WebMethod]
-        public void CrearVeterianario(VOVeterinario voveterinario)
+        public void CrearVeterinario(VOVeterinario voveterinario)
         {
+            long cedula = voveterinario.Cedula;
+            string nombre = voveterinario.Nombre;
+            string telefono = voveterinario.Telefono;
+            string horario = voveterinario.Horario;
+            
+            SqlConnection connection = null;
+            try 
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                if (!daoVeterinarios.Member(connection, cedula)) 
+                {
+                    Veterinario veterinario = new Veterinario(cedula, nombre, telefono, horario);
+                    daoVeterinarios.Add(connection, veterinario);
+                }
+            }
+            catch (SqlException)
+            {
+                throw new PersistenciaException("Ocurrió un error agregando un nuevo veterinario");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al crear el veterinario");
+            }
+            finally
+            {
+                if(connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         //[WebMethod]
-        public void  EditarVeterianario(VOVeterinario voveterinario)
+        public void  EditarVeterinario(VOVeterinario voveterinario)
         {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                if (daoVeterinarios.Member(connection, voveterinario.Cedula))
+                {
+                    Veterinario veterinario = new Veterinario(voveterinario.Cedula, voveterinario.Nombre,
+                        voveterinario.Telefono, voveterinario.Horario);
+
+                    daoVeterinarios.Edit(connection, veterinario);
+                    
+                }
+                else { 
+                    string error = String.Format("La persona con cedula {0} no existe en el sistema", voveterinario.Cedula);
+                    throw new PersistenciaException(error);
+                    // Aca iria esta ex, no se porque no me la reconoce. capaz me falta importarla o algo?
+                    //throw new PersonaNoExisteException(error);
+                }
+            }
+            catch (SqlException ex)
+            {
+                string error_tecnico = ex.Message; 
+                string error = String.Format("Error al intentar modificar el veterinario con cedula {0} ", voveterinario.Cedula);
+                throw new PersistenciaException(error);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                throw new GeneralException("Ocurrió un error al modificar el cliente");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         //[WebMethod]
-        public void  EliminarVeterianario(long cedula)
+        public void  EliminarVeterinario(long cedula)
         {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                if (daoVeterinarios.Member(connection, cedula))
+                {
+                    daoVeterinarios.Remove(connection, cedula);
+                    
+                }
+                else { 
+                    string error = String.Format("La persona con cedula {0} no existe en el sistema", cedula);
+                    throw new PersistenciaException(error);
+                    //throw new PersonaNoExisteException(error);
+                }
+            }
+            catch (SqlException)
+            {
+                string error = String.Format("Error al intentar eliminar el veterinario con cedula {0} ", cedula);
+                throw new PersistenciaException(error);
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al crear el cliente");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+
         }
 
         //[WebMethod]
@@ -115,7 +219,7 @@ namespace LogicaVeterinarias.Controller
                 connection.Open();
                 if (!daoClientes.Member(connection, cedula))
                 {
-                    Cliente cliente = new Cliente(nombre, cedula, telefono, direccion, correo, clave, activo);
+                    Cliente cliente = new Cliente(cedula, nombre, telefono, direccion, correo, clave, activo);
                     daoClientes.Add(connection, cliente);
                 }
             }

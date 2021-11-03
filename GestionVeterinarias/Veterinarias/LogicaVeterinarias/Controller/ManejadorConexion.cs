@@ -23,10 +23,8 @@ namespace LogicaVeterinarias.Controller
 
         public SqlConnection GetConnection()
         {
-            //ver porque no levanta de connecionString de app.config
-            SqlConnection connection = new SqlConnection(@"Data Source =.\SQLEXPRESS;Initial Catalog=GestionVeterinarias;Integrated Security=true");
-            //String connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            //SqlConnection connection = new SqlConnection(connectionString);
+            String connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            SqlConnection connection = new SqlConnection(connectionString);
             return connection;
         }
     }
