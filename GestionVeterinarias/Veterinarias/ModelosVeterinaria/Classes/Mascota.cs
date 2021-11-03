@@ -4,15 +4,13 @@ namespace ModelosVeterinarias.Classes
 {
     public class Mascota
     {
-        private int id;
-
         public int Id { get; }
         public TipoAnimal TipoAnimal { get; set; }
         public string Nombre { get; set; }
         public Raza Raza { get; set; }
         public int Edad { get; set; }
         public bool VacunasAlDia { get; set; }
-        public Dictionary<int, CarnetInscripcion> DiccionarioCarnet { get; }
+        //public CarnetInscripcion CarnetInscripcion { get; set; }
 
         public Mascota() { }
 
@@ -24,7 +22,6 @@ namespace ModelosVeterinarias.Classes
             this.Raza = raza;
             this.Edad = edad;
             this.VacunasAlDia = vacunasAlDia;
-            this.DiccionarioCarnet = new Dictionary<int, CarnetInscripcion>();
         }
 
         public Mascota(TipoAnimal tipo, string nombre, Raza raza, int edad, bool vacunasAlDia) 
@@ -34,17 +31,16 @@ namespace ModelosVeterinarias.Classes
             this.Raza = raza;
             this.Edad = edad;
             this.VacunasAlDia = vacunasAlDia;
-            this.DiccionarioCarnet = new Dictionary<int, CarnetInscripcion>();
         }
 
-        public void AddCarnet(CarnetInscripcion carnet)
+        /*public void AddCarnet(CarnetInscripcion carnet)
         {
-            this.DiccionarioCarnet.Add(carnet.Numero, carnet);
+            this.CarnetInscripcion = carnet;
         }
 
         public void RemoveCarnet(int numero)
         {
-            this.DiccionarioCarnet.Remove(numero);
-        }
+            this.CarnetInscripcion = null;
+        }*/
     }
 }

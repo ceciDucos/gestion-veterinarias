@@ -68,7 +68,7 @@ namespace ConsolaVeterinarias
 
             // ================== INICIO GONZALO PRUEBAS ==================
             /*
-            fachadaWin.CrearMascota(new VOMascota(TipoAnimal.Perro, "Firulais", Raza.Policia, 3, true));
+            fachadaWin.CrearMascota(new VOMascota(TipoAnimal.Perro, "Bichofeo", Raza.Policia, 4, true));
             fachadaWin.CrearMascota(new VOMascota(TipoAnimal.Perro, "Moncho", Raza.Policia, 2, true));
             fachadaWin.EliminarMascota(2);
             fachadaWin.EditarMascota(new VOMascota(1, TipoAnimal.Perro, "Firulais2", Raza.Policia, 2, true));
