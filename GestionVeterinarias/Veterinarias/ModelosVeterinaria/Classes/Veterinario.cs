@@ -12,7 +12,7 @@ namespace ModelosVeterinarias.Classes
 
         public Veterinario() { }
 
-        public Veterinario(string nombre, long cedula, string telefono, string horario) : base(nombre, cedula, telefono)
+        public Veterinario(long cedula, string nombre, string telefono, string horario) : base(cedula, nombre, telefono)
         {
             Horario = horario;
         }

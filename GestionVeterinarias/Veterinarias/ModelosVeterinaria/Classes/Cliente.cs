@@ -10,7 +10,7 @@ namespace ModelosVeterinarias.Classes
     {
         public string Direccion { get; set; }
         public string Correo { get; set; }
-        public string Clave { get; set; }
+        public string Pass { get; set; }
         public bool Activo { get; set; }
         public Dictionary<int, Mascota> DiccionarioMascotas { get; }
 
@@ -19,11 +19,11 @@ namespace ModelosVeterinarias.Classes
 
         }
 
-        public Cliente(string nombre, long ci, string tel, string dir, string mail, string pass, bool activo) : base(nombre, ci, tel)
+        public Cliente(long ci, string nombre, string tel, string dir, string mail, string pass, bool activo) : base(ci, nombre, tel)
         {
             this.Direccion = dir;
             this.Correo = mail;
-            this.Clave = pass;
+            this.Pass = pass;
             this.Activo = activo;
             this.DiccionarioMascotas = new Dictionary<int, Mascota>();
         }
