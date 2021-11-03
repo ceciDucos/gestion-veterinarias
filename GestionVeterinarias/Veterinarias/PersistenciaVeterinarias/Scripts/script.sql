@@ -27,7 +27,15 @@ CREATE TABLE [gestion_veterinarias].[dbo].cliente (
     FOREIGN KEY (cedula) REFERENCES [gestion_veterinarias].[dbo].persona(cedula)
 );
 
-
+CREATE TABLE [gestion_veterinarias].[dbo].[Mascotas](
+	id int IDENTITY(1,1) NOT NULL,
+	tipo int NULL,
+	nombre varchar(50) NULL,
+	raza int NULL,
+	edad int NULL,
+	vacunas bit NULL,
+	PRIMARY KEY (id),
+);
 -- ---------------------------------- DATOS INICIALES ----------------------------------
 
 INSERT INTO [gestion_veterinarias].[dbo].persona (cedula,nombre,telefono)
