@@ -1,5 +1,6 @@
 ﻿using LogicaVeterinarias.Controller;
 using ModelosVeterinarias.ValueObject;
+using ModelosVeterinarias.Classes;
 using System;
 using System.Drawing;
 using System.IO;
@@ -11,8 +12,6 @@ namespace ConsolaVeterinarias
         static void Main(string[] args)
         {
             FachadaWin fachadaWin = new FachadaWin();
-            fachadaWin.CrearCliente(new VOCliente(90909077, "Ceci2", "099000999", "addressceci", "ceci@gmail.com", "pass", true));
-            //fachadaWin.EliminarCliente(90909077);
 
             // ================== INICIO FEDE PRUEBAS ==================
 
@@ -40,8 +39,16 @@ namespace ConsolaVeterinarias
 
            // ================== FIN FEDE PRUEBAS ==================
 
-             // ================== INICIO RODRIGO PRUEBAS ==================
+            // ================== INICIO CECI PRUEBAS ==================
             /*
+            fachadaWin.CrearCliente(new VOCliente(90909077, "Ceci2", "099000999", "addressceci", "ceci@gmail.com", "pass", true));
+            fachadaWin.EliminarCliente(90909077);
+             */
+            // ================== FIN CECI PRUEBAS ==================
+
+
+            // ================== INICIO RODRIGO PRUEBAS ==================
+            /* 
             try{
                 fachadaWin.CrearVeterinario(new VOVeterinario(123456, "Juan", "12345", "88888"));
                 fachadaWin.CrearVeterinario(new VOVeterinario(5678, "Pepito", "12345", "88888"));
@@ -55,10 +62,24 @@ namespace ConsolaVeterinarias
                 Console.WriteLine("Error: {0} ", e.Message);
 
              }
+            Console.ReadLine();
             */
-             Console.ReadLine();
-
             // ================== FIN RODRIGO PRUEBAS ==================
+
+            // ================== INICIO GONZALO PRUEBAS ==================
+            /*
+            fachadaWin.CrearMascota(new VOMascota(TipoAnimal.Perro, "Firulais", Raza.Policia, 3, true));
+            fachadaWin.CrearMascota(new VOMascota(TipoAnimal.Perro, "Moncho", Raza.Policia, 2, true));
+            fachadaWin.EliminarMascota(2);
+            fachadaWin.EditarMascota(new VOMascota(1, TipoAnimal.Perro, "Firulais2", Raza.Policia, 2, true));
+            if (fachadaWin.MemberMascota(2))
+                Console.WriteLine("existe");
+            else
+                Console.WriteLine("no existe");
+            Console.ReadLine();
+            */
+            // ================== FIN GONZALO PRUEBAS ==================
+
         }
     }
 }

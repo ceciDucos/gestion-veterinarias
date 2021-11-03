@@ -4,7 +4,6 @@ using ModelosVeterinarias.ValueObject;
 using ModelosVeterinarias.Classes;
 using ModelosVeterinarias.ExceptionClasses;
 using PersistenciaVeterinarias.DAOS;
-
 using System.Data.SqlClient;
 //using System.Web.Services;
 
@@ -16,6 +15,7 @@ namespace LogicaVeterinarias.Controller
         private DAOCarnetInscripcion daoCarnetInscripcion;
         private DAOVeterinarias daoVeterinarias;
         private DAOClientes daoClientes;
+        private DAOMascotas daoMascotas;
         private DAOVeterinarios daoVeterinarios;
         private ManejadorConexion manejadorConexion;
 
@@ -24,6 +24,7 @@ namespace LogicaVeterinarias.Controller
             daoCarnetInscripcion = new DAOCarnetInscripcion();
             daoVeterinarias = new DAOVeterinarias();
             daoClientes = new DAOClientes();
+            daoMascotas = new DAOMascotas();
             daoVeterinarios = new DAOVeterinarios();
             manejadorConexion = ManejadorConexion.GetInstance();
         }
@@ -280,16 +281,87 @@ namespace LogicaVeterinarias.Controller
         //[WebMethod]
         public void  CrearMascota(VOMascota vomascota)
         {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                daoMascotas.Add(connection, new Mascota(vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia));
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e);
+                throw new PersistenciaException("Ocurrió un error agregando una nueva mascota");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al crear la mascota");
+            }
         }
 
         //[WebMethod]
         public void  EditarMascota(VOMascota vomascota)
         {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                daoMascotas.Edit(connection, new Mascota(vomascota.Id, vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia));
+            }
+            catch (SqlException)
+            {
+                throw new PersistenciaException("Ocurrió un error editando la mascota");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al editar la mascota");
+            }
         }
 
         //[WebMethod]
         public void   EliminarMascota(int num)
         {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                daoMascotas.Delete(connection, num);
+            }
+            catch (SqlException)
+            {
+                throw new PersistenciaException("Ocurrió un error eliminando la mascota");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al eliminar la mascota");
+            }
+        }
+
+        public bool MemberMascota(int num)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                return daoMascotas.Member(connection, num);
+            }
+            catch (SqlException)
+            {
+                throw new PersistenciaException("Ocurrió un error buscando la mascota");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw new GeneralException("Ocurrió un error al buscando la mascota");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+
         }
 
         //[WebMethod]
