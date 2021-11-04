@@ -42,7 +42,7 @@ namespace PersistenciaVeterinarias.DAOS
             //Inserto Cliente
             StringBuilder sbCliente = new StringBuilder();
             sbCliente.Append("INSERT INTO Clientes(direccion, mail, password, activo, cedula)");
-            sbCliente.Append($"VALUES('{cliente.Direccion}', '{cliente.Correo}', '{cliente.Clave}', {Convert.ToByte(cliente.Activo)}, {cliente.Cedula});");
+            sbCliente.Append($"VALUES('{cliente.Direccion}', '{cliente.Correo}', '{cliente.Pass}', {Convert.ToByte(cliente.Activo)}, {cliente.Cedula});");
             
             SqlCommand commandPersona = new SqlCommand(sbPersona.ToString(), connection);
             SqlCommand commandCliente = new SqlCommand(sbCliente.ToString(), connection);
