@@ -287,9 +287,8 @@ namespace LogicaVeterinarias.Controller
                 connection = manejadorConexion.GetConnection();
                 daoMascotas.Add(connection, new Mascota(vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia));
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
-                Console.WriteLine(e);
                 throw new PersistenciaException("Ocurrió un error agregando una nueva mascota");
             }
             catch (Exception)
@@ -349,9 +348,8 @@ namespace LogicaVeterinarias.Controller
             {
                 throw new PersistenciaException("Ocurrió un error buscando la mascota");
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e);
                 throw new GeneralException("Ocurrió un error al buscando la mascota");
             }
             finally
