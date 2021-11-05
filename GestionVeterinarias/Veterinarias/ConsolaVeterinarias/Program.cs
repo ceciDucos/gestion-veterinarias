@@ -37,14 +37,24 @@ namespace ConsolaVeterinarias
             //fachadaWin.EditarCarnet(new VOCarnetInscripcion(10000, DateTime.Now, arr2));
             //Console.ReadLine();
 
-           // ================== FIN FEDE PRUEBAS ==================
+            // ================== FIN FEDE PRUEBAS ==================
 
-            // ================== INICIO CECI PRUEBAS ==================
-            /*
-            fachadaWin.CrearCliente(new VOCliente(90909077, "Ceci2", "099000999", "addressceci", "ceci@gmail.com", "pass", true));
-            fachadaWin.EliminarCliente(90909077);
-             */
-            // ================== FIN CECI PRUEBAS ==================
+            // ================== INICIO PRUEBAS CECI ==================
+
+            //fachadaWin.CrearCliente(new VOCliente(11111789, "CeciNuevo", "099000999", "addressceci", "ceci@gmail.com", "pass", true));
+            /**/
+            //fachadaWin.EditarCliente(new VOCliente(88209587, "testingEdit", "123123123", "editAdress", "edit@gmail.com", "1234pass", false));
+            /*fachadaWin.EliminarCliente(11111789);
+
+            byte[] foto = null;*/
+            //VOMascota voMascota = new VOMascota(1, TipoAnimal.Perro, "Larry", Raza.Golden, 4, true);
+            //DateTime date = DateTime.Today;
+            //fachadaWin.CrearConsulta(new VOConsulta(0, date, "algo", 10, voMascota));
+            //fachadaWin.EliminarConsulta(0);
+            //fachadaWin.EditarConsulta(new VOConsulta(0, date, "yuyuyuyuyu", 9, voMascota));
+            //Console.ReadLine();
+            // ================== FIN PRUEBAS CECI ==================
+
 
 
             // ================== INICIO RODRIGO PRUEBAS ==================
@@ -67,9 +77,9 @@ namespace ConsolaVeterinarias
             // ================== FIN RODRIGO PRUEBAS ==================
 
             // ================== INICIO GONZALO PRUEBAS ==================
-            /*
-            fachadaWin.CrearMascota(new VOMascota(TipoAnimal.Perro, "Bichofeo", Raza.Policia, 4, true));
-            fachadaWin.CrearMascota(new VOMascota(TipoAnimal.Perro, "Moncho", Raza.Policia, 2, true));
+
+            //fachadaWin.CrearMascota(new VOMascota(TipoAnimal.Perro, "OtraMascota", Raza.Policia, 4, true));
+            /*fachadaWin.CrearMascota(new VOMascota(TipoAnimal.Perro, "Moncho", Raza.Policia, 2, true));
             fachadaWin.EliminarMascota(2);
             fachadaWin.EditarMascota(new VOMascota(1, TipoAnimal.Perro, "Firulais2", Raza.Policia, 2, true));
             if (fachadaWin.MemberMascota(2))

@@ -27,7 +27,7 @@ CREATE TABLE [gestion_veterinarias].[dbo].cliente (
     FOREIGN KEY (cedula) REFERENCES [gestion_veterinarias].[dbo].persona(cedula)
 );
 
-CREATE TABLE [gestion_veterinarias].[dbo].[Mascotas](
+CREATE TABLE [gestion_veterinarias].[dbo].mascota (
 	id int IDENTITY(1,1) NOT NULL,
 	tipo int NULL,
 	nombre varchar(50) NULL,
@@ -36,6 +36,9 @@ CREATE TABLE [gestion_veterinarias].[dbo].[Mascotas](
 	vacunas bit NULL,
 	PRIMARY KEY (id),
 );
+
+CREATE TABLE [gestion_veterinarias].[dbo].consulta (    numero INT IDENTITY(1,1) NOT NULL PRIMARY KEY,    calificacion INT,    fecha DATETIME,    descripcion varchar(128),    idMascota INT,    FOREIGN KEY (idMascota) REFERENCES [gestion_veterinarias].[dbo].mascota(id));
+
 -- ---------------------------------- DATOS INICIALES ----------------------------------
 
 INSERT INTO [gestion_veterinarias].[dbo].persona (cedula,nombre,telefono)
@@ -49,3 +52,5 @@ VALUES (1234567, 'Carolina', '099123456');
 
 INSERT INTO [gestion_veterinarias].[dbo].veterinario (cedula,horario)
 VALUES (1234567, 'L-m 10:12');
+
+INSERT INTO [gestion_veterinarias].[dbo].persona (cedula,nombre,telefono)VALUES (88209587, 'Rodrigo', '099844667');INSERT INTO [gestion_veterinarias].[dbo].persona (cedula,nombre,telefono)VALUES (11209588, 'Pepe', '099844999');INSERT INTO [gestion_veterinarias].[dbo].cliente (cedula,direccion,correo,pass,activo)VALUES (88209587, 'lo de r', 'r@gmail', 'trtr', 1);INSERT INTO [gestion_veterinarias].[dbo].cliente (cedula,direccion,correo,pass,activo)VALUES (11209588, 'lo de pepe', 'pepe@gmail', 'pepe1234', 1);
