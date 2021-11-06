@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using ModelosVeterinarias.Classes;
+using System;
 
 namespace PersistenciaVeterinarias.DAOS
 {
@@ -11,7 +12,7 @@ namespace PersistenciaVeterinarias.DAOS
         #region Agregar una Mascota
         public void Add(SqlConnection connection, Mascota mascota)
         {
-            SqlCommand command = new SqlCommand("INSERT INTO Mascotas (tipo, nombre, raza, edad, vacunas) VALUES (@Tipo, @Nombre, @Raza, @Edad, @Vacunas)", connection);
+            SqlCommand command = new SqlCommand("INSERT INTO mascota (tipo, nombre, raza, edad, vacunas) VALUES (@Tipo, @Nombre, @Raza, @Edad, @Vacunas)", connection);
             SqlParameter tipoParameter = new SqlParameter()
             {
                 ParameterName = "@Tipo",
@@ -48,9 +49,15 @@ namespace PersistenciaVeterinarias.DAOS
             command.Parameters.Add(edadParameter);
             command.Parameters.Add(vacunasParameter);
 
+            Console.WriteLine("llego2");
             connection.Open();
+            Console.WriteLine("llego3");
             command.ExecuteNonQuery();
+            Console.WriteLine("llego4");
             connection.Close();
+
+            DAOCarnetInscripcion daoCarnetInscripcion = new DAOCarnetInscripcion();
+            daoCarnetInscripcion.Add(connection, mascota.CarnetInscripcion.Foto);
         }
         #endregion
 

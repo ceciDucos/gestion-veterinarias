@@ -26,5 +26,10 @@ namespace ModelosVeterinarias.ValueObject
             this.Expedido = expedido;
             this.Foto = foto;
         }
+
+        public VOCarnetInscripcion(byte[] foto)
+        {
+            this.Foto = foto;
+        }
     }
 }
