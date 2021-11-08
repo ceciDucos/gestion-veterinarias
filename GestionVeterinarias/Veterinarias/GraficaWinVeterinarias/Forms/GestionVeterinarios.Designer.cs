@@ -35,7 +35,7 @@ namespace GraficaWinVeterinarias.Forms
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnNuevo = new System.Windows.Forms.Button();
             this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnEliminar = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -49,7 +49,6 @@ namespace GraficaWinVeterinarias.Forms
             this.label1.Size = new System.Drawing.Size(343, 25);
             this.label1.TabIndex = 1;
             this.label1.Text = "Listado de veterinarios registrados";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // listView1
             // 
@@ -58,14 +57,15 @@ namespace GraficaWinVeterinarias.Forms
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
+            this.listView1.FullRowSelect = true;
             this.listView1.HideSelection = false;
+            this.listView1.HoverSelection = true;
             this.listView1.Location = new System.Drawing.Point(15, 40);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(767, 298);
             this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -87,15 +87,15 @@ namespace GraficaWinVeterinarias.Forms
             this.columnHeader4.Text = "Horario";
             this.columnHeader4.Width = 203;
             // 
-            // button1
+            // btnNuevo
             // 
-            this.button1.Location = new System.Drawing.Point(15, 353);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Nuevo";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.btnNuevo.Location = new System.Drawing.Point(15, 353);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(75, 23);
+            this.btnNuevo.TabIndex = 3;
+            this.btnNuevo.Text = "Nuevo";
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // BtnEditar
             // 
@@ -124,7 +124,7 @@ namespace GraficaWinVeterinarias.Forms
             this.ClientSize = new System.Drawing.Size(799, 388);
             this.Controls.Add(this.BtnEliminar);
             this.Controls.Add(this.BtnEditar);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.label1);
             this.Name = "GestionVeterinarios";
@@ -138,7 +138,7 @@ namespace GraficaWinVeterinarias.Forms
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Button BtnEditar;
         private System.Windows.Forms.Button BtnEliminar;
         private System.Windows.Forms.ColumnHeader columnHeader1;

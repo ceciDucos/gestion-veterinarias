@@ -50,7 +50,7 @@ namespace GraficaWinVeterinarias.Forms
             // 
             this.textBoxHorario.Location = new System.Drawing.Point(93, 176);
             this.textBoxHorario.Name = "textBoxHorario";
-            this.textBoxHorario.Size = new System.Drawing.Size(100, 22);
+            this.textBoxHorario.Size = new System.Drawing.Size(209, 22);
             this.textBoxHorario.TabIndex = 17;
             // 
             // textBoxTelefono

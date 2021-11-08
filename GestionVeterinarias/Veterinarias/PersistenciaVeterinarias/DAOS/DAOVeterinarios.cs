@@ -178,9 +178,10 @@ namespace PersistenciaVeterinarias.DAOS
             // creo y cargo el dataset
             DataSet ds = new DataSet();
             adapter.Fill(ds, "Veterinario");
-            VOVeterinario voveterinario = new VOVeterinario(); 
+            VOVeterinario voveterinario = null;
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
+                
 
                 long cedula = Convert.ToInt32(dr["cedula"]);
                 string nombre = Convert.ToString(dr["nombre"]);

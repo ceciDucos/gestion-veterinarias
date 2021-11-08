@@ -113,7 +113,7 @@ namespace GraficaWinVeterinarias.Forms
             bool bStatus = true;
             if (textBoxHorario.Text == "")
             {
-                errorProvider1.SetError(textBoxHorario, "Por favor ingrese el telefono");
+                errorProvider1.SetError(textBoxHorario, "Por favor ingrese el horario");
                 bStatus = false;
             }
             else

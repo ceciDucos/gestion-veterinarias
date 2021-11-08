@@ -30,9 +30,10 @@ namespace GraficaWinVeterinarias.Forms
             VOVeterinario veterinario = facadaWin.ObtenerVeterinario(cedula);
             lblCedulaValor.Text = veterinario.Cedula.ToString();
             textBoxNombre.Text = veterinario.Nombre;
-            textBoxNombre.Focus();
             textBoxTelefono.Text = veterinario.Telefono;
             textBoxHorario.Text = veterinario.Horario;
+
+            textBoxNombre.Focus();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -100,7 +101,7 @@ namespace GraficaWinVeterinarias.Forms
             bool bStatus = true;
             if (textBoxHorario.Text == "")
             {
-                errorProvider1.SetError(textBoxHorario, "Por favor ingrese el telefono");
+                errorProvider1.SetError(textBoxHorario, "Por favor ingrese el horario");
                 bStatus = false;
             }
             else

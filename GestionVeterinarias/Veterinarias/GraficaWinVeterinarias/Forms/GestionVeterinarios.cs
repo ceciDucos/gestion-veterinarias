@@ -42,15 +42,7 @@ namespace GraficaWinVeterinarias.Forms
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void button1_Click_1(object sender, EventArgs e)
         {
@@ -60,10 +52,6 @@ namespace GraficaWinVeterinarias.Forms
             FrmNuevoVeterinario.Show();
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -91,7 +79,9 @@ namespace GraficaWinVeterinarias.Forms
                 EditarVeterinario FrmEditarVeterinario;
                 FrmEditarVeterinario = new EditarVeterinario(this.fachadaWin, cedula);
                 FrmEditarVeterinario.Owner = this;  // <-- This is the important thing
-                FrmEditarVeterinario.Show();
+                FrmEditarVeterinario.ShowDialog();
+                listView1.Items.Clear();
+                CargarLista();
             }
             
 
