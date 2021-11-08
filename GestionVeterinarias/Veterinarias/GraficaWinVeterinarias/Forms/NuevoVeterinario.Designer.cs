@@ -42,13 +42,14 @@ namespace GraficaWinVeterinarias.Forms
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtCedula
             // 
             this.txtCedula.AutoSize = true;
-            this.txtCedula.Location = new System.Drawing.Point(17, 47);
+            this.txtCedula.Location = new System.Drawing.Point(17, 50);
             this.txtCedula.Name = "txtCedula";
             this.txtCedula.Size = new System.Drawing.Size(71, 17);
             this.txtCedula.TabIndex = 0;
@@ -66,7 +67,7 @@ namespace GraficaWinVeterinarias.Forms
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 137);
+            this.label3.Location = new System.Drawing.Point(17, 134);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 17);
             this.label3.TabIndex = 2;
@@ -75,7 +76,7 @@ namespace GraficaWinVeterinarias.Forms
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 174);
+            this.label4.Location = new System.Drawing.Point(17, 176);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 17);
             this.label4.TabIndex = 3;
@@ -88,9 +89,9 @@ namespace GraficaWinVeterinarias.Forms
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(17, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(157, 25);
+            this.label5.Size = new System.Drawing.Size(181, 25);
             this.label5.TabIndex = 4;
-            this.label5.Text = "Alta veterinario";
+            this.label5.Text = "Nuevo veterinario";
             // 
             // TextBoxCedula
             // 
@@ -101,30 +102,31 @@ namespace GraficaWinVeterinarias.Forms
             // 
             // textBoxNombre
             // 
-            this.textBoxNombre.Location = new System.Drawing.Point(98, 92);
+            this.textBoxNombre.Location = new System.Drawing.Point(98, 89);
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(209, 22);
             this.textBoxNombre.TabIndex = 6;
             // 
             // textBoxTelefono
             // 
-            this.textBoxTelefono.Location = new System.Drawing.Point(98, 137);
+            this.textBoxTelefono.Location = new System.Drawing.Point(98, 131);
             this.textBoxTelefono.Name = "textBoxTelefono";
             this.textBoxTelefono.Size = new System.Drawing.Size(100, 22);
             this.textBoxTelefono.TabIndex = 7;
             // 
             // textBoxHorario
             // 
-            this.textBoxHorario.Location = new System.Drawing.Point(98, 174);
+            this.textBoxHorario.Location = new System.Drawing.Point(98, 173);
             this.textBoxHorario.Name = "textBoxHorario";
             this.textBoxHorario.Size = new System.Drawing.Size(100, 22);
             this.textBoxHorario.TabIndex = 8;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(22, 241);
+            this.btnCancelar.ForeColor = System.Drawing.Color.Red;
+            this.btnCancelar.Location = new System.Drawing.Point(28, 248);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(121, 23);
             this.btnCancelar.TabIndex = 9;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -132,9 +134,10 @@ namespace GraficaWinVeterinarias.Forms
             // 
             // btnConfirmar
             // 
-            this.btnConfirmar.Location = new System.Drawing.Point(132, 241);
+            this.btnConfirmar.ForeColor = System.Drawing.Color.Olive;
+            this.btnConfirmar.Location = new System.Drawing.Point(166, 248);
             this.btnConfirmar.Name = "btnConfirmar";
-            this.btnConfirmar.Size = new System.Drawing.Size(75, 23);
+            this.btnConfirmar.Size = new System.Drawing.Size(129, 23);
             this.btnConfirmar.TabIndex = 10;
             this.btnConfirmar.Text = "Confirmar";
             this.btnConfirmar.UseVisualStyleBackColor = true;
@@ -144,11 +147,22 @@ namespace GraficaWinVeterinarias.Forms
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(19, 212);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(288, 17);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Los campos indicados con * son obligatorios";
+            // 
             // NuevoVeterinario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(319, 450);
+            this.ClientSize = new System.Drawing.Size(335, 300);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnConfirmar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.textBoxHorario);
@@ -161,7 +175,7 @@ namespace GraficaWinVeterinarias.Forms
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtCedula);
             this.Name = "NuevoVeterinario";
-            this.Text = "NuevoVeterinario";
+            this.Text = "Nuevo veterinario";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -182,5 +196,6 @@ namespace GraficaWinVeterinarias.Forms
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnConfirmar;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -52,5 +52,25 @@ namespace GraficaWinVeterinarias
             FrmGestionClientes.Owner = this;  
             FrmGestionClientes.Show();
         }
+
+        private void cargarDatosInicialesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                fachadaWin.CrearDB();
+                fachadaWin.CrearTablas();
+                fachadaWin.CargarDatos();
+                MessageBox.Show("Creación y carga inicial de datos finalizada", "Gestion Veterinaria - Cargando datos iniciales", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Gestion Veterinaria - Cargando datos iniciales", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+
+        }
     }
 }

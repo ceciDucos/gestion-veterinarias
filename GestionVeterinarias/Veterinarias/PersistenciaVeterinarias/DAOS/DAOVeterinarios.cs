@@ -160,6 +160,39 @@ namespace PersistenciaVeterinarias.DAOS
 
             return listVeterinarios;
         }
+
+        public VOVeterinario Get(SqlConnection connection, long InCedula)
+        {
+
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("select p.cedula, p.nombre, p.telefono, v.horario");
+            sb.Append(" from Persona p, Veterinario v");
+            sb.AppendFormat(" where p.cedula = {0}", InCedula.ToString());
+
+            SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = selectCommand;
+
+            // creo y cargo el dataset
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Veterinario");
+            VOVeterinario voveterinario = new VOVeterinario(); 
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+
+                long cedula = Convert.ToInt32(dr["cedula"]);
+                string nombre = Convert.ToString(dr["nombre"]);
+                string telefono = Convert.ToString(dr["telefono"]);
+                string horario = Convert.ToString(dr["horario"]);
+
+                voveterinario = new VOVeterinario(cedula, nombre, telefono, horario);
+            }
+
+            return voveterinario;
+
+        }
     }
     
 }

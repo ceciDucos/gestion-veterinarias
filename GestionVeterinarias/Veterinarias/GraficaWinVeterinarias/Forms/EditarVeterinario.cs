@@ -12,21 +12,27 @@ using System.Windows.Forms;
 
 namespace GraficaWinVeterinarias.Forms
 {
-    public partial class NuevoVeterinario : Form
+    public partial class EditarVeterinario : Form
     {
         private FachadaWin facadaWin;
-
-       
-        public NuevoVeterinario(FachadaWin facadaWin)
+        long cedula;
+        public EditarVeterinario(FachadaWin facadaWin, long cedula)
         {
+            
             InitializeComponent();
             this.facadaWin = facadaWin;
+            this.cedula = cedula;
+            PreCargarForm(cedula);
 
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
+        private void PreCargarForm(long cedula) {
+            VOVeterinario veterinario = facadaWin.ObtenerVeterinario(cedula);
+            lblCedulaValor.Text = veterinario.Cedula.ToString();
+            textBoxNombre.Text = veterinario.Nombre;
+            textBoxNombre.Focus();
+            textBoxTelefono.Text = veterinario.Telefono;
+            textBoxHorario.Text = veterinario.Horario;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -34,34 +40,26 @@ namespace GraficaWinVeterinarias.Forms
             this.Close();
         }
 
-        private void btbConfirmar_Click(object sender, EventArgs e)
+        private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            if (ValidarDatos()) {
+            if (ValidarDatos())
+            {
                 VOVeterinario voveterianrio = CrearVO();
-                facadaWin.CrearVeterinario(voveterianrio);
-                MessageBox.Show("Veterinario ingresado con exito", "Gestion Veterinaria", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                BorrarDatos();
+                facadaWin.EditarVeterinario(voveterianrio);
+                MessageBox.Show("Veterinario editado con exito", "Gestion Veterinaria", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }
-
-        private void BorrarDatos() {
-            TextBoxCedula.Text = String.Empty;
-            textBoxNombre.Text = String.Empty;
-            textBoxTelefono.Text = String.Empty;
-            textBoxHorario.Text = String.Empty;
-
         }
 
         private VOVeterinario CrearVO()
         {
-            VOVeterinario voveterinario = new VOVeterinario(Convert.ToInt64(TextBoxCedula.Text), textBoxNombre.Text,
+            VOVeterinario voveterinario = new VOVeterinario(Convert.ToInt64(this.cedula), textBoxNombre.Text,
                 textBoxTelefono.Text, textBoxHorario.Text);
             return voveterinario;
         }
 
-        private bool ValidarDatos() {
+        private bool ValidarDatos()
+        {
             bool exito = false;
-            exito = ValidarCedula();
             exito = ValidarNombre();
             exito = ValidarTelefono();
             exito = ValidarHorario();
@@ -69,18 +67,7 @@ namespace GraficaWinVeterinarias.Forms
 
         }
 
-        private bool ValidarCedula()
-        {
-            bool bStatus = true;
-            if (TextBoxCedula.Text == "")
-            {
-                errorProvider1.SetError(TextBoxCedula, "Por favor ingrese la cedula");
-                bStatus = false;
-            }
-            else
-                errorProvider1.SetError(TextBoxCedula, "");
-            return bStatus;
-        }
+       
 
         private bool ValidarNombre()
         {
@@ -121,7 +108,7 @@ namespace GraficaWinVeterinarias.Forms
             return bStatus;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void EditarVeterinario_Load(object sender, EventArgs e)
         {
 
         }

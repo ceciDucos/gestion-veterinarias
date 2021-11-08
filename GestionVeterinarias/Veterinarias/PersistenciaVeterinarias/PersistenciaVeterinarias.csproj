@@ -52,6 +52,7 @@
     <Compile Include="DAOS\DAOConsultas.cs" />
     <Compile Include="DAOS\DAOMascotas.cs" />
     <Compile Include="DAOS\DAOVeterinarias.cs" />
+    <Compile Include="DAOS\DAOSistema.cs" />
     <Compile Include="DAOS\DAOVeterinarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
