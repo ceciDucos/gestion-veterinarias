@@ -49,7 +49,9 @@ namespace GraficaWinVeterinarias.Forms
             NuevoVeterinario FrmNuevoVeterinario;
             FrmNuevoVeterinario = new NuevoVeterinario(this.fachadaWin);
             FrmNuevoVeterinario.Owner = this;  // <-- This is the important thing
-            FrmNuevoVeterinario.Show();
+            FrmNuevoVeterinario.ShowDialog();
+            listView1.Items.Clear();
+            CargarLista();
         }
 
 

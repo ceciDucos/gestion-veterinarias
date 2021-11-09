@@ -168,10 +168,13 @@ namespace LogicaVeterinarias.Controller
             {
                 connection = manejadorConexion.GetConnection();
                 connection.Open();
-                if (!daoVeterinarios.Member(connection, cedula)) 
+                if (!daoVeterinarios.Member(connection, cedula))
                 {
                     Veterinario veterinario = new Veterinario(cedula, nombre, telefono, horario);
                     daoVeterinarios.Add(connection, veterinario);
+                }
+                else {
+                    throw new PersistenciaException("La cedula que intenta dar de alta ya está registrada");
                 }
             }
             catch (SqlException)

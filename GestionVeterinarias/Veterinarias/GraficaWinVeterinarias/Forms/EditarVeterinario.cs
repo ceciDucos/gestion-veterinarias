@@ -43,12 +43,19 @@ namespace GraficaWinVeterinarias.Forms
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            if (ValidarDatos())
+            try
             {
                 VOVeterinario voveterianrio = CrearVO();
                 facadaWin.EditarVeterinario(voveterianrio);
                 MessageBox.Show("Veterinario editado con exito", "Gestion Veterinaria", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Gestion Veterinaria", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private VOVeterinario CrearVO()

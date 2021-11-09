@@ -37,10 +37,19 @@ namespace GraficaWinVeterinarias.Forms
         private void btbConfirmar_Click(object sender, EventArgs e)
         {
             if (ValidarDatos()) {
-                VOVeterinario voveterianrio = CrearVO();
-                facadaWin.CrearVeterinario(voveterianrio);
-                MessageBox.Show("Veterinario ingresado con exito", "Gestion Veterinaria", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                BorrarDatos();
+
+                try
+                {
+                    VOVeterinario voveterianrio = CrearVO();
+                    facadaWin.CrearVeterinario(voveterianrio);
+                    MessageBox.Show("Veterinario ingresado con exito", "Gestion Veterinaria", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    BorrarDatos();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Gestion Veterinaria", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }                
             }
         }
 
