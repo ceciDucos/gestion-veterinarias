@@ -353,7 +353,8 @@ namespace LogicaVeterinarias.Controller
             try
             {
                 connection = manejadorConexion.GetConnection();
-                daoMascotas.Add(connection, new Mascota(vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia));
+                daoMascotas.Add(connection, new Mascota(vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia, 
+                    new CarnetInscripcion(vomascota.CarnetInscripcion.Foto)));
             }
             catch (SqlException)
             {
@@ -372,7 +373,7 @@ namespace LogicaVeterinarias.Controller
             try
             {
                 connection = manejadorConexion.GetConnection();
-                daoMascotas.Edit(connection, new Mascota(vomascota.Id, vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia));
+                daoMascotas.Edit(connection, new Mascota(vomascota.Id, vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia, new CarnetInscripcion(vomascota.CarnetInscripcion.Numero, vomascota.CarnetInscripcion.Expedido, vomascota.CarnetInscripcion.Foto)));
             }
             catch (SqlException)
             {
@@ -432,13 +433,13 @@ namespace LogicaVeterinarias.Controller
         }
 
         //[WebMethod]
-        public void CrearCarnet(byte[] foto)
+        public void CrearCarnet(byte[] foto, int idMascota)
         {
             SqlConnection connection = null;
             try
             {
                 connection = manejadorConexion.GetConnection();
-                daoCarnetInscripcion.Add(connection, foto);
+                daoCarnetInscripcion.Add(connection, foto, idMascota);
             }
             catch (SqlException)
             {
@@ -480,8 +481,11 @@ namespace LogicaVeterinarias.Controller
                 if (!daoConsultas.Member(connection, voconsulta.Mascota.Id, voconsulta.Fecha))
                 {
                     VOMascota voMascota = voconsulta.Mascota;
-                    Mascota mascota = new Mascota(voMascota.Id, voMascota.Animal, voMascota.Nombre, voMascota.Raza, voMascota.Edad, voMascota.VacunaAlDia);
-                    Consulta consulta = new Consulta(voconsulta.Numero, voconsulta.Calificacion, voconsulta.Fecha, voconsulta.Descripcion, mascota);
+                    Mascota mascota = new Mascota(voMascota.Id, voMascota.Animal, voMascota.Nombre, voMascota.Raza, voMascota.Edad,
+                        voMascota.VacunaAlDia, new CarnetInscripcion(voMascota.CarnetInscripcion.Numero,
+                        voMascota.CarnetInscripcion.Expedido, voMascota.CarnetInscripcion.Foto));
+                    Consulta consulta = new Consulta(voconsulta.Numero, voconsulta.Calificacion, voconsulta.Fecha,
+                        voconsulta.Descripcion, mascota);
                     daoConsultas.Add(connection, consulta);
                 }
                 else
@@ -525,7 +529,9 @@ namespace LogicaVeterinarias.Controller
                 if (daoConsultas.MemberId(connection, voconsulta.Numero))
                 {
                     Mascota mascota = new Mascota(voconsulta.Mascota.Id, voconsulta.Mascota.Animal, voconsulta.Mascota.Nombre, 
-                        voconsulta.Mascota.Raza, voconsulta.Mascota.Edad, voconsulta.Mascota.VacunaAlDia);
+                        voconsulta.Mascota.Raza, voconsulta.Mascota.Edad, voconsulta.Mascota.VacunaAlDia,
+                        new CarnetInscripcion(voconsulta.Mascota.CarnetInscripcion.Numero,
+                        voconsulta.Mascota.CarnetInscripcion.Expedido, voconsulta.Mascota.CarnetInscripcion.Foto));
 
                     Consulta consulta = new Consulta(voconsulta.Numero, voconsulta.Calificacion, voconsulta.Fecha,
                         voconsulta.Descripcion, mascota);

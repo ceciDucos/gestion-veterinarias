@@ -10,11 +10,11 @@ namespace ModelosVeterinarias.Classes
         public Raza Raza { get; set; }
         public int Edad { get; set; }
         public bool VacunasAlDia { get; set; }
-        //public CarnetInscripcion CarnetInscripcion { get; set; }
+        public CarnetInscripcion CarnetInscripcion { get; set; }
 
         public Mascota() { }
 
-        public Mascota(int id, TipoAnimal tipo, string nombre, Raza raza, int edad, bool vacunasAlDia)
+        public Mascota(int id, TipoAnimal tipo, string nombre, Raza raza, int edad, bool vacunasAlDia, CarnetInscripcion carnet)
         {
             this.Id = id;
             this.TipoAnimal = tipo;
@@ -22,15 +22,17 @@ namespace ModelosVeterinarias.Classes
             this.Raza = raza;
             this.Edad = edad;
             this.VacunasAlDia = vacunasAlDia;
+            this.CarnetInscripcion = carnet;
         }
 
-        public Mascota(TipoAnimal tipo, string nombre, Raza raza, int edad, bool vacunasAlDia) 
+        public Mascota(TipoAnimal tipo, string nombre, Raza raza, int edad, bool vacunasAlDia, CarnetInscripcion carnet) 
         {
             this.TipoAnimal = tipo;
             this.Nombre = nombre;
             this.Raza = raza;
             this.Edad = edad;
             this.VacunasAlDia = vacunasAlDia;
+            this.CarnetInscripcion = carnet;
         }
 
         /*public void AddCarnet(CarnetInscripcion carnet)

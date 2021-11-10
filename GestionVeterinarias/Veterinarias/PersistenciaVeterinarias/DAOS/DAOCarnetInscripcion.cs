@@ -13,9 +13,9 @@ namespace PersistenciaVeterinarias.DAOS
     {
         public DAOCarnetInscripcion() { }
 
-        public void Add(SqlConnection connection, byte[] foto)
+        public void Add(SqlConnection connection, byte[] foto, int idMascota)
         {
-            SqlCommand command = new SqlCommand("INSERT INTO CarnetInscripcion (expedido, foto) VALUES (CAST( GETDATE() AS Date ), @Foto)", connection);
+            SqlCommand command = new SqlCommand("INSERT INTO CarnetInscripcion (expedido, foto, idMascota) VALUES (CAST( GETDATE() AS Date ), @Foto, @IdMascota)", connection);
 
             SqlParameter fotoParameter = new SqlParameter()
             {
@@ -24,7 +24,15 @@ namespace PersistenciaVeterinarias.DAOS
                 SqlDbType = SqlDbType.Image
             };
 
+            SqlParameter idMascotaParameter = new SqlParameter()
+            {
+                ParameterName = "@IdMascota",
+                Value = idMascota,
+                SqlDbType = SqlDbType.Int
+            };
+
             command.Parameters.Add(fotoParameter);
+            command.Parameters.Add(idMascotaParameter);
 
             connection.Open();
             command.ExecuteNonQuery();

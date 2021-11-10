@@ -20,5 +20,10 @@ namespace ModelosVeterinarias.Classes
             this.Expedido = fecha;
             this.Foto = foto;
         }
+
+        public CarnetInscripcion(byte[] foto)
+        {
+            this.Foto = foto;
+        }
     }
 }
