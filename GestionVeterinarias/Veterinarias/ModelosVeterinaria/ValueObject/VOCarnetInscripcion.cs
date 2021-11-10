@@ -14,6 +14,8 @@ namespace ModelosVeterinarias.ValueObject
         public DateTime Expedido { get; }
         public byte[] Foto { get; }
 
+        public VOCarnetInscripcion() { }
+
         public VOCarnetInscripcion(int numero, DateTime expedido, byte[] foto)
         {
             this.numero = numero;

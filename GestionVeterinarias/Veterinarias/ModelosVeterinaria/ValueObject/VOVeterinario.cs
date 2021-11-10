@@ -12,6 +12,9 @@ namespace ModelosVeterinarias.ValueObject
         public string Nombre { get; }
         public string Telefono { get; }
         public string Horario { get; }
+
+        public VOVeterinario(){}
+
         public VOVeterinario(long cedula, string nombre, string telefono, string horario)
         {
             this.Cedula = cedula;

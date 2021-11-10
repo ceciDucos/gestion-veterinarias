@@ -12,6 +12,8 @@
         public bool VacunaAlDia { get; }
         public VOCarnetInscripcion CarnetInscripcion { get; }
 
+        public VOMascota() { }
+
         public VOMascota(int id, TipoAnimal animal, string nombre, Raza raza, int edad, bool vacunaAlDia, VOCarnetInscripcion carnet)
         {
             this.id = id;
