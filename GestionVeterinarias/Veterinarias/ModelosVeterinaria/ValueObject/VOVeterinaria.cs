@@ -12,9 +12,11 @@ namespace ModelosVeterinarias.ValueObject
         public string Nombre { get; }
         public string Direccion { get; }
         public string Telefono { get; }
-        public Dictionary<long, VOVeterinario> Veterinarios { get; }
-        public Dictionary<long, VOCliente> Clientes { get; }
-        public Dictionary<int, VOConsulta> Consultas { get; }
+        public List<VOVeterinario> Veterinarios { get; }
+        public List<VOCliente> Clientes { get; }
+        public List<VOConsulta> Consultas { get; }
+
+        public VOVeterinaria(){}
 
         public VOVeterinaria(int id, string nombre, string direccion, string telefono)
         {
@@ -22,9 +24,9 @@ namespace ModelosVeterinarias.ValueObject
             this.Nombre = nombre;
             this.Direccion = direccion;
             this.Telefono = telefono;
-            this.Veterinarios = new Dictionary<long, VOVeterinario>();
-            this.Clientes = new Dictionary<long, VOCliente>();
-            this.Consultas = new Dictionary<int, VOConsulta>();
+            this.Veterinarios = new List<VOVeterinario>();
+            this.Clientes = new List<VOCliente>();
+            this.Consultas = new List<VOConsulta>();
         }
 
         public VOVeterinaria(string nombre, string direccion, string telefono)
@@ -32,9 +34,9 @@ namespace ModelosVeterinarias.ValueObject
             this.Nombre = nombre;
             this.Direccion = direccion;
             this.Telefono = telefono;
-            this.Veterinarios = new Dictionary<long, VOVeterinario>();
-            this.Clientes = new Dictionary<long, VOCliente>();
-            this.Consultas = new Dictionary<int, VOConsulta>();
+            this.Veterinarios = new List<VOVeterinario>();
+            this.Clientes = new List<VOCliente>();
+            this.Consultas = new List<VOConsulta>();
         }
     }
 }
