@@ -353,8 +353,19 @@ namespace LogicaVeterinarias.Controller
             try
             {
                 connection = manejadorConexion.GetConnection();
-                daoMascotas.Add(connection, new Mascota(vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia, 
+                connection.Open();
+                if (daoClientes.Member(connection, vomascota.cedulaCliente))
+                {
+                    Console.WriteLine("1");
+                    daoMascotas.Add(connection, new Mascota(vomascota.cedulaCliente, vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia,
                     new CarnetInscripcion(vomascota.CarnetInscripcion.Foto)));
+                    Console.WriteLine("2");
+                }
+                else
+                {
+                    string error = string.Format("No existe una persona con cedula {0} en el sistema", vomascota.cedulaCliente);
+                    throw new PersonaException(error);
+                }
             }
             catch (SqlException)
             {
@@ -363,6 +374,13 @@ namespace LogicaVeterinarias.Controller
             catch (Exception)
             {
                 throw new GeneralException("Ocurrió un error al crear la mascota");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -373,7 +391,7 @@ namespace LogicaVeterinarias.Controller
             try
             {
                 connection = manejadorConexion.GetConnection();
-                daoMascotas.Edit(connection, new Mascota(vomascota.Id, vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia, new CarnetInscripcion(vomascota.CarnetInscripcion.Numero, vomascota.CarnetInscripcion.Expedido, vomascota.CarnetInscripcion.Foto)));
+                daoMascotas.Edit(connection, new Mascota(vomascota.Id, vomascota.cedulaCliente, vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia, new CarnetInscripcion(vomascota.CarnetInscripcion.Numero, vomascota.CarnetInscripcion.Expedido, vomascota.CarnetInscripcion.Foto)));
             }
             catch (SqlException)
             {
@@ -386,16 +404,18 @@ namespace LogicaVeterinarias.Controller
         }
 
         //[WebMethod]
-        public void   EliminarMascota(int num)
+        public void   EliminarMascota(int id)
         {
             SqlConnection connection = null;
             try
             {
                 connection = manejadorConexion.GetConnection();
-                daoMascotas.Delete(connection, num);
+                daoCarnetInscripcion.Delete(connection, id);
+                daoMascotas.Delete(connection, id);
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
+                Console.WriteLine(e);
                 throw new PersistenciaException("Ocurrió un error eliminando la mascota");
             }
             catch (Exception)
@@ -467,6 +487,26 @@ namespace LogicaVeterinarias.Controller
             catch (Exception)
             {
                 throw new GeneralException("Ocurrió un error al crear el carnet");
+            }
+        }
+
+        //[WebMethod]
+        public void EliminarCarnet(int num)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                daoCarnetInscripcion.Delete(connection, num);
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e);
+                throw new PersistenciaException("Ocurrió un error eliminando el carnet");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al eliminar el carnet");
             }
         }
 
