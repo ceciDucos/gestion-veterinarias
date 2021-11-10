@@ -9,7 +9,8 @@ namespace ModelosVeterinarias.Classes
 {
     public class Veterinaria
     {
-        public int Id { get; }
+        private int id;
+        public int Id { get { return id; } }
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
@@ -19,8 +20,19 @@ namespace ModelosVeterinarias.Classes
 
         public Veterinaria() { }
 
+        public Veterinaria(string nombre, string direccion, string telefono)
+        {
+            this.Nombre = nombre;
+            this.Direccion = direccion;
+            this.Telefono = telefono;
+            this.DiccionarioVeterinarios = new Dictionary<long, Veterinario>();
+            this.DiccionarioClientes = new Dictionary<long, Cliente>();
+            this.DiccionarioConsultas = new Dictionary<int, Consulta>();
+        }
+
         public Veterinaria(int id, string nombre, string direccion, string telefono)
-        { 
+        {
+            this.id = id;
             this.Nombre = nombre;
             this.Direccion = direccion;
             this.Telefono = telefono;
