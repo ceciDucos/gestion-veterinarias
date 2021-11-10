@@ -13,6 +13,9 @@ namespace ModelosVeterinarias.ValueObject
         public string Descripcion { get; }
         public int Calificacion { get; }
         public VOMascota Mascota { get; }
+
+        public VOConsulta() { }
+
         public VOConsulta(int numero, DateTime fecha, string descripcion, int calificacion, VOMascota mascota)
         {
             this.Numero = numero;

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsolaVeterinarias", "Cons
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelosVeterinarias", "ModelosVeterinaria\ModelosVeterinarias.csproj", "{7C7E48F5-4CBB-4049-9679-870D1B69F638}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServiceVeterinarias", "WebServiceVeterinarias\WebServiceVeterinarias.csproj", "{C8D7C26B-4624-4574-931D-559968AA438B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7C7E48F5-4CBB-4049-9679-870D1B69F638}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C7E48F5-4CBB-4049-9679-870D1B69F638}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C7E48F5-4CBB-4049-9679-870D1B69F638}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8D7C26B-4624-4574-931D-559968AA438B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8D7C26B-4624-4574-931D-559968AA438B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8D7C26B-4624-4574-931D-559968AA438B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8D7C26B-4624-4574-931D-559968AA438B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

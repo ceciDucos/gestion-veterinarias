@@ -4,6 +4,7 @@ using ModelosVeterinarias.ValueObject;
 using ModelosVeterinarias.Classes;
 using ModelosVeterinarias.ExceptionClasses;
 using PersistenciaVeterinarias.DAOS;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 //using System.Web.Services;
 
@@ -17,6 +18,7 @@ namespace LogicaVeterinarias.Controller
         private DAOClientes daoClientes;
         private DAOMascotas daoMascotas;
         private DAOVeterinarios daoVeterinarios;
+        private DAOSistema daoSistema;
         private ManejadorConexion manejadorConexion;
         private DAOConsultas daoConsultas;
 
@@ -28,10 +30,96 @@ namespace LogicaVeterinarias.Controller
             daoClientes = new DAOClientes();
             daoMascotas = new DAOMascotas();
             daoVeterinarios = new DAOVeterinarios();
+            daoSistema = new DAOSistema();
             manejadorConexion = ManejadorConexion.GetInstance();
             daoConsultas = new DAOConsultas();
 
         }
+
+        public void CrearDB()
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                daoSistema.CrearDB(connection);
+
+            }
+            catch (SqlException ex)
+            {
+                string error = String.Format("Ocurrió un error al crear las tablas. El error recibido fue {0}", ex.Message);
+                throw new PersistenciaException(error);
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public void CrearTablas()
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                daoSistema.CrearTablas(connection);
+
+            }
+            catch (SqlException ex)
+            {
+                string error = String.Format("Ocurrió un error al crear las tablas. El error recibido fue {0}", ex.Message);
+                throw new PersistenciaException(error);
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public void CargarDatos()
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                daoSistema.CargarDatos(connection);
+
+            }
+            catch (SqlException ex)
+            {
+                string error = String.Format("Ocurrió un error al crear las tablas. El error recibido fue {0}", ex.Message);
+                throw new PersistenciaException(error);
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
+
 
         //[WebMethod]
         public void CrearVeterianaria(VOVeterinaria voveterinaria)
@@ -90,6 +178,35 @@ namespace LogicaVeterinarias.Controller
             }
         }
 
+
+        public List<VOVeterinario> ObtenerVeterinarios() {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                List<VOVeterinario> listVeterinarios = daoVeterinarios.List(connection);
+                return listVeterinarios;
+
+
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                throw new PersistenciaException("Ocurrió un error al obtener los datos");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
         //[WebMethod]
         public void CrearVeterinario(VOVeterinario voveterinario)
         {
@@ -103,10 +220,13 @@ namespace LogicaVeterinarias.Controller
             {
                 connection = manejadorConexion.GetConnection();
                 connection.Open();
-                if (!daoVeterinarios.Member(connection, cedula)) 
+                if (!daoVeterinarios.Member(connection, cedula))
                 {
                     Veterinario veterinario = new Veterinario(cedula, nombre, telefono, horario);
                     daoVeterinarios.Add(connection, veterinario);
+                }
+                else {
+                    throw new PersistenciaException("La cedula que intenta dar de alta ya está registrada");
                 }
             }
             catch (SqlException)
@@ -205,6 +325,36 @@ namespace LogicaVeterinarias.Controller
                 }
             }
 
+        }
+
+        public VOVeterinario ObtenerVeterinario(long cedula)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                VOVeterinario voveterinario = daoVeterinarios.Get(connection, cedula);
+                return voveterinario;
+
+
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                throw new PersistenciaException("Ocurrió un error al obtener los datos");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         //[WebMethod]
@@ -356,10 +506,8 @@ namespace LogicaVeterinarias.Controller
                 connection.Open();
                 if (daoClientes.Member(connection, vomascota.cedulaCliente))
                 {
-                    Console.WriteLine("1");
                     daoMascotas.Add(connection, new Mascota(vomascota.cedulaCliente, vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia,
                     new CarnetInscripcion(vomascota.CarnetInscripcion.Foto)));
-                    Console.WriteLine("2");
                 }
                 else
                 {

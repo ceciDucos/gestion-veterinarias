@@ -16,6 +16,9 @@ namespace ModelosVeterinarias.ValueObject
         public string Clave { get; }
         public bool Activo { get; }
         public List<VOMascota> Mascotas { get; }
+
+        public VOCliente() { }
+
         public VOCliente(long cedula, string nombre, string telefono, string direccion, string correo, string clave, bool activo)
         {
             this.Cedula = cedula;

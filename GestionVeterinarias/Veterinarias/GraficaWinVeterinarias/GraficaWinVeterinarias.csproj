@@ -46,11 +46,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\AltaVeterinario.cs">
+    <Compile Include="Forms\EditarVeterinario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AltaVeterinario.Designer.cs">
-      <DependentUpon>AltaVeterinario.cs</DependentUpon>
+    <Compile Include="Forms\EditarVeterinario.Designer.cs">
+      <DependentUpon>EditarVeterinario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GestionClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GestionClientes.Designer.cs">
+      <DependentUpon>GestionClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GestionVeterinarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GestionVeterinarios.Designer.cs">
+      <DependentUpon>GestionVeterinarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NuevoVeterinario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NuevoVeterinario.Designer.cs">
+      <DependentUpon>NuevoVeterinario.cs</DependentUpon>
     </Compile>
     <Compile Include="Principal.cs">
       <SubType>Form</SubType>
@@ -60,6 +78,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\EditarVeterinario.resx">
+      <DependentUpon>EditarVeterinario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GestionVeterinarios.resx">
+      <DependentUpon>GestionVeterinarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NuevoVeterinario.resx">
+      <DependentUpon>NuevoVeterinario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,9 +117,17 @@
     <Folder Include="Windows\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ConsolaVeterinarias\ConsolaVeterinarias.csproj">
+      <Project>{d4a85088-5595-4c49-b36c-ad3778aaf383}</Project>
+      <Name>ConsolaVeterinarias</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogicaVeterinarias\LogicaVeterinarias.csproj">
       <Project>{bc885c91-8b5e-4307-bc1b-6629462bba16}</Project>
       <Name>LogicaVeterinarias</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModelosVeterinaria\ModelosVeterinarias.csproj">
+      <Project>{7c7e48f5-4cbb-4049-9679-870d1b69f638}</Project>
+      <Name>ModelosVeterinarias</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
