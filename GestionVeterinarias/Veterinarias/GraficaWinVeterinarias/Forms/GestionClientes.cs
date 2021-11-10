@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GraficaWinVeterinarias.Forms
 {
-    public partial class AltaVeterinario : Form
+    public partial class GestionClientes : Form
     {
-        public AltaVeterinario()
+        public GestionClientes()
         {
             InitializeComponent();
         }
