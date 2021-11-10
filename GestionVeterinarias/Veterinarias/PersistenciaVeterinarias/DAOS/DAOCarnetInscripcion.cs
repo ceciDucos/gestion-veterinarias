@@ -34,9 +34,9 @@ namespace PersistenciaVeterinarias.DAOS
             command.Parameters.Add(fotoParameter);
             command.Parameters.Add(idMascotaParameter);
 
-            connection.Open();
+            //connection.Open();
             command.ExecuteNonQuery();
-            connection.Close();
+            //connection.Close();
         }
 
         public void Edit(SqlConnection connection, CarnetInscripcion carnet)
@@ -67,6 +67,22 @@ namespace PersistenciaVeterinarias.DAOS
             command.Parameters.Add(idParameter);
             command.Parameters.Add(expedidoParameter);
             command.Parameters.Add(fotoParameter);
+
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public void Delete(SqlConnection connection, int id)
+        {
+            SqlCommand command = new SqlCommand("DELETE FROM carnetInscripcion WHERE idMascota = @Id", connection);
+            SqlParameter numParameter = new SqlParameter()
+            {
+                ParameterName = "@Id",
+                Value = id,
+                SqlDbType = SqlDbType.Int
+            };
+            command.Parameters.Add(numParameter);
 
             connection.Open();
             command.ExecuteNonQuery();

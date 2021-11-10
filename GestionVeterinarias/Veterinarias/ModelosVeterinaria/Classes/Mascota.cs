@@ -5,6 +5,7 @@ namespace ModelosVeterinarias.Classes
     public class Mascota
     {
         public int Id { get; }
+        public long CedulaCliente { get; set; }
         public TipoAnimal TipoAnimal { get; set; }
         public string Nombre { get; set; }
         public Raza Raza { get; set; }
@@ -14,9 +15,10 @@ namespace ModelosVeterinarias.Classes
 
         public Mascota() { }
 
-        public Mascota(int id, TipoAnimal tipo, string nombre, Raza raza, int edad, bool vacunasAlDia, CarnetInscripcion carnet)
+        public Mascota(int id, long cedulaCliente, TipoAnimal tipo, string nombre, Raza raza, int edad, bool vacunasAlDia, CarnetInscripcion carnet)
         {
             this.Id = id;
+            this.CedulaCliente = cedulaCliente;
             this.TipoAnimal = tipo;
             this.Nombre = nombre;
             this.Raza = raza;
@@ -25,8 +27,9 @@ namespace ModelosVeterinarias.Classes
             this.CarnetInscripcion = carnet;
         }
 
-        public Mascota(TipoAnimal tipo, string nombre, Raza raza, int edad, bool vacunasAlDia, CarnetInscripcion carnet) 
+        public Mascota(long cedulaCliente, TipoAnimal tipo, string nombre, Raza raza, int edad, bool vacunasAlDia, CarnetInscripcion carnet)
         {
+            this.CedulaCliente = cedulaCliente;
             this.TipoAnimal = tipo;
             this.Nombre = nombre;
             this.Raza = raza;

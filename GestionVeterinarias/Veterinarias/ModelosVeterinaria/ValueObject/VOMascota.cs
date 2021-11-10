@@ -5,6 +5,7 @@
         private int id;
 
         public int Id { get { return id; } }
+        public long cedulaCliente { get; }
         public TipoAnimal Animal { get; }
         public string Nombre { get; }
         public Raza Raza { get; }
@@ -14,9 +15,10 @@
 
         public VOMascota() { }
 
-        public VOMascota(int id, TipoAnimal animal, string nombre, Raza raza, int edad, bool vacunaAlDia, VOCarnetInscripcion carnet)
+        public VOMascota(int id, long cedulaCliente, TipoAnimal animal, string nombre, Raza raza, int edad, bool vacunaAlDia, VOCarnetInscripcion carnet)
         {
             this.id = id;
+            this.cedulaCliente = cedulaCliente;
             this.Animal = animal;
             this.Nombre = nombre;
             this.Raza = raza;
@@ -25,8 +27,9 @@
             this.CarnetInscripcion = carnet;
         }
 
-        public VOMascota(TipoAnimal animal, string nombre, Raza raza, int edad, bool vacunaAlDia, VOCarnetInscripcion carnet)
+        public VOMascota(long cedulaCliente, TipoAnimal animal, string nombre, Raza raza, int edad, bool vacunaAlDia, VOCarnetInscripcion carnet)
         {
+            this.cedulaCliente = cedulaCliente;
             this.Animal = animal;
             this.Nombre = nombre;
             this.Raza = raza;

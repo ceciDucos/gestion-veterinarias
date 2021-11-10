@@ -12,7 +12,7 @@ namespace PersistenciaVeterinarias.DAOS
         #region Agregar una Mascota
         public void Add(SqlConnection connection, Mascota mascota)
         {
-            SqlCommand command = new SqlCommand("INSERT INTO mascota (tipo, nombre, raza, edad, vacunas) VALUES (@Tipo, @Nombre, @Raza, @Edad, @Vacunas); SELECT CAST(scope_identity() AS int)", connection);
+            SqlCommand command = new SqlCommand("INSERT INTO mascota (tipo, nombre, raza, edad, vacunas, cedulaCliente) VALUES (@Tipo, @Nombre, @Raza, @Edad, @Vacunas, @CedulaCliente); SELECT CAST(scope_identity() AS int)", connection);
             SqlParameter tipoParameter = new SqlParameter()
             {
                 ParameterName = "@Tipo",
@@ -43,15 +43,22 @@ namespace PersistenciaVeterinarias.DAOS
                 Value = mascota.VacunasAlDia,
                 SqlDbType = SqlDbType.Bit
             };
+            SqlParameter cedulaParameter = new SqlParameter()
+            {
+                ParameterName = "@CedulaCliente",
+                Value = mascota.CedulaCliente,
+                SqlDbType = SqlDbType.BigInt
+            };
             command.Parameters.Add(tipoParameter);
             command.Parameters.Add(nombreParameter);
             command.Parameters.Add(razaParameter);
             command.Parameters.Add(edadParameter);
             command.Parameters.Add(vacunasParameter);
+            command.Parameters.Add(cedulaParameter);
 
-            connection.Open();
+            //connection.Open();
             int id = (int)command.ExecuteScalar();
-            connection.Close();
+            //connection.Close();
 
             DAOCarnetInscripcion daoCarnetInscripcion = new DAOCarnetInscripcion();
             daoCarnetInscripcion.Add(connection, mascota.CarnetInscripcion.Foto, id);
@@ -61,7 +68,7 @@ namespace PersistenciaVeterinarias.DAOS
         #region Consultar existencia de Mascota
         public bool Member(SqlConnection connection, int id)
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Mascotas WHERE id = @Id", connection);
+            SqlCommand command = new SqlCommand("SELECT * FROM mascota WHERE id = @Id", connection);
             SqlParameter idParameter = new SqlParameter()
             {
                 ParameterName = "@Id",
@@ -80,7 +87,7 @@ namespace PersistenciaVeterinarias.DAOS
         #region Editar Mascota
         public void Edit(SqlConnection connection, Mascota mascota)
         {
-            SqlCommand command = new SqlCommand("UPDATE Mascotas SET tipo = @Tipo, nombre = @Nombre, raza=@Raza, edad=@Edad, vacunas=@Vacunas WHERE id = @Id", connection);
+            SqlCommand command = new SqlCommand("UPDATE mascota SET tipo = @Tipo, nombre = @Nombre, raza=@Raza, edad=@Edad, vacunas=@Vacunas, cedulaCliente=@CedulaCliente WHERE id = @Id", connection);
             SqlParameter tipoParameter = new SqlParameter()
             {
                 ParameterName = "@Tipo",
@@ -117,12 +124,19 @@ namespace PersistenciaVeterinarias.DAOS
                 Value = mascota.Id,
                 SqlDbType = SqlDbType.Int
             };
+            SqlParameter cedulaParameter = new SqlParameter()
+            {
+                ParameterName = "@CedulaCliente",
+                Value = mascota.CedulaCliente,
+                SqlDbType = SqlDbType.BigInt
+            };
             command.Parameters.Add(tipoParameter);
             command.Parameters.Add(nombreParameter);
             command.Parameters.Add(razaParameter);
             command.Parameters.Add(edadParameter);
             command.Parameters.Add(vacunasParameter);
             command.Parameters.Add(idParameter);
+            command.Parameters.Add(cedulaParameter);
 
             connection.Open();
             command.ExecuteNonQuery();
@@ -133,7 +147,7 @@ namespace PersistenciaVeterinarias.DAOS
         #region Eliminar Mascota
         public void Delete(SqlConnection connection, int id)
         {
-            SqlCommand command = new SqlCommand("DELETE FROM Mascotas WHERE id = @Id", connection);
+            SqlCommand command = new SqlCommand("DELETE FROM mascota WHERE id = @Id", connection);
             SqlParameter idParameter = new SqlParameter()
             {
                 ParameterName = "@Id",
