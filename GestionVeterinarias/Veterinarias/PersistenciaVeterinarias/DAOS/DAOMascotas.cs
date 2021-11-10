@@ -12,7 +12,7 @@ namespace PersistenciaVeterinarias.DAOS
         #region Agregar una Mascota
         public void Add(SqlConnection connection, Mascota mascota)
         {
-            SqlCommand command = new SqlCommand("INSERT INTO mascota (tipo, nombre, raza, edad, vacunas) VALUES (@Tipo, @Nombre, @Raza, @Edad, @Vacunas)", connection);
+            SqlCommand command = new SqlCommand("INSERT INTO mascota (tipo, nombre, raza, edad, vacunas) VALUES (@Tipo, @Nombre, @Raza, @Edad, @Vacunas); SELECT CAST(scope_identity() AS int)", connection);
             SqlParameter tipoParameter = new SqlParameter()
             {
                 ParameterName = "@Tipo",
@@ -49,15 +49,12 @@ namespace PersistenciaVeterinarias.DAOS
             command.Parameters.Add(edadParameter);
             command.Parameters.Add(vacunasParameter);
 
-            Console.WriteLine("llego2");
             connection.Open();
-            Console.WriteLine("llego3");
-            command.ExecuteNonQuery();
-            Console.WriteLine("llego4");
+            int id = (int)command.ExecuteScalar();
             connection.Close();
 
             DAOCarnetInscripcion daoCarnetInscripcion = new DAOCarnetInscripcion();
-            daoCarnetInscripcion.Add(connection, mascota.CarnetInscripcion.Foto);
+            daoCarnetInscripcion.Add(connection, mascota.CarnetInscripcion.Foto, id);
         }
         #endregion
 

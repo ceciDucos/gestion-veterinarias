@@ -353,15 +353,11 @@ namespace LogicaVeterinarias.Controller
             try
             {
                 connection = manejadorConexion.GetConnection();
-                Console.WriteLine("llego");
                 daoMascotas.Add(connection, new Mascota(vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia, 
                     new CarnetInscripcion(vomascota.CarnetInscripcion.Foto)));
-
-                Console.WriteLine("paso");
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
-                Console.WriteLine(e);
                 throw new PersistenciaException("Ocurrió un error agregando una nueva mascota");
             }
             catch (Exception)
@@ -437,13 +433,13 @@ namespace LogicaVeterinarias.Controller
         }
 
         //[WebMethod]
-        public void CrearCarnet(byte[] foto)
+        public void CrearCarnet(byte[] foto, int idMascota)
         {
             SqlConnection connection = null;
             try
             {
                 connection = manejadorConexion.GetConnection();
-                daoCarnetInscripcion.Add(connection, foto);
+                daoCarnetInscripcion.Add(connection, foto, idMascota);
             }
             catch (SqlException)
             {
