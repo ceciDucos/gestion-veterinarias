@@ -16,7 +16,7 @@ namespace PersistenciaVeterinarias.DAOS
 
         public void Add(SqlConnection connection, Veterinaria veterinaria)
         {
-            SqlCommand command = new SqlCommand("INSERT INTO Veterinarias (nombre, direccion, telefono) VALUES (@Nombre, @Direccion, @Telefono)", connection);
+            SqlCommand command = new SqlCommand("INSERT INTO veterinaria (nombre, direccion, telefono) VALUES (@Nombre, @Direccion, @Telefono)", connection);
 
             SqlParameter nombreParameter = new SqlParameter()
             {
@@ -43,14 +43,12 @@ namespace PersistenciaVeterinarias.DAOS
             command.Parameters.Add(direccionParameter);
             command.Parameters.Add(telefonoParameter);
 
-            connection.Open();
             command.ExecuteNonQuery();
-            connection.Close();
         }
 
         public void Edit(SqlConnection connection, Veterinaria veterinaria)
         {
-            SqlCommand command = new SqlCommand("UPDATE Veterinarias SET nombre = @Nombre, direccion = @Direccion, telefono = @Telefono WHERE id = @Id", connection);
+            SqlCommand command = new SqlCommand("UPDATE veterinaria SET nombre = @Nombre, direccion = @Direccion, telefono = @Telefono WHERE id = @Id", connection);
 
             SqlParameter idParameter = new SqlParameter()
             {
@@ -85,14 +83,12 @@ namespace PersistenciaVeterinarias.DAOS
             command.Parameters.Add(direccionParameter);
             command.Parameters.Add(telefonoParameter);
 
-            connection.Open();
             command.ExecuteNonQuery();
-            connection.Close();
         }
 
         public void Delete(SqlConnection connection, int id)
         {
-            SqlCommand command = new SqlCommand("DELETE FROM Veterinarias WHERE id = @Id", connection);
+            SqlCommand command = new SqlCommand("DELETE FROM veterinaria WHERE id = @Id", connection);
 
             SqlParameter idParameter = new SqlParameter()
             {
@@ -103,9 +99,7 @@ namespace PersistenciaVeterinarias.DAOS
 
             command.Parameters.Add(idParameter);
 
-            connection.Open();
             command.ExecuteNonQuery();
-            connection.Close();
         }
     }
 }

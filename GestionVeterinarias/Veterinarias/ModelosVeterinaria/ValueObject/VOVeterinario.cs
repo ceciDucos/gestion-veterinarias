@@ -23,10 +23,6 @@ namespace ModelosVeterinarias.ValueObject
             this.Horario = horario;
         }
 
-        public VOVeterinario()
-        {
-        }
-
         public override string ToString() {
             return String.Format("Cedula {0} - Nombre {1} - Teléfono {2} - Horario de atención {3}",
                          this.Cedula, this.Nombre, this.Telefono, this.Horario);

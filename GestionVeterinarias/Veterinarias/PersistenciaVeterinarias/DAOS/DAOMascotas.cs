@@ -56,9 +56,7 @@ namespace PersistenciaVeterinarias.DAOS
             command.Parameters.Add(vacunasParameter);
             command.Parameters.Add(cedulaParameter);
 
-            //connection.Open();
             int id = (int)command.ExecuteScalar();
-            //connection.Close();
 
             DAOCarnetInscripcion daoCarnetInscripcion = new DAOCarnetInscripcion();
             daoCarnetInscripcion.Add(connection, mascota.CarnetInscripcion.Foto, id);
@@ -138,9 +136,7 @@ namespace PersistenciaVeterinarias.DAOS
             command.Parameters.Add(idParameter);
             command.Parameters.Add(cedulaParameter);
 
-            connection.Open();
             command.ExecuteNonQuery();
-            connection.Close();
         }
         #endregion
 
@@ -156,9 +152,7 @@ namespace PersistenciaVeterinarias.DAOS
             };
             command.Parameters.Add(idParameter);
 
-            connection.Open();
             command.ExecuteNonQuery();
-            connection.Close();
         }
         #endregion
     }

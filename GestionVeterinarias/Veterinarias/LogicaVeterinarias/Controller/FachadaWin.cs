@@ -128,15 +128,24 @@ namespace LogicaVeterinarias.Controller
             try
             {
                 connection = manejadorConexion.GetConnection();
+                connection.Open();
                 daoVeterinarias.Add(connection, new Veterinaria (voveterinaria.Nombre,voveterinaria.Direccion,voveterinaria.Telefono));
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
+                Console.WriteLine(e);
                 throw new PersistenciaException("Ocurrió un error agregando una nueva veterinaria");
             }
             catch (Exception)
             {
                 throw new GeneralException("Ocurrió un error al crear la veterinaria");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -147,6 +156,7 @@ namespace LogicaVeterinarias.Controller
             try
             {
                 connection = manejadorConexion.GetConnection();
+                connection.Open();
                 daoVeterinarias.Edit(connection, new Veterinaria(voveterinaria.Id, voveterinaria.Nombre, voveterinaria.Direccion, voveterinaria.Telefono));
             }
             catch (SqlException)
@@ -157,6 +167,13 @@ namespace LogicaVeterinarias.Controller
             {
                 throw new GeneralException("Ocurrió un error al editar la veterinaria");
             }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         //[WebMethod]
@@ -166,6 +183,7 @@ namespace LogicaVeterinarias.Controller
             try
             {
                 connection = manejadorConexion.GetConnection();
+                connection.Open();
                 daoVeterinarias.Delete(connection, num);
             }
             catch (SqlException)
@@ -175,6 +193,13 @@ namespace LogicaVeterinarias.Controller
             catch (Exception)
             {
                 throw new GeneralException("Ocurrió un error al eliminar la veterinaria");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -519,8 +544,9 @@ namespace LogicaVeterinarias.Controller
             {
                 throw new PersistenciaException("Ocurrió un error agregando una nueva mascota");
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e);
                 throw new GeneralException("Ocurrió un error al crear la mascota");
             }
             finally
@@ -539,6 +565,7 @@ namespace LogicaVeterinarias.Controller
             try
             {
                 connection = manejadorConexion.GetConnection();
+                connection.Open();
                 daoMascotas.Edit(connection, new Mascota(vomascota.Id, vomascota.cedulaCliente, vomascota.Animal, vomascota.Nombre, vomascota.Raza, vomascota.Edad, vomascota.VacunaAlDia, new CarnetInscripcion(vomascota.CarnetInscripcion.Numero, vomascota.CarnetInscripcion.Expedido, vomascota.CarnetInscripcion.Foto)));
             }
             catch (SqlException)
@@ -549,6 +576,13 @@ namespace LogicaVeterinarias.Controller
             {
                 throw new GeneralException("Ocurrió un error al editar la mascota");
             }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         //[WebMethod]
@@ -558,6 +592,7 @@ namespace LogicaVeterinarias.Controller
             try
             {
                 connection = manejadorConexion.GetConnection();
+                connection.Open();
                 daoCarnetInscripcion.Delete(connection, id);
                 daoMascotas.Delete(connection, id);
             }
@@ -569,6 +604,13 @@ namespace LogicaVeterinarias.Controller
             catch (Exception)
             {
                 throw new GeneralException("Ocurrió un error al eliminar la mascota");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -607,6 +649,7 @@ namespace LogicaVeterinarias.Controller
             try
             {
                 connection = manejadorConexion.GetConnection();
+                connection.Open();
                 daoCarnetInscripcion.Add(connection, foto, idMascota);
             }
             catch (SqlException)
@@ -617,6 +660,13 @@ namespace LogicaVeterinarias.Controller
             {
                 throw new GeneralException("Ocurrió un error al crear el carnet");
             }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         //[WebMethod]
@@ -626,6 +676,7 @@ namespace LogicaVeterinarias.Controller
             try
             {
                 connection = manejadorConexion.GetConnection();
+                connection.Open();
                 daoCarnetInscripcion.Edit(connection, new CarnetInscripcion(vocarnet.Numero, vocarnet.Expedido, vocarnet.Foto));
             }
             catch (SqlException)
@@ -636,6 +687,13 @@ namespace LogicaVeterinarias.Controller
             {
                 throw new GeneralException("Ocurrió un error al crear el carnet");
             }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         //[WebMethod]
@@ -645,6 +703,7 @@ namespace LogicaVeterinarias.Controller
             try
             {
                 connection = manejadorConexion.GetConnection();
+                connection.Open();
                 daoCarnetInscripcion.Delete(connection, num);
             }
             catch (SqlException e)
@@ -655,6 +714,13 @@ namespace LogicaVeterinarias.Controller
             catch (Exception)
             {
                 throw new GeneralException("Ocurrió un error al eliminar el carnet");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
             }
         }
 
