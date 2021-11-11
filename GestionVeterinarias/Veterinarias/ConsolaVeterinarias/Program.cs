@@ -25,7 +25,6 @@ namespace ConsolaVeterinarias
             //    img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
             //    arr = ms.ToArray();
             //}
-            //fachadaWin.CrearCarnet(arr);
 
             //Image img2 = Image.FromFile(@"C:\Users\fedep\OneDrive\Imágenes\Prueba.jpg"); // cambiar direccion de la foto a una de su propia pc
             //byte[] arr2;
@@ -77,15 +76,15 @@ namespace ConsolaVeterinarias
             // ================== FIN RODRIGO PRUEBAS ==================
 
             // ================== INICIO GONZALO PRUEBAS ==================
-            Image img = Image.FromFile(@"C:\Users\fedep\OneDrive\Imágenes\Fondos\DelPiero.jpg"); // cambiar direccion de la foto a una de su propia pc
-            byte[] arr;
-            using (MemoryStream ms = new MemoryStream())
-            {
-                img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                arr = ms.ToArray();
-            }
-            fachadaWin.CrearMascota(new VOMascota(TipoAnimal.Perro, "OtraMascota", Raza.Policia, 4, true, new VOCarnetInscripcion(arr)));
-            Console.ReadLine();
+            //Image img = Image.FromFile(@"C:\Users\fedep\OneDrive\Imágenes\Fondos\DelPiero.jpg"); // cambiar direccion de la foto a una de su propia pc
+            //byte[] arr;
+            //using (MemoryStream ms = new MemoryStream())
+            //{
+            //    img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            //    arr = ms.ToArray();
+            //}
+            //fachadaWin.CrearMascota(new VOMascota(123456,TipoAnimal.Perro, "OtraMascota", Raza.Policia, 4, true, new VOCarnetInscripcion(arr)));
+            //Console.ReadLine();
             /*fachadaWin.CrearMascota(new VOMascota(TipoAnimal.Perro, "Moncho", Raza.Policia, 2, true));
             fachadaWin.EliminarMascota(2);
             fachadaWin.EditarMascota(new VOMascota(1, TipoAnimal.Perro, "Firulais2", Raza.Policia, 2, true));

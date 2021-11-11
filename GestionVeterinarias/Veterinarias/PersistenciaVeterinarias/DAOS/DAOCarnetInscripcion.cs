@@ -34,9 +34,7 @@ namespace PersistenciaVeterinarias.DAOS
             command.Parameters.Add(fotoParameter);
             command.Parameters.Add(idMascotaParameter);
 
-            //connection.Open();
             command.ExecuteNonQuery();
-            //connection.Close();
         }
 
         public void Edit(SqlConnection connection, CarnetInscripcion carnet)
@@ -68,9 +66,7 @@ namespace PersistenciaVeterinarias.DAOS
             command.Parameters.Add(expedidoParameter);
             command.Parameters.Add(fotoParameter);
 
-            connection.Open();
             command.ExecuteNonQuery();
-            connection.Close();
         }
 
         public void Delete(SqlConnection connection, int id)
@@ -84,9 +80,7 @@ namespace PersistenciaVeterinarias.DAOS
             };
             command.Parameters.Add(numParameter);
 
-            connection.Open();
             command.ExecuteNonQuery();
-            connection.Close();
         }
     }
 }
