@@ -127,6 +127,12 @@ namespace WebServiceVeterinarias
         {
             fachada.MemberMascota(numero);
         }
+
+        [WebMethod(Description = "Obtener los mascotas exitentes dado un cliente existentes")]
+        public List<VOMascota> ObtenerMascotas(long cedula)
+        {
+            return fachada.ObtenerMascotas(cedula);
+        }
         #endregion
 
         #region Métodos de Carnet

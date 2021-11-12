@@ -513,7 +513,6 @@ namespace LogicaVeterinarias.Controller
             }
             catch (SqlException Ex)
             {
-                string errordos = Ex.Message;
                 string error = string.Format("Error al intentar modificar el cliente con cedula {0} ", vocliente.Cedula);
                 throw new PersistenciaException(error);
             }
@@ -699,6 +698,36 @@ namespace LogicaVeterinarias.Controller
                 }
             }
 
+        }
+
+        public List<VOMascota> ObtenerMascotas(long cedula)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                List<VOMascota> listMascotas = daoMascotas.List(connection, cedula);
+                return listMascotas;
+
+
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                throw new PersistenciaException("Ocurrió un error al obtener los datos");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         //[WebMethod]

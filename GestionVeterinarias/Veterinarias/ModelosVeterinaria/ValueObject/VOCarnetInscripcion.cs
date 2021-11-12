@@ -11,8 +11,8 @@ namespace ModelosVeterinarias.ValueObject
         private int numero;
 
         public int Numero { get { return numero; } }
-        public DateTime Expedido { get; }
-        public byte[] Foto { get; }
+        public DateTime Expedido { get; set; }
+        public byte[] Foto { get; set;}
 
         public VOCarnetInscripcion() { }
 
@@ -32,6 +32,12 @@ namespace ModelosVeterinarias.ValueObject
         public VOCarnetInscripcion(byte[] foto)
         {
             this.Foto = foto;
+        }
+
+        public VOCarnetInscripcion(int numero, DateTime expedido)
+        {
+            this.numero = numero;
+            this.Expedido = expedido;
         }
     }
 }
