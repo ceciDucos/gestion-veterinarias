@@ -8,25 +8,25 @@ namespace ModelosVeterinarias.ValueObject
 {
     public class VOCliente
     {
-        public long Cedula { get; }
-        public string Nombre { get; }
-        public string Telefono { get; }
-        public string Direccion { get; }
-        public string Correo { get; }
-        public string Clave { get; }
-        public bool Activo { get; }
-        public List<VOMascota> Mascotas { get; }
+        public long Cedula { get; set; }
+        public string Nombre { get; set; }
+        public string Telefono { get; set; }
+        public string Direccion { get; set; }
+        public string Correo { get; set; }
+        public string pass { get; set; }
+        public bool Activo { get; set; }
+        public List<VOMascota> Mascotas { get; set; }
 
         public VOCliente() { }
 
-        public VOCliente(long cedula, string nombre, string telefono, string direccion, string correo, string clave, bool activo)
+        public VOCliente(long cedula, string nombre, string telefono, string direccion, string correo, string pass, bool activo)
         {
             this.Cedula = cedula;
             this.Nombre = nombre;
             this.Telefono = telefono;
             this.Direccion = direccion;
             this.Correo = correo;
-            this.Clave = clave;
+            this.pass = pass;
             this.Activo = activo;
             this.Mascotas = new List<VOMascota>();
         }

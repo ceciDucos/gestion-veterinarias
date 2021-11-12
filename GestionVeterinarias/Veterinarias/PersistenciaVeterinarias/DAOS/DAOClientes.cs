@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using ModelosVeterinarias.Classes;
+using ModelosVeterinarias.ValueObject;
 
 namespace PersistenciaVeterinarias.DAOS
 {
@@ -92,7 +93,7 @@ namespace PersistenciaVeterinarias.DAOS
 
             StringBuilder sb = new StringBuilder();
             sb.Append("UPDATE Cliente SET direccion=@Direccion, correo=@Correo, ");
-            sb.Append("pass=@Pass, activo=@Activo WHERE cedula = @Cedula");
+            sb.Append("activo=@Activo WHERE cedula = @Cedula");
 
             SqlCommand commandCliente = new SqlCommand(sb.ToString(), connection);
 
@@ -117,12 +118,14 @@ namespace PersistenciaVeterinarias.DAOS
                 SqlDbType = SqlDbType.VarChar
             };
 
+            /*
             SqlParameter PassParameter = new SqlParameter()
             {
                 ParameterName = "@Pass",
                 Value = cliente.Pass,
                 SqlDbType = SqlDbType.VarChar
             };
+            */
 
             SqlParameter ActivoParameter = new SqlParameter()
             {
@@ -134,7 +137,7 @@ namespace PersistenciaVeterinarias.DAOS
             commandCliente.Parameters.Add(CedulaParameterDos);
             commandCliente.Parameters.Add(DireccionParameter);
             commandCliente.Parameters.Add(CorreoParameter);
-            commandCliente.Parameters.Add(PassParameter);
+            //commandCliente.Parameters.Add(PassParameter);
             commandCliente.Parameters.Add(ActivoParameter);
             commandCliente.ExecuteNonQuery();
         }
@@ -149,5 +152,81 @@ namespace PersistenciaVeterinarias.DAOS
             commandCliente.ExecuteNonQuery();
             commandPersona.ExecuteNonQuery();
         }
+
+
+        public List<VOCliente> List(SqlConnection connection)
+        {
+
+
+            List<VOCliente> listClientes = new List<VOCliente>();
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("select p.cedula, p.nombre, p.telefono, c.direccion, c.correo, c.pass, c.activo ");
+            sb.Append(" from Persona p, Cliente c");
+            sb.Append(" where p.cedula = c.cedula");
+
+            SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = selectCommand;
+
+            // creo y cargo el dataset
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Cliente");
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+
+                long cedula = Convert.ToInt32(dr["cedula"]);
+                string nombre = Convert.ToString(dr["nombre"]);
+                string telefono = Convert.ToString(dr["telefono"]);
+                string direccion = Convert.ToString(dr["direccion"]);
+                string correo = Convert.ToString(dr["correo"]);
+                string pass = Convert.ToString(dr["pass"]);
+                bool activo = Convert.ToBoolean(dr["activo"]);
+
+                VOCliente vocliente = new VOCliente(cedula, nombre, telefono, direccion, correo, pass, activo );
+
+                listClientes.Add(vocliente);
+            }
+
+            return listClientes;
+        }
+
+        public VOCliente Get(SqlConnection connection, long InCedula)
+        {
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("select p.cedula, p.nombre, p.telefono, c.direccion, c.correo, c.pass, c.activo ");
+            sb.Append(" from Persona p, Cliente c");
+            sb.AppendFormat(" where p.cedula = {0}", InCedula.ToString());
+
+            SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = selectCommand;
+
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Cliente");
+            VOCliente vocliente = null;
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+
+                long cedula = Convert.ToInt32(dr["cedula"]);
+                string nombre = Convert.ToString(dr["nombre"]);
+                string telefono = Convert.ToString(dr["telefono"]);
+                string direccion = Convert.ToString(dr["direccion"]);
+                string correo = Convert.ToString(dr["correo"]);
+                string pass = Convert.ToString(dr["pass"]);
+                bool activo = Convert.ToBoolean(dr["activo"]);
+                vocliente = new VOCliente(cedula, nombre, telefono, direccion, correo, pass, activo);
+
+            }
+
+            return vocliente;
+
+        }
+
+
     }
 }
