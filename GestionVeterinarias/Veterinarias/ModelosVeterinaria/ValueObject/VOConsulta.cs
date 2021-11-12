@@ -8,11 +8,11 @@ namespace ModelosVeterinarias.ValueObject
 {
     public class VOConsulta
     {
-        public int Numero { get; }
-        public DateTime Fecha { get; }
-        public string Descripcion { get; }
-        public int Calificacion { get; }
-        public VOMascota Mascota { get; }
+        public int Numero { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Descripcion { get; set; }
+        public int Calificacion { get; set; }
+        public VOMascota Mascota { get; set; }
 
         public VOConsulta() { }
 

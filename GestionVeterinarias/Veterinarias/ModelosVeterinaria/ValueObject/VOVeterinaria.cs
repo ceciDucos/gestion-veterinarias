@@ -8,13 +8,13 @@ namespace ModelosVeterinarias.ValueObject
 {
     public class VOVeterinaria
     {
-        public int Id { get; }
-        public string Nombre { get; }
-        public string Direccion { get; }
-        public string Telefono { get; }
-        public List<VOVeterinario> Veterinarios { get; }
-        public List<VOCliente> Clientes { get; }
-        public List<VOConsulta> Consultas { get; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Direccion { get; set; }
+        public string Telefono { get; set; }
+        public List<VOVeterinario> Veterinarios { get; set; }
+        public List<VOCliente> Clientes { get; set; }
+        public List<VOConsulta> Consultas { get; set; }
 
         public VOVeterinaria(){}
 

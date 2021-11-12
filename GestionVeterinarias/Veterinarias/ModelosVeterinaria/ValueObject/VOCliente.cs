@@ -8,14 +8,14 @@ namespace ModelosVeterinarias.ValueObject
 {
     public class VOCliente
     {
-        public long Cedula { get; }
-        public string Nombre { get; }
-        public string Telefono { get; }
-        public string Direccion { get; }
-        public string Correo { get; }
-        public string Clave { get; }
-        public bool Activo { get; }
-        public List<VOMascota> Mascotas { get; }
+        public long Cedula { get; set; }
+        public string Nombre { get; set; }
+        public string Telefono { get; set; }
+        public string Direccion { get; set; }
+        public string Correo { get; set; }
+        public string Clave { get; set; }
+        public bool Activo { get; set; }
+        public List<VOMascota> Mascotas { get; set; }
 
         public VOCliente() { }
 

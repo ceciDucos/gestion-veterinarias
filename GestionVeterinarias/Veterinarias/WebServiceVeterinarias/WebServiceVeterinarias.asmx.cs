@@ -45,7 +45,7 @@ namespace WebServiceVeterinarias
         }
 
         [WebMethod(Description = "Servicio para crear un veterinario nuevo")]
-        public void CrearVeterianario(VOVeterinario voveterinario)
+        public void CrearVeterinario(VOVeterinario voveterinario)
         {
             fachada.CrearVeterinario(voveterinario);
         }
@@ -57,9 +57,9 @@ namespace WebServiceVeterinarias
         }
 
         [WebMethod(Description = "Servicio para eliminar una veterinario existente")]
-        public void EliminarVeterinario(int numero)
+        public void EliminarVeterinario(long cedula)
         {
-            fachada.EliminarVeterinario(numero);
+            fachada.EliminarVeterinario(cedula);
         }
 
         [WebMethod(Description = "Obtener un veterinario existente")]
@@ -84,9 +84,9 @@ namespace WebServiceVeterinarias
         }
 
         [WebMethod(Description = "Servicio para eliminar un cliente existente")]
-        public void EliminarCliente(int numero)
+        public void EliminarCliente(long cedula)
         {
-            fachada.EliminarCliente(numero);
+            fachada.EliminarCliente(cedula);
         }
         #endregion
 

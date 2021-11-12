@@ -8,10 +8,10 @@ namespace ModelosVeterinarias.ValueObject
 {
     public class VOVeterinario
     {
-        public long Cedula { get; }
-        public string Nombre { get; }
-        public string Telefono { get; }
-        public string Horario { get; }
+        public long Cedula { get; set; }
+        public string Nombre { get; set; }
+        public string Telefono { get; set; }
+        public string Horario { get; set; }
 
         public VOVeterinario(){}
 
