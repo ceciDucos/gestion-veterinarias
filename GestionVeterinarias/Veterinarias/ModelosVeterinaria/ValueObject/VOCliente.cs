@@ -13,7 +13,7 @@ namespace ModelosVeterinarias.ValueObject
         public string Telefono { get; set; }
         public string Direccion { get; set; }
         public string Correo { get; set; }
-        public string pass { get; set; }
+        public string Clave { get; set; }
         public bool Activo { get; set; }
         public List<VOMascota> Mascotas { get; set; }
 

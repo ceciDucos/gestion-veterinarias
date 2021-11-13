@@ -45,7 +45,7 @@ namespace WebServiceVeterinarias
         }
 
         [WebMethod(Description = "Servicio para crear un veterinario nuevo")]
-        public void CrearVeterianario(VOVeterinario voveterinario)
+        public void CrearVeterinario(VOVeterinario voveterinario)
         {
             fachada.CrearVeterinario(voveterinario);
         }

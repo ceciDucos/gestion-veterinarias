@@ -12,7 +12,7 @@ namespace ModelosVeterinarias.ValueObject
 
         public int Numero { get { return numero; } }
         public DateTime Expedido { get; set; }
-        public byte[] Foto { get; set;}
+        public byte[] Foto { get; set; }
 
         public VOCarnetInscripcion() { }
 
