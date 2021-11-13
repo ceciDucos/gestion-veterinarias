@@ -13,6 +13,18 @@
 
         public VOMascota() { }
 
+        public VOMascota(int id, long cedulaCliente, TipoAnimal animal, string nombre, Raza raza, int edad, bool vacunaAlDia)
+        {
+            this.Id = id;
+            this.cedulaCliente = cedulaCliente;
+            this.Animal = animal;
+            this.Nombre = nombre;
+            this.Raza = raza;
+            this.Edad = edad;
+            this.VacunaAlDia = vacunaAlDia;
+            this.CarnetInscripcion = new VOCarnetInscripcion();
+        }
+
         public VOMascota(int id, long cedulaCliente, TipoAnimal animal, string nombre, Raza raza, int edad, bool vacunaAlDia, VOCarnetInscripcion carnet)
         {
             this.Id = id;

@@ -19,21 +19,21 @@ namespace WebServiceVeterinarias
 
         #region Métodos de Veterinaria
         [WebMethod(Description = "Servicio para crear una veterinaria nueva")]
-        public void CrearVeterianaria(VOVeterinaria voveterinaria)
+        public void CrearVeterinaria(VOVeterinaria voveterinaria)
         {
-            fachada.CrearVeterianaria(voveterinaria);
+            fachada.CrearVeterinaria(voveterinaria);
         }
 
         [WebMethod(Description = "Servicio para modificar una veterinaria existente")]
         public void EditarVeterinaria(VOVeterinaria voveterinaria)
         {
-            fachada.EditarVeterianaria(voveterinaria);
+            fachada.EditarVeterinaria(voveterinaria);
         }
 
         [WebMethod(Description = "Servicio para eliminar una veterinaria existente")]
         public void EliminarVeterinaria(int numero)
         {
-            fachada.EliminarVeterianaria(numero);
+            fachada.EliminarVeterinaria(numero);
         }
         #endregion
 

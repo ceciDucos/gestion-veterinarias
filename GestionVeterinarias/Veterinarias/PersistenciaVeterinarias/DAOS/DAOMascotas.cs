@@ -206,5 +206,55 @@ namespace PersistenciaVeterinarias.DAOS
 
             return listMascotas;
         }
+
+        public VOMascota Get(SqlConnection connection, int idToFind)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("select m.id, m.cedulaCliente, m.tipo, m.nombre, m.edad, m.raza, m.vacunas, c.numero, c.expedido, c.foto");
+            sb.Append(" from Mascota m, carnetInscripcion c");
+            sb.Append(" where m.id = c.idMascota ");
+            sb.AppendFormat(" and m.id = @IdMascota");
+
+            SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+            SqlParameter idMascotaParameter = new SqlParameter()
+            {
+                ParameterName = "@IdMascota",
+                Value = idToFind,
+                SqlDbType = SqlDbType.Int
+            };
+
+            selectCommand.Parameters.Add(idMascotaParameter);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = selectCommand;
+
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Mascota");
+            VOMascota vomascota = null;
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                int id = Convert.ToInt32(dr["id"]);
+                long cedula = Convert.ToInt32(dr["cedulaCliente"]);
+                TipoAnimal tipo = (TipoAnimal)Enum.Parse(typeof(TipoAnimal), Convert.ToString(dr["tipo"]));
+                string nombre = Convert.ToString(dr["nombre"]);
+                int edad = Convert.ToInt32(dr["edad"]);
+                Raza raza = (Raza)Enum.Parse(typeof(Raza), Convert.ToString(dr["raza"]));
+                bool vacunas = Convert.ToBoolean(dr["vacunas"]);
+
+
+                // datos para el carne 
+                int numero = Convert.ToInt32(dr["numero"]);
+                DateTime expedido = Convert.ToDateTime(dr["expedido"]);
+                VOCarnetInscripcion vocarnet = new VOCarnetInscripcion(numero, expedido);
+
+                vomascota = new VOMascota(id, cedula, tipo, nombre, raza, edad, vacunas, vocarnet);
+            }
+
+            return vomascota;
+
+        }
     }
 }

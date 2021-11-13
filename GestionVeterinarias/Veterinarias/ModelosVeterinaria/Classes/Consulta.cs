@@ -16,6 +16,14 @@ namespace ModelosVeterinarias.Classes
         public string Descripcion { get; set; }
         public Mascota Mascota { get; set; }
 
+        public Consulta(int calif, DateTime fecha, string desc, Mascota mascota)
+        {
+            this.Calificacion = calif;
+            this.Fecha = fecha;
+            this.Descripcion = desc;
+            this.Mascota = mascota;
+        }
+
         public Consulta(int num, int calif, DateTime fecha, string desc, Mascota mascota)
         {
             this.numero = num;

@@ -3,9 +3,13 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using System;
+using ModelosVeterinarias.ValueObject;
+using System.Collections.Generic;
+using PersistenciaVeterinarias.DAOS;
 
 public class DAOConsultas
 {
+    private DAOMascotas daomascotas = new DAOMascotas();
     public DAOConsultas() { }
 
     public bool Member(SqlConnection connection, int idMascota, DateTime fechaConsulta)
@@ -62,18 +66,10 @@ public class DAOConsultas
     public void Add(SqlConnection connection, Consulta consulta)
     {
         StringBuilder sbConsulta = new StringBuilder();
-        sbConsulta.Append("SET IDENTITY_INSERT Consulta ON ");
-        sbConsulta.Append("INSERT INTO Consulta(numero, calificacion, fecha, descripcion, idMascota) ");
-        sbConsulta.Append("VALUES (@Numero, @Calificacion, @Fecha, @Descripcion, @IdMascota);");
+        sbConsulta.Append("INSERT INTO Consulta(calificacion, fecha, descripcion, idMascota) ");
+        sbConsulta.Append("VALUES (@Calificacion, @Fecha, @Descripcion, @IdMascota);");
 
         SqlCommand commandConsulta = new SqlCommand(sbConsulta.ToString(), connection);
-
-        SqlParameter NumeroParameter = new SqlParameter()
-        {
-            ParameterName = "@Numero",
-            Value = consulta.Numero,
-            SqlDbType = SqlDbType.Int
-        };
 
         SqlParameter CalificacionParameter = new SqlParameter()
         {
@@ -103,7 +99,6 @@ public class DAOConsultas
             SqlDbType = SqlDbType.Int
         };
 
-        commandConsulta.Parameters.Add(NumeroParameter);
         commandConsulta.Parameters.Add(CalificacionParameter);
         commandConsulta.Parameters.Add(FechaParameter);
         commandConsulta.Parameters.Add(DescripcionParameter);
@@ -178,5 +173,39 @@ public class DAOConsultas
         commandConsulta.Parameters.Add(NumeroParameter);
 
         commandConsulta.ExecuteNonQuery();
+    }
+
+    public List<VOConsulta> List(SqlConnection connection)
+    {
+        List<VOConsulta> listConsultas = new List<VOConsulta>();
+
+        StringBuilder sb = new StringBuilder();
+        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota");
+        sb.Append(" from Consulta c;");
+
+        SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+        SqlDataAdapter adapter = new SqlDataAdapter();
+        adapter.SelectCommand = selectCommand;
+
+        // creo y cargo el dataset
+        DataSet ds = new DataSet();
+        adapter.Fill(ds, "Consulta");
+        foreach (DataRow dr in ds.Tables[0].Rows)
+        {
+            int numero = Convert.ToInt32(dr["numero"]);
+            int calificacion = Convert.ToInt32(dr["calificacion"]);
+            DateTime fecha = Convert.ToDateTime(dr["fecha"]);
+            string descripcion = Convert.ToString(dr["descripcion"]);
+            int idMascota = Convert.ToInt32(dr["idMascota"]);
+
+            VOMascota mascota = daomascotas.Get(connection, idMascota);
+
+            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota);
+
+            listConsultas.Add(voconsulta);
+        }
+
+        return listConsultas;
     }
 }
