@@ -2,9 +2,7 @@
 {
     public class VOMascota
     {
-        private int id;
-
-        public int Id { get { return id; } }
+        public int Id { get; set; }
         public long cedulaCliente { get; set; }
         public TipoAnimal Animal { get; set; }
         public string Nombre { get; set; }
@@ -17,7 +15,7 @@
 
         public VOMascota(int id, long cedulaCliente, TipoAnimal animal, string nombre, Raza raza, int edad, bool vacunaAlDia, VOCarnetInscripcion carnet)
         {
-            this.id = id;
+            this.Id = id;
             this.cedulaCliente = cedulaCliente;
             this.Animal = animal;
             this.Nombre = nombre;
