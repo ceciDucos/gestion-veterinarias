@@ -26,7 +26,7 @@ namespace ModelosVeterinarias.ValueObject
             this.Telefono = telefono;
             this.Direccion = direccion;
             this.Correo = correo;
-            this.pass = pass;
+            this.Clave = pass;
             this.Activo = activo;
             this.Mascotas = new List<VOMascota>();
         }

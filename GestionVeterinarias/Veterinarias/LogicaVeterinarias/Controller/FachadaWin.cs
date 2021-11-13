@@ -448,7 +448,7 @@ namespace LogicaVeterinarias.Controller
             string telefono = vocliente.Telefono;
             string direccion = vocliente.Direccion;
             string correo = vocliente.Correo;
-            string pass = vocliente.pass;
+            string pass = vocliente.Clave;
             bool activo = vocliente.Activo;
             SqlConnection connection = null;
             try
@@ -501,7 +501,7 @@ namespace LogicaVeterinarias.Controller
                 if (daoClientes.Member(connection, vocliente.Cedula))
                 {
                     Cliente cliente = new Cliente(vocliente.Cedula, vocliente.Nombre, vocliente.Telefono,
-                        vocliente.Direccion, vocliente.Correo, vocliente.pass, vocliente.Activo);
+                        vocliente.Direccion, vocliente.Correo, vocliente.Clave, vocliente.Activo);
 
                     daoClientes.Edit(connection, cliente);
                 }
@@ -511,7 +511,7 @@ namespace LogicaVeterinarias.Controller
                     throw new PersonaException(error);
                 }
             }
-            catch (SqlException Ex)
+            catch (SqlException)
             {
                 string error = string.Format("Error al intentar modificar el cliente con cedula {0} ", vocliente.Cedula);
                 throw new PersistenciaException(error);
