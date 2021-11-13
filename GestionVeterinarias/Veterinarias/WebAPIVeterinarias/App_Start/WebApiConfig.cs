@@ -11,10 +11,6 @@ namespace WebAPIVeterinarias
     {
         public static void Register(HttpConfiguration config)
         {
-            // Configuración y servicios de API web
-            //config.EnableCors(new EnableCorsAttribute("https://localhost:44373", headers: "*", methods: "*"));
-            config.EnableCors();
-
             // Rutas de API web
             config.MapHttpAttributeRoutes();
 
