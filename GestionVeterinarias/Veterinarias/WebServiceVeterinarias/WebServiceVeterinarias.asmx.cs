@@ -57,9 +57,9 @@ namespace WebServiceVeterinarias
         }
 
         [WebMethod(Description = "Servicio para eliminar una veterinario existente")]
-        public void EliminarVeterinario(int numero)
+        public void EliminarVeterinario(long cedula)
         {
-            fachada.EliminarVeterinario(numero);
+            fachada.EliminarVeterinario(cedula);
         }
 
         [WebMethod(Description = "Obtener un veterinario existente")]
@@ -70,6 +70,12 @@ namespace WebServiceVeterinarias
         #endregion
 
         #region Métodos de Cliente
+
+        [WebMethod(Description = "Obtener los clientes existentes")]
+        public List<VOCliente> ObtenerClientes()
+        {
+            return fachada.ObtenerClientes();
+        }
 
         [WebMethod(Description = "Servicio para crear un cliente nuevo")]
         public void CrearCliente(VOCliente vocliente)
@@ -84,9 +90,15 @@ namespace WebServiceVeterinarias
         }
 
         [WebMethod(Description = "Servicio para eliminar un cliente existente")]
-        public void EliminarCliente(int numero)
+        public void EliminarCliente(long cedula)
         {
-            fachada.EliminarCliente(numero);
+            fachada.EliminarCliente(cedula);
+        }
+
+        [WebMethod(Description = "Obtener un cliente existente")]
+        public VOCliente ObtenerCliente(long cedula)
+        {
+            return fachada.ObtenerCliente(cedula);
         }
         #endregion
 
@@ -114,6 +126,12 @@ namespace WebServiceVeterinarias
         public void MemberMascota(int numero)
         {
             fachada.MemberMascota(numero);
+        }
+
+        [WebMethod(Description = "Obtener los mascotas exitentes dado un cliente existentes")]
+        public List<VOMascota> ObtenerMascotas(long cedula)
+        {
+            return fachada.ObtenerMascotas(cedula);
         }
         #endregion
 

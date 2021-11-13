@@ -5,13 +5,13 @@
         private int id;
 
         public int Id { get { return id; } }
-        public long cedulaCliente { get; }
-        public TipoAnimal Animal { get; }
-        public string Nombre { get; }
-        public Raza Raza { get; }
-        public int Edad { get; }
-        public bool VacunaAlDia { get; }
-        public VOCarnetInscripcion CarnetInscripcion { get; }
+        public long cedulaCliente { get; set; }
+        public TipoAnimal Animal { get; set; }
+        public string Nombre { get; set; }
+        public Raza Raza { get; set; }
+        public int Edad { get; set; }
+        public bool VacunaAlDia { get; set; }
+        public VOCarnetInscripcion CarnetInscripcion { get; set; }
 
         public VOMascota() { }
 
