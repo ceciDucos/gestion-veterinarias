@@ -19,14 +19,14 @@ namespace ModelosVeterinarias.ValueObject
 
         public VOCliente() { }
 
-        public VOCliente(long cedula, string nombre, string telefono, string direccion, string correo, string clave, bool activo)
+        public VOCliente(long cedula, string nombre, string telefono, string direccion, string correo, string pass, bool activo)
         {
             this.Cedula = cedula;
             this.Nombre = nombre;
             this.Telefono = telefono;
             this.Direccion = direccion;
             this.Correo = correo;
-            this.Clave = clave;
+            this.pass = pass;
             this.Activo = activo;
             this.Mascotas = new List<VOMascota>();
         }

@@ -71,6 +71,12 @@ namespace WebServiceVeterinarias
 
         #region Métodos de Cliente
 
+        [WebMethod(Description = "Obtener los clientes existentes")]
+        public List<VOCliente> ObtenerClientes()
+        {
+            return fachada.ObtenerClientes();
+        }
+
         [WebMethod(Description = "Servicio para crear un cliente nuevo")]
         public void CrearCliente(VOCliente vocliente)
         {
@@ -87,6 +93,12 @@ namespace WebServiceVeterinarias
         public void EliminarCliente(long cedula)
         {
             fachada.EliminarCliente(cedula);
+        }
+
+        [WebMethod(Description = "Obtener un cliente existente")]
+        public VOCliente ObtenerCliente(long cedula)
+        {
+            return fachada.ObtenerCliente(cedula);
         }
         #endregion
 
@@ -114,6 +126,12 @@ namespace WebServiceVeterinarias
         public void MemberMascota(int numero)
         {
             fachada.MemberMascota(numero);
+        }
+
+        [WebMethod(Description = "Obtener los mascotas exitentes dado un cliente existentes")]
+        public List<VOMascota> ObtenerMascotas(long cedula)
+        {
+            return fachada.ObtenerMascotas(cedula);
         }
         #endregion
 

@@ -33,5 +33,11 @@ namespace ModelosVeterinarias.ValueObject
         {
             this.Foto = foto;
         }
+
+        public VOCarnetInscripcion(int numero, DateTime expedido)
+        {
+            this.numero = numero;
+            this.Expedido = expedido;
+        }
     }
 }
