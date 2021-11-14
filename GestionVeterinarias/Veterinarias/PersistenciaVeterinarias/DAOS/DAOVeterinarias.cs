@@ -134,5 +134,36 @@ namespace PersistenciaVeterinarias.DAOS
 
             return listVeterinarias;
         }
+
+        public VOVeterinaria Get(SqlConnection connection, int InId)
+        {
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("select *");
+            sb.Append(" from Veterinaria ");
+            sb.AppendFormat(" where id = {0}", InId);
+
+            SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = selectCommand;
+
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Veterinaria");
+            VOVeterinaria voveterinaria = null;
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                int id = Convert.ToInt32(dr["id"]);
+                string nombre = Convert.ToString(dr["nombre"]);
+                string direccion = Convert.ToString(dr["direccion"]);
+                string telefono = Convert.ToString(dr["telefono"]);
+
+                voveterinaria = new VOVeterinaria(id, nombre, direccion, telefono);
+            }
+
+            return voveterinaria;
+
+        }
     }
 }

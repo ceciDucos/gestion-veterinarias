@@ -29,6 +29,8 @@ namespace ModelosVeterinarias.ValueObject
             this.Consultas = new List<VOConsulta>();
         }
 
+
+
         public VOVeterinaria(string nombre, string direccion, string telefono)
         {
             this.Nombre = nombre;
