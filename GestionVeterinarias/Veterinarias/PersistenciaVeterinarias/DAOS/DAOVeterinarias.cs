@@ -1,4 +1,5 @@
 ﻿using ModelosVeterinarias.Classes;
+using ModelosVeterinarias.ValueObject;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -100,6 +101,38 @@ namespace PersistenciaVeterinarias.DAOS
             command.Parameters.Add(idParameter);
 
             command.ExecuteNonQuery();
+        }
+
+        public List<VOVeterinaria> List(SqlConnection connection)
+        {
+            List<VOVeterinaria> listVeterinarias = new List<VOVeterinaria>();
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("select p.id, p.nombre, p.direccion, P.telefono");
+            sb.Append(" from Veterinaria p;");
+
+            SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = selectCommand;
+
+            // creo y cargo el dataset
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Veterinaria");
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+
+                int id = Convert.ToInt32(dr["id"]);
+                string nombre = Convert.ToString(dr["nombre"]);
+                string direccion = Convert.ToString(dr["direccion"]);
+                string telefono = Convert.ToString(dr["telefono"]);
+
+                VOVeterinaria voveterinaria = new VOVeterinaria(id, nombre, direccion, telefono);
+
+                listVeterinarias.Add(voveterinaria);
+            }
+
+            return listVeterinarias;
         }
     }
 }

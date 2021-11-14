@@ -13,6 +13,17 @@ namespace ConsolaVeterinarias
         {
             FachadaWin fachadaWin = new FachadaWin();
 
+            //VOMascota vomascota = fachadaWin.ObtenerMascota(2);
+            //DateTime date = DateTime.Today;
+            //Console.WriteLine(vomascota.Id);
+            //fachadaWin.CrearConsulta(new VOConsulta(date, "algo", 10, vomascota));
+
+            //VOMascota vomascota2 = fachadaWin.ObtenerMascota(3);
+            //fachadaWin.CrearConsulta(new VOConsulta(date, "algo2", 8, vomascota2));
+
+            //Console.WriteLine(fachadaWin.ObtenerConsultas()[2].Descripcion);
+            //Console.ReadLine();
+
             // ================== INICIO FEDE PRUEBAS ==================
 
             //fachadaWin.CrearVeterianaria(new VOVeterinaria("Los gatitos", "nenecho", "091234567"));
