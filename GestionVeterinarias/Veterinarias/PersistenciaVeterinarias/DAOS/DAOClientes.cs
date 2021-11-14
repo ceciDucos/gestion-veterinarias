@@ -38,15 +38,76 @@ namespace PersistenciaVeterinarias.DAOS
             //Inserto Persona
             StringBuilder sbPersona = new StringBuilder();
             sbPersona.Append("INSERT INTO Persona(nombre, cedula, telefono)");
-            sbPersona.Append($"VALUES('{cliente.Nombre}', {cliente.Cedula}, '{cliente.Telefono}');");
+            sbPersona.Append($"VALUES(@Nombre, @Cedula, @Telefono, @IdVeterinaria);");
 
             //Inserto Cliente
             StringBuilder sbCliente = new StringBuilder();
             sbCliente.Append("INSERT INTO Cliente(cedula, direccion, correo, pass, activo)");
-            sbCliente.Append($"VALUES({cliente.Cedula}, '{cliente.Direccion}', '{cliente.Correo}', '{cliente.Pass}', {Convert.ToByte(cliente.Activo)});");
+            sbCliente.Append($"VALUES( @Nombre, @Direccion, @Correo, @Pass, @Activo);");
+
+            SqlParameter nombreParameter = new SqlParameter()
+            {
+                ParameterName = "@Nombre",
+                Value = cliente.Nombre,
+                SqlDbType = SqlDbType.VarChar
+            };
+
+            SqlParameter cedulaParameter = new SqlParameter()
+            {
+                ParameterName = "@Cedula",
+                Value = cliente.Cedula,
+                SqlDbType = SqlDbType.BigInt
+            };
+            SqlParameter telefonoParameter = new SqlParameter()
+            {
+                ParameterName = "@Telefono",
+                Value = cliente.Telefono,
+                SqlDbType = SqlDbType.VarChar
+            };
+            SqlParameter idVeterinariaParameter = new SqlParameter()
+            {
+                ParameterName = "@IdVeterinaria",
+                Value = cliente.IdVeterinaria,
+                SqlDbType = SqlDbType.Int
+            };
+            SqlParameter direccionParameter = new SqlParameter()
+            {
+                ParameterName = "@Direccion",
+                Value = cliente.Direccion,
+                SqlDbType = SqlDbType.VarChar
+            };
+            SqlParameter correoParameter = new SqlParameter()
+            {
+                ParameterName = "@Correo",
+                Value = cliente.Correo,
+                SqlDbType = SqlDbType.VarChar
+            };
+            SqlParameter passParameter = new SqlParameter()
+            {
+                ParameterName = "@Pass",
+                Value = cliente.Pass,
+                SqlDbType = SqlDbType.VarChar
+            };
+            SqlParameter activoParameter = new SqlParameter()
+            {
+                ParameterName = "@Activo",
+                Value = cliente.Activo,
+                SqlDbType = SqlDbType.Bit
+            };
 
             SqlCommand commandPersona = new SqlCommand(sbPersona.ToString(), connection);
+            commandPersona.Parameters.Add(cedulaParameter);
+            commandPersona.Parameters.Add(nombreParameter);
+            commandPersona.Parameters.Add(telefonoParameter);
+            commandPersona.Parameters.Add(idVeterinariaParameter);
+
             SqlCommand commandCliente = new SqlCommand(sbCliente.ToString(), connection);
+            commandCliente.Parameters.Add(cedulaParameter);
+            commandCliente.Parameters.Add(direccionParameter);
+            commandCliente.Parameters.Add(correoParameter);
+            commandCliente.Parameters.Add(passParameter);
+            commandCliente.Parameters.Add(activoParameter);
+
             commandPersona.ExecuteNonQuery();
             commandCliente.ExecuteNonQuery();
         }
