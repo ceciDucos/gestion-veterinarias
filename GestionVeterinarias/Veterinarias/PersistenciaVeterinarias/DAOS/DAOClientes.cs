@@ -37,13 +37,13 @@ namespace PersistenciaVeterinarias.DAOS
         {
             //Inserto Persona
             StringBuilder sbPersona = new StringBuilder();
-            sbPersona.Append("INSERT INTO Persona(nombre, cedula, telefono)");
+            sbPersona.Append("INSERT INTO Persona(nombre, cedula, telefono, idVeterinaria)");
             sbPersona.Append($"VALUES(@Nombre, @Cedula, @Telefono, @IdVeterinaria);");
 
             //Inserto Cliente
             StringBuilder sbCliente = new StringBuilder();
             sbCliente.Append("INSERT INTO Cliente(cedula, direccion, correo, pass, activo)");
-            sbCliente.Append($"VALUES( @Nombre, @Direccion, @Correo, @Pass, @Activo);");
+            sbCliente.Append($"VALUES( @Cedula, @Direccion, @Correo, @Pass, @Activo);");
 
             SqlParameter nombreParameter = new SqlParameter()
             {
@@ -51,7 +51,6 @@ namespace PersistenciaVeterinarias.DAOS
                 Value = cliente.Nombre,
                 SqlDbType = SqlDbType.VarChar
             };
-
             SqlParameter cedulaParameter = new SqlParameter()
             {
                 ParameterName = "@Cedula",
@@ -69,6 +68,12 @@ namespace PersistenciaVeterinarias.DAOS
                 ParameterName = "@IdVeterinaria",
                 Value = cliente.IdVeterinaria,
                 SqlDbType = SqlDbType.Int
+            };
+            SqlParameter cedula2Parameter = new SqlParameter()
+            {
+                ParameterName = "@Cedula",
+                Value = cliente.Cedula,
+                SqlDbType = SqlDbType.BigInt
             };
             SqlParameter direccionParameter = new SqlParameter()
             {
@@ -102,7 +107,7 @@ namespace PersistenciaVeterinarias.DAOS
             commandPersona.Parameters.Add(idVeterinariaParameter);
 
             SqlCommand commandCliente = new SqlCommand(sbCliente.ToString(), connection);
-            commandCliente.Parameters.Add(cedulaParameter);
+            commandCliente.Parameters.Add(cedula2Parameter);
             commandCliente.Parameters.Add(direccionParameter);
             commandCliente.Parameters.Add(correoParameter);
             commandCliente.Parameters.Add(passParameter);
@@ -153,7 +158,7 @@ namespace PersistenciaVeterinarias.DAOS
             commandPersona.ExecuteNonQuery();
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("UPDATE Cliente SET direccion=@Direccion, correo=@Correo, ");
+            sb.Append("UPDATE Cliente SET direccion=@Direccion, correo=@Correo, pass=@Pass");
             sb.Append("activo=@Activo WHERE cedula = @Cedula");
 
             SqlCommand commandCliente = new SqlCommand(sb.ToString(), connection);
@@ -179,14 +184,12 @@ namespace PersistenciaVeterinarias.DAOS
                 SqlDbType = SqlDbType.VarChar
             };
 
-            /*
             SqlParameter PassParameter = new SqlParameter()
             {
                 ParameterName = "@Pass",
                 Value = cliente.Pass,
                 SqlDbType = SqlDbType.VarChar
             };
-            */
 
             SqlParameter ActivoParameter = new SqlParameter()
             {
@@ -198,7 +201,7 @@ namespace PersistenciaVeterinarias.DAOS
             commandCliente.Parameters.Add(CedulaParameterDos);
             commandCliente.Parameters.Add(DireccionParameter);
             commandCliente.Parameters.Add(CorreoParameter);
-            //commandCliente.Parameters.Add(PassParameter);
+            commandCliente.Parameters.Add(PassParameter);
             commandCliente.Parameters.Add(ActivoParameter);
             commandCliente.ExecuteNonQuery();
         }
@@ -244,7 +247,6 @@ namespace PersistenciaVeterinarias.DAOS
             adapter.Fill(ds, "Cliente");
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-
                 long cedula = Convert.ToInt32(dr["cedula"]);
                 string nombre = Convert.ToString(dr["nombre"]);
                 string telefono = Convert.ToString(dr["telefono"]); 
