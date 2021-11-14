@@ -136,10 +136,16 @@ namespace WebServiceVeterinarias
             fachada.MemberMascota(numero);
         }
 
-        [WebMethod(Description = "Obtener los mascotas exitentes dado un cliente existentes")]
+        [WebMethod(Description = "Obtener las mascotas exitentes dado un cliente existentes")]
         public List<VOMascota> ObtenerMascotas(long cedula)
         {
             return fachada.ObtenerMascotas(cedula);
+        }
+
+        [WebMethod(Description = "Obtener mascota exitentes dado un id")]
+        public VOMascota ObtenerMascota(int idMascota)
+        {
+            return fachada.ObtenerMascota(idMascota);
         }
         #endregion
 
@@ -175,6 +181,12 @@ namespace WebServiceVeterinarias
         public void EliminarConsulta(int numero)
         {
             fachada.EliminarConsulta(numero);
+        }
+
+        [WebMethod(Description = "Servicio para obtener todas las consultas existentes")]
+        public List<VOConsulta> ObtenerConsultas()
+        {
+            return fachada.ObtenerConsultas();
         }
         #endregion
     }
