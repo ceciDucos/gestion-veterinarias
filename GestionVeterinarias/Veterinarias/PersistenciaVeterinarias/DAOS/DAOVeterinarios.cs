@@ -127,7 +127,7 @@ namespace PersistenciaVeterinarias.DAOS
             connection.Close();
         }
 
-        public List<VOVeterinario> List(SqlConnection connection) {
+        public List<VOVeterinario> List(SqlConnection connection, int idToFind) {
 
 
             List<VOVeterinario> listVeterinarios = new List<VOVeterinario>();
@@ -135,9 +135,17 @@ namespace PersistenciaVeterinarias.DAOS
             StringBuilder sb = new StringBuilder();
             sb.Append("select p.cedula, p.nombre, p.telefono, p.idVeterinaria, v.horario");
             sb.Append(" from Persona p, Veterinario v");
-            sb.Append(" where p.cedula = v.cedula");
+            sb.Append(" where p.cedula = v.cedula and p.idVeterinaria = @IdVeterinaria");
 
             SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+            SqlParameter IdVeterinariaParameter = new SqlParameter()
+            {
+                ParameterName = "@IdVeterinaria",
+                Value = idToFind,
+                SqlDbType = SqlDbType.Int
+            };
+            selectCommand.Parameters.Add(IdVeterinariaParameter);
 
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = selectCommand;

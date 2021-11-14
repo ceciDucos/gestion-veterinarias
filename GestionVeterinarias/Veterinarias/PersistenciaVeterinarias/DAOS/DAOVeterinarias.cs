@@ -141,9 +141,18 @@ namespace PersistenciaVeterinarias.DAOS
             StringBuilder sb = new StringBuilder();
             sb.Append("select *");
             sb.Append(" from Veterinaria ");
-            sb.AppendFormat(" where id = {0}", InId);
+            sb.AppendFormat(" where id = @InId");
 
             SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+            SqlParameter InIdParameter = new SqlParameter()
+            {
+                ParameterName = "@InId",
+                Value = InId,
+                SqlDbType = SqlDbType.Int
+            };
+
+            selectCommand.Parameters.Add(InIdParameter);
 
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = selectCommand;

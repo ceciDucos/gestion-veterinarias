@@ -53,9 +53,9 @@ namespace WebServiceVeterinarias
 
         #region Métodos de Veterinario
         [WebMethod(Description = "Obtener los veterinarios existentes")]
-        public List<VOVeterinario> ObtenerVeterinarios()
+        public List<VOVeterinario> ObtenerVeterinarios(int idVeterinaria)
         {
-            return fachada.ObtenerVeterinarios();
+            return fachada.ObtenerVeterinarios(idVeterinaria);
         }
 
         [WebMethod(Description = "Servicio para crear un veterinario nuevo")]
@@ -86,9 +86,9 @@ namespace WebServiceVeterinarias
         #region Métodos de Cliente
 
         [WebMethod(Description = "Obtener los clientes existentes")]
-        public List<VOCliente> ObtenerClientes()
+        public List<VOCliente> ObtenerClientes(int idVeterinaria)
         {
-            return fachada.ObtenerClientes();
+            return fachada.ObtenerClientes(idVeterinaria);
         }
 
         [WebMethod(Description = "Servicio para crear un cliente nuevo")]
@@ -190,9 +190,9 @@ namespace WebServiceVeterinarias
         }
 
         [WebMethod(Description = "Servicio para obtener todas las consultas existentes")]
-        public List<VOConsulta> ObtenerConsultas()
+        public List<VOConsulta> ObtenerConsultas(int idVeterinaria)
         {
-            return fachada.ObtenerConsultas();
+            return fachada.ObtenerConsultas(idVeterinaria);
         }
         #endregion
     }

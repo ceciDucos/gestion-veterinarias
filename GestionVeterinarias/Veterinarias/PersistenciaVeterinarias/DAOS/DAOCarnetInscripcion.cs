@@ -1,4 +1,5 @@
 ﻿using ModelosVeterinarias.Classes;
+using ModelosVeterinarias.ValueObject;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -81,6 +82,44 @@ namespace PersistenciaVeterinarias.DAOS
             command.Parameters.Add(numParameter);
 
             command.ExecuteNonQuery();
+        }
+
+        public VOCarnetInscripcion Get(SqlConnection connection, int idToFind)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("select c.numero, c.expedido, c.foto");
+            sb.Append(" from carnetInscripcion c");
+            sb.Append(" where c.idMascota = @IdMascota");
+
+            SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+            SqlParameter idMascotaParameter = new SqlParameter()
+            {
+                ParameterName = "@IdMascota",
+                Value = idToFind,
+                SqlDbType = SqlDbType.Int
+            };
+
+            selectCommand.Parameters.Add(idMascotaParameter);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = selectCommand;
+
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "carnetInscripcion");
+            VOCarnetInscripcion vocarnet = null;
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                int numero = Convert.ToInt32(dr["numero"]);
+                DateTime expedido = Convert.ToDateTime(dr["expedido"]);
+                byte[] foto = (byte[])dr["foto"];
+                vocarnet = new VOCarnetInscripcion(numero, expedido, foto);
+            }
+
+            return vocarnet;
+
         }
     }
 }

@@ -263,16 +263,14 @@ namespace LogicaVeterinarias.Controller
         }
 
 
-        public List<VOVeterinario> ObtenerVeterinarios() {
+        public List<VOVeterinario> ObtenerVeterinarios(int idVeterinaria) {
             SqlConnection connection = null;
             try
             {
                 connection = manejadorConexion.GetConnection();
                 connection.Open();
-                List<VOVeterinario> listVeterinarios = daoVeterinarios.List(connection);
+                List<VOVeterinario> listVeterinarios = daoVeterinarios.List(connection, idVeterinaria);
                 return listVeterinarios;
-
-
             }
             catch (SqlException ex)
             {
@@ -442,14 +440,14 @@ namespace LogicaVeterinarias.Controller
             }
         }
 
-        public List<VOCliente> ObtenerClientes()
+        public List<VOCliente> ObtenerClientes(int idVeterinaria)
         {
             SqlConnection connection = null;
             try
             {
                 connection = manejadorConexion.GetConnection();
                 connection.Open();
-                List<VOCliente> listClientes = daoClientes.List(connection);
+                List<VOCliente> listClientes = daoClientes.List(connection, idVeterinaria);
                 return listClientes;
 
 
@@ -900,6 +898,34 @@ namespace LogicaVeterinarias.Controller
             }
         }
 
+        public VOCarnetInscripcion ObtenerCarnet(int id)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                VOCarnetInscripcion vocarnet = daoCarnetInscripcion.Get(connection, id);
+                return vocarnet;
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                throw new PersistenciaException("Ocurrió un error al obtener los datos");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
+
         //[WebMethod]
         public void  CrearConsulta(VOConsulta voconsulta)
         {
@@ -1029,14 +1055,14 @@ namespace LogicaVeterinarias.Controller
             }
         }
 
-        public List<VOConsulta> ObtenerConsultas()
+        public List<VOConsulta> ObtenerConsultas(int idVeterinaria)
         {
             SqlConnection connection = null;
             try
             {
                 connection = manejadorConexion.GetConnection();
                 connection.Open();
-                List<VOConsulta> listConsultas = daoConsultas.List(connection);
+                List<VOConsulta> listConsultas = daoConsultas.ListByMascota(connection, idVeterinaria);
                 return listConsultas;
             }
             catch (SqlException ex)

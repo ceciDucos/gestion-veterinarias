@@ -175,15 +175,94 @@ public class DAOConsultas
         commandConsulta.ExecuteNonQuery();
     }
 
-    public List<VOConsulta> List(SqlConnection connection)
+    public void SetCalification(SqlConnection connection, int numero, int calificacion)
+    {
+        StringBuilder sbConsulta = new StringBuilder();
+        sbConsulta.Append("UPDATE Consulta SET calificacion = @Calificacion ");
+        sbConsulta.Append("WHERE numero = @Numero;");
+
+        SqlCommand commandConsulta = new SqlCommand(sbConsulta.ToString(), connection);
+
+        SqlParameter NumeroParameter = new SqlParameter()
+        {
+            ParameterName = "@Numero",
+            Value = numero,
+            SqlDbType = SqlDbType.Int
+        };
+
+        SqlParameter CalificacionParameter = new SqlParameter()
+        {
+            ParameterName = "@Calificacion",
+            Value = calificacion,
+            SqlDbType = SqlDbType.Int
+        };
+
+        commandConsulta.Parameters.Add(NumeroParameter);
+        commandConsulta.Parameters.Add(CalificacionParameter);
+
+        commandConsulta.ExecuteNonQuery();
+    }
+
+    public List<VOConsulta> ListByMascota(SqlConnection connection, int idMascota)
     {
         List<VOConsulta> listConsultas = new List<VOConsulta>();
 
         StringBuilder sb = new StringBuilder();
         sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota");
-        sb.Append(" from Consulta c;");
+        sb.Append(" from Consulta c");
+        sb.Append(" where c.idMascota = @IdMascota");
 
         SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+        SqlParameter IdVeterinariaParameter = new SqlParameter()
+        {
+            ParameterName = "@IdMascota",
+            Value = idMascota,
+            SqlDbType = SqlDbType.Int
+        };
+        selectCommand.Parameters.Add(IdVeterinariaParameter);
+
+        SqlDataAdapter adapter = new SqlDataAdapter();
+        adapter.SelectCommand = selectCommand;
+
+        // creo y cargo el dataset
+        DataSet ds = new DataSet();
+        adapter.Fill(ds, "Consulta");
+        foreach (DataRow dr in ds.Tables[0].Rows)
+        {
+            int numero = Convert.ToInt32(dr["numero"]);
+            int calificacion = Convert.ToInt32(dr["calificacion"]);
+            DateTime fecha = Convert.ToDateTime(dr["fecha"]);
+            string descripcion = Convert.ToString(dr["descripcion"]);
+
+            VOMascota mascota = daomascotas.Get(connection, idMascota);
+
+            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota);
+
+            listConsultas.Add(voconsulta);
+        }
+
+        return listConsultas;
+    }
+
+    public List<VOConsulta> ListByVeterinaria(SqlConnection connection, int idVeterinaria)
+    {
+        List<VOConsulta> listConsultas = new List<VOConsulta>();
+
+        StringBuilder sb = new StringBuilder();
+        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota");
+        sb.Append(" from Consulta c, Mascota m, Persona p");
+        sb.Append(" where c.idMascota = m.id and m.cedulaCliente = p.cedula and p.idVeterinaria = @IdVeterinaria;");
+
+        SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+        SqlParameter IdVeterinariaParameter = new SqlParameter()
+        {
+            ParameterName = "@IdVeterinaria",
+            Value = idVeterinaria,
+            SqlDbType = SqlDbType.Int
+        };
+        selectCommand.Parameters.Add(IdVeterinariaParameter);
 
         SqlDataAdapter adapter = new SqlDataAdapter();
         adapter.SelectCommand = selectCommand;
