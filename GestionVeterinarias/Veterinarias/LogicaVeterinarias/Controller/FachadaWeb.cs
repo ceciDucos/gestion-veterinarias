@@ -44,14 +44,30 @@ namespace LogicaVeterinarias.Controller
 
         public List<VOVeterinaria> GetVeterinarias()
         {
-            List<VOVeterinaria> veterinarias = new List<VOVeterinaria>();
-            VOVeterinaria vo = new VOVeterinaria(1, "Veterinaria 1", "ya sabes 1", "098898898");
-            vo.Clientes.Add(new VOCliente(1, "pepe", "54345", 1, "yuyu",  "yuyu@gmail", "tretttt", true));
-            veterinarias.Add(vo);
-            veterinarias.Add(new VOVeterinaria(2, "Veterinaria 2", "ya sabes 2", "098898898"));
-            veterinarias.Add(new VOVeterinaria(1, "Veterinaria 3", "ya sabes 3", "098898898"));
-
-            return veterinarias;
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                List<VOVeterinaria> listVeterinarias = daoVeterinarias.List(connection);
+                return listVeterinarias;
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                throw new PersistenciaException("Ocurrió un error al obtener los datos");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
         }
 
         public List<VOConsulta> GetConsultas(int idVeterinaria)

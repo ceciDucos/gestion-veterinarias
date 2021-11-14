@@ -51,7 +51,6 @@ namespace PersistenciaVeterinarias.DAOS
                 Value = veterinario.Nombre,
                 SqlDbType = SqlDbType.VarChar
             };
-
             SqlParameter cedulaParameter = new SqlParameter()
             {
                 ParameterName = "@Cedula",
@@ -69,7 +68,13 @@ namespace PersistenciaVeterinarias.DAOS
                 ParameterName = "@IdVeterinaria",
                 Value = veterinario.IdVeterinaria,
                 SqlDbType = SqlDbType.Int
-            }; 
+            };
+            SqlParameter cedula2Parameter = new SqlParameter()
+            {
+                ParameterName = "@Cedula",
+                Value = veterinario.Cedula,
+                SqlDbType = SqlDbType.BigInt
+            };
             SqlParameter horarioParameter = new SqlParameter()
             {
                 ParameterName = "@Horario",
@@ -84,6 +89,7 @@ namespace PersistenciaVeterinarias.DAOS
             commandPersona.Parameters.Add(idVeterinariaParameter);
 
             SqlCommand commandVeterinario = new SqlCommand(sbCliente.ToString(), connection);
+            commandVeterinario.Parameters.Add(cedula2Parameter);
             commandVeterinario.Parameters.Add(horarioParameter);
 
             commandPersona.ExecuteNonQuery();
