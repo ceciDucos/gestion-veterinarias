@@ -11,14 +11,16 @@ namespace ModelosVeterinarias.Classes
         public long Cedula { get; }
         public string Nombre { get; set; }
         public string Telefono { get; set; }
+        public int IdVeterinaria { get; set; }
 
         public Persona() { }
 
-        public Persona(long cedula, string nombre, string telefono) 
+        public Persona(long cedula, string nombre, string telefono, int idVeterinaria) 
         {
             this.Cedula = cedula;
             this.Nombre = nombre;
             this.Telefono = telefono;
+            this.IdVeterinaria = idVeterinaria;
         }
     }
 }

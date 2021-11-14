@@ -161,7 +161,7 @@ namespace PersistenciaVeterinarias.DAOS
             List<VOCliente> listClientes = new List<VOCliente>();
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("select p.cedula, p.nombre, p.telefono, c.direccion, c.correo, c.pass, c.activo ");
+            sb.Append("select p.cedula, p.nombre, p.telefono, p.idVeterinaria, c.direccion, c.correo, c.pass, c.activo ");
             sb.Append(" from Persona p, Cliente c");
             sb.Append(" where p.cedula = c.cedula");
 
@@ -178,13 +178,14 @@ namespace PersistenciaVeterinarias.DAOS
 
                 long cedula = Convert.ToInt32(dr["cedula"]);
                 string nombre = Convert.ToString(dr["nombre"]);
-                string telefono = Convert.ToString(dr["telefono"]);
+                string telefono = Convert.ToString(dr["telefono"]); 
+                int idVeterinaria = Convert.ToInt32(dr["idVeterinaria"]);
                 string direccion = Convert.ToString(dr["direccion"]);
                 string correo = Convert.ToString(dr["correo"]);
                 string pass = Convert.ToString(dr["pass"]);
                 bool activo = Convert.ToBoolean(dr["activo"]);
 
-                VOCliente vocliente = new VOCliente(cedula, nombre, telefono, direccion, correo, pass, activo );
+                VOCliente vocliente = new VOCliente(cedula, nombre, telefono, idVeterinaria, direccion, correo, pass, activo );
 
                 listClientes.Add(vocliente);
             }
@@ -196,7 +197,7 @@ namespace PersistenciaVeterinarias.DAOS
         {
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("select p.cedula, p.nombre, p.telefono, c.direccion, c.correo, c.pass, c.activo ");
+            sb.Append("select p.cedula, p.nombre, p.telefono, p.idVeterinaria, c.direccion, c.correo, c.pass, c.activo ");
             sb.Append(" from Persona p, Cliente c");
             sb.AppendFormat(" where p.cedula = {0}", InCedula.ToString());
 
@@ -214,12 +215,13 @@ namespace PersistenciaVeterinarias.DAOS
 
                 long cedula = Convert.ToInt32(dr["cedula"]);
                 string nombre = Convert.ToString(dr["nombre"]);
-                string telefono = Convert.ToString(dr["telefono"]);
+                string telefono = Convert.ToString(dr["telefono"]); 
+                int idVeterinaria = Convert.ToInt32(dr["idVeterinaria"]);
                 string direccion = Convert.ToString(dr["direccion"]);
                 string correo = Convert.ToString(dr["correo"]);
                 string pass = Convert.ToString(dr["pass"]);
                 bool activo = Convert.ToBoolean(dr["activo"]);
-                vocliente = new VOCliente(cedula, nombre, telefono, direccion, correo, pass, activo);
+                vocliente = new VOCliente(cedula, nombre, telefono, idVeterinaria, direccion, correo, pass, activo);
 
             }
 

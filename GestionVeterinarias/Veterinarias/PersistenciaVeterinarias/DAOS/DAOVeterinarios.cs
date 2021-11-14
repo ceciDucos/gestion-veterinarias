@@ -133,7 +133,7 @@ namespace PersistenciaVeterinarias.DAOS
             List<VOVeterinario> listVeterinarios = new List<VOVeterinario>();
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("select p.cedula, p.nombre, p.telefono, v.horario");
+            sb.Append("select p.cedula, p.nombre, p.telefono, p.idVeterinaria, v.horario");
             sb.Append(" from Persona p, Veterinario v");
             sb.Append(" where p.cedula = v.cedula");
 
@@ -150,10 +150,11 @@ namespace PersistenciaVeterinarias.DAOS
                 
                 long cedula = Convert.ToInt32(dr["cedula"]);
                 string nombre = Convert.ToString(dr["nombre"]);
-                string telefono = Convert.ToString(dr["telefono"]);
+                string telefono = Convert.ToString(dr["telefono"]); 
+                int idVeterinaria = Convert.ToInt32(dr["idVeterinaria"]);
                 string horario = Convert.ToString(dr["horario"]);
                 
-                VOVeterinario voveterinario = new VOVeterinario(cedula, nombre, telefono, horario);
+                VOVeterinario voveterinario = new VOVeterinario(cedula, nombre, telefono, idVeterinaria, horario);
 
                 listVeterinarios.Add(voveterinario);
             }
@@ -166,7 +167,7 @@ namespace PersistenciaVeterinarias.DAOS
 
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("select p.cedula, p.nombre, p.telefono, v.horario");
+            sb.Append("select p.cedula, p.nombre, p.telefono, p.idVeterinaria, v.horario");
             sb.Append(" from Persona p, Veterinario v");
             sb.AppendFormat(" where p.cedula = {0}", InCedula.ToString());
 
@@ -181,14 +182,13 @@ namespace PersistenciaVeterinarias.DAOS
             VOVeterinario voveterinario = null;
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                
-
                 long cedula = Convert.ToInt32(dr["cedula"]);
                 string nombre = Convert.ToString(dr["nombre"]);
-                string telefono = Convert.ToString(dr["telefono"]);
+                string telefono = Convert.ToString(dr["telefono"]); 
+                int idVeterinaria = Convert.ToInt32(dr["idVeterinaria"]);
                 string horario = Convert.ToString(dr["horario"]);
 
-                voveterinario = new VOVeterinario(cedula, nombre, telefono, horario);
+                voveterinario = new VOVeterinario(cedula, nombre, telefono, idVeterinaria, horario);
             }
 
             return voveterinario;

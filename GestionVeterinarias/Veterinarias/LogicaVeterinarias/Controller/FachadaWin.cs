@@ -267,6 +267,7 @@ namespace LogicaVeterinarias.Controller
             long cedula = voveterinario.Cedula;
             string nombre = voveterinario.Nombre;
             string telefono = voveterinario.Telefono;
+            int idVeterinaria = voveterinario.IdVeterinaria;
             string horario = voveterinario.Horario;
             
             SqlConnection connection = null;
@@ -276,7 +277,7 @@ namespace LogicaVeterinarias.Controller
                 connection.Open();
                 if (!daoVeterinarios.Member(connection, cedula))
                 {
-                    Veterinario veterinario = new Veterinario(cedula, nombre, telefono, horario);
+                    Veterinario veterinario = new Veterinario(cedula, nombre, telefono, idVeterinaria, horario);
                     daoVeterinarios.Add(connection, veterinario);
                 }
                 else {
@@ -311,7 +312,7 @@ namespace LogicaVeterinarias.Controller
                 if (daoVeterinarios.Member(connection, voveterinario.Cedula))
                 {
                     Veterinario veterinario = new Veterinario(voveterinario.Cedula, voveterinario.Nombre,
-                        voveterinario.Telefono, voveterinario.Horario);
+                        voveterinario.Telefono, voveterinario.IdVeterinaria, voveterinario.Horario);
 
                     daoVeterinarios.Edit(connection, veterinario);
                     
@@ -475,6 +476,7 @@ namespace LogicaVeterinarias.Controller
             string nombre = vocliente.Nombre;
             long cedula = vocliente.Cedula;
             string telefono = vocliente.Telefono;
+            int idVeterinaria = vocliente.IdVeterinaria;
             string direccion = vocliente.Direccion;
             string correo = vocliente.Correo;
             string pass = vocliente.Clave;
@@ -486,7 +488,7 @@ namespace LogicaVeterinarias.Controller
                 connection.Open();
                 if (!daoClientes.Member(connection, cedula))
                 {
-                    Cliente cliente = new Cliente(cedula, nombre, telefono, direccion, correo, pass, activo);
+                    Cliente cliente = new Cliente(cedula, nombre, telefono, idVeterinaria, direccion, correo, pass, activo);
                     daoClientes.Add(connection, cliente);
                 }
                 else
@@ -529,7 +531,7 @@ namespace LogicaVeterinarias.Controller
                 connection.Open();
                 if (daoClientes.Member(connection, vocliente.Cedula))
                 {
-                    Cliente cliente = new Cliente(vocliente.Cedula, vocliente.Nombre, vocliente.Telefono,
+                    Cliente cliente = new Cliente(vocliente.Cedula, vocliente.Nombre, vocliente.Telefono, vocliente.IdVeterinaria,
                         vocliente.Direccion, vocliente.Correo, vocliente.Clave, vocliente.Activo);
 
                     daoClientes.Edit(connection, cliente);
