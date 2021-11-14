@@ -37,16 +37,55 @@ namespace PersistenciaVeterinarias.DAOS
         {
             //Inserto Veterinario
             StringBuilder sbPersona = new StringBuilder();
-            sbPersona.Append("INSERT INTO Persona(nombre, cedula, telefono)");
-            sbPersona.Append($"VALUES( '{veterinario.Nombre}', '{veterinario.Cedula}', '{veterinario.Telefono}' );");
+            sbPersona.Append("INSERT INTO Persona(nombre, cedula, telefono, idVeterinaria)");
+            sbPersona.Append($"VALUES( @Nombre, @Cedula, @Telefono, @IdVeterinaria);");
 
             //Inserto Veterinario
             StringBuilder sbCliente = new StringBuilder();
             sbCliente.Append("INSERT INTO Veterinario(cedula, horario)");
-            sbCliente.Append($"VALUES( '{veterinario.Cedula}', '{veterinario.Horario}' );");
-            
+            sbCliente.Append($"VALUES( @Cedula, @Horario );");
+
+            SqlParameter nombreParameter = new SqlParameter()
+            {
+                ParameterName = "@Nombre",
+                Value = veterinario.Nombre,
+                SqlDbType = SqlDbType.VarChar
+            };
+
+            SqlParameter cedulaParameter = new SqlParameter()
+            {
+                ParameterName = "@Cedula",
+                Value = veterinario.Cedula,
+                SqlDbType = SqlDbType.BigInt
+            };
+            SqlParameter telefonoParameter = new SqlParameter()
+            {
+                ParameterName = "@Telefono",
+                Value = veterinario.Telefono,
+                SqlDbType = SqlDbType.VarChar
+            };
+            SqlParameter idVeterinariaParameter = new SqlParameter()
+            {
+                ParameterName = "@IdVeterinaria",
+                Value = veterinario.IdVeterinaria,
+                SqlDbType = SqlDbType.Int
+            }; 
+            SqlParameter horarioParameter = new SqlParameter()
+            {
+                ParameterName = "@Horario",
+                Value = veterinario.Horario,
+                SqlDbType = SqlDbType.VarChar
+            };
+
             SqlCommand commandPersona = new SqlCommand(sbPersona.ToString(), connection);
+            commandPersona.Parameters.Add(cedulaParameter);
+            commandPersona.Parameters.Add(nombreParameter);
+            commandPersona.Parameters.Add(telefonoParameter);
+            commandPersona.Parameters.Add(idVeterinariaParameter);
+
             SqlCommand commandVeterinario = new SqlCommand(sbCliente.ToString(), connection);
+            commandVeterinario.Parameters.Add(horarioParameter);
+
             commandPersona.ExecuteNonQuery();
             commandVeterinario.ExecuteNonQuery();
         }
