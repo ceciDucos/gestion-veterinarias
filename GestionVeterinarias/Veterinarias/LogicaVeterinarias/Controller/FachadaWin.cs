@@ -205,6 +205,36 @@ namespace LogicaVeterinarias.Controller
             }
         }
 
+        public VOVeterinaria ObtenerVeterinaria(int id)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                VOVeterinaria voveterinaria = daoVeterinarias.Get(connection, id);
+                return voveterinaria;
+
+
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                throw new PersistenciaException("Ocurrió un error al obtener los datos");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
+
         //[WebMethod]
         public void EliminarVeterinaria(int num)
         {

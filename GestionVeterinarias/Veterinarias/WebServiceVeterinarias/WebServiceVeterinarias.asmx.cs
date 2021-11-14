@@ -43,6 +43,12 @@ namespace WebServiceVeterinarias
             return fachada.ObtenerVeterinarias();
         }
 
+        [WebMethod(Description = "Obtener una veterinaria existente")]
+        public VOVeterinaria ObtenerVeterinaria(int id)
+        {
+            return fachada.ObtenerVeterinaria(id);
+        }
+
         #endregion
 
         #region Métodos de Veterinario
