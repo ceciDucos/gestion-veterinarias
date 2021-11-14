@@ -19,7 +19,7 @@ namespace ModelosVeterinarias.Classes
 
         }
 
-        public Cliente(long ci, string nombre, string tel, string dir, string mail, string pass, bool activo) : base(ci, nombre, tel)
+        public Cliente(long ci, string nombre, string tel, int idVeterinaria, string dir, string mail, string pass, bool activo) : base(ci, nombre, tel, idVeterinaria)
         {
             this.Direccion = dir;
             this.Correo = mail;

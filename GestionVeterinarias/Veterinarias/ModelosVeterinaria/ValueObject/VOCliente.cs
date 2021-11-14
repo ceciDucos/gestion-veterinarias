@@ -11,6 +11,7 @@ namespace ModelosVeterinarias.ValueObject
         public long Cedula { get; set; }
         public string Nombre { get; set; }
         public string Telefono { get; set; }
+        public int IdVeterinaria { get; set; }
         public string Direccion { get; set; }
         public string Correo { get; set; }
         public string Clave { get; set; }
@@ -19,11 +20,12 @@ namespace ModelosVeterinarias.ValueObject
 
         public VOCliente() { }
 
-        public VOCliente(long cedula, string nombre, string telefono, string direccion, string correo, string pass, bool activo)
+        public VOCliente(long cedula, string nombre, string telefono, int idVeterinaria, string direccion, string correo, string pass, bool activo)
         {
             this.Cedula = cedula;
             this.Nombre = nombre;
             this.Telefono = telefono;
+            this.IdVeterinaria = idVeterinaria;
             this.Direccion = direccion;
             this.Correo = correo;
             this.Clave = pass;

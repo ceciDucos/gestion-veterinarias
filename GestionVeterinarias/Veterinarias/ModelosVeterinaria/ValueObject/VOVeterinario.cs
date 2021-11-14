@@ -11,14 +11,16 @@ namespace ModelosVeterinarias.ValueObject
         public long Cedula { get; set; }
         public string Nombre { get; set; }
         public string Telefono { get; set; }
+        public int IdVeterinaria { get; set; }
         public string Horario { get; set; }
 
         public VOVeterinario(){}
 
-        public VOVeterinario(long cedula, string nombre, string telefono, string horario)
+        public VOVeterinario(long cedula, string nombre, string telefono, int idVeterinaria, string horario)
         {
             this.Cedula = cedula;
             this.Nombre = nombre;
+            this.IdVeterinaria = idVeterinaria;
             this.Telefono = telefono;
             this.Horario = horario;
         }
