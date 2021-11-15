@@ -252,7 +252,9 @@ namespace PersistenciaVeterinarias.DAOS
                 // datos para el carne 
                 int numero = Convert.ToInt32(dr["numero"]);
                 DateTime expedido = Convert.ToDateTime(dr["expedido"]);
-                VOCarnetInscripcion vocarnet = new VOCarnetInscripcion(numero, expedido);
+                byte[] foto = (byte[])dr["foto"];
+
+                VOCarnetInscripcion vocarnet = new VOCarnetInscripcion(numero, expedido, foto);
 
                 vomascota = new VOMascota(id, cedula, tipo, nombre, raza, edad, vacunas, vocarnet);
             }
