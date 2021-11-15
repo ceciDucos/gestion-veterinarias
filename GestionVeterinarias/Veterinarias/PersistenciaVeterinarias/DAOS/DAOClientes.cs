@@ -255,8 +255,10 @@ namespace PersistenciaVeterinarias.DAOS
                 string correo = Convert.ToString(dr["correo"]);
                 string pass = Convert.ToString(dr["pass"]);
                 bool activo = Convert.ToBoolean(dr["activo"]);
+                DAOMascotas daoMascotas = new DAOMascotas();
+                List<VOMascota> mascotas = daoMascotas.List(connection, cedula);
 
-                VOCliente vocliente = new VOCliente(cedula, nombre, telefono, idVeterinaria, direccion, correo, pass, activo );
+                VOCliente vocliente = new VOCliente(cedula, nombre, telefono, idVeterinaria, direccion, correo, pass, activo, mascotas);
 
                 listClientes.Add(vocliente);
             }
@@ -270,9 +272,17 @@ namespace PersistenciaVeterinarias.DAOS
             StringBuilder sb = new StringBuilder();
             sb.Append("select p.cedula, p.nombre, p.telefono, p.idVeterinaria, c.direccion, c.correo, c.pass, c.activo ");
             sb.Append(" from Persona p, Cliente c");
-            sb.AppendFormat(" where p.cedula = {0}", InCedula.ToString());
+            sb.AppendFormat(" where p.cedula = @InCedula and p.cedula = c.cedula");
 
             SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+            SqlParameter InCedulaParameter = new SqlParameter()
+            {
+                ParameterName = "@InCedula",
+                Value = InCedula,
+                SqlDbType = SqlDbType.BigInt
+            };
+            selectCommand.Parameters.Add(InCedulaParameter);
 
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = selectCommand;
@@ -283,7 +293,6 @@ namespace PersistenciaVeterinarias.DAOS
 
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-
                 long cedula = Convert.ToInt32(dr["cedula"]);
                 string nombre = Convert.ToString(dr["nombre"]);
                 string telefono = Convert.ToString(dr["telefono"]); 
@@ -292,14 +301,12 @@ namespace PersistenciaVeterinarias.DAOS
                 string correo = Convert.ToString(dr["correo"]);
                 string pass = Convert.ToString(dr["pass"]);
                 bool activo = Convert.ToBoolean(dr["activo"]);
-                vocliente = new VOCliente(cedula, nombre, telefono, idVeterinaria, direccion, correo, pass, activo);
-
+                DAOMascotas daoMascotas = new DAOMascotas();
+                List<VOMascota> mascotas = daoMascotas.List(connection, InCedula);
+                vocliente = new VOCliente(cedula, nombre, telefono, idVeterinaria, direccion, correo, pass, activo, mascotas);
             }
 
             return vocliente;
-
         }
-
-
     }
 }

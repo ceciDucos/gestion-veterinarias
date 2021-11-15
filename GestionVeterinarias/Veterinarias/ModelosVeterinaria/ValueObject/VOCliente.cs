@@ -33,5 +33,18 @@ namespace ModelosVeterinarias.ValueObject
             this.Mascotas = new List<VOMascota>();
         }
 
+        public VOCliente(long cedula, string nombre, string telefono, int idVeterinaria, string direccion, string correo, string pass, bool activo, List<VOMascota> mascotas)
+        {
+            this.Cedula = cedula;
+            this.Nombre = nombre;
+            this.Telefono = telefono;
+            this.IdVeterinaria = idVeterinaria;
+            this.Direccion = direccion;
+            this.Correo = correo;
+            this.Clave = pass;
+            this.Activo = activo;
+            this.Mascotas = mascotas;
+        }
+
     }
 }

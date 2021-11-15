@@ -169,9 +169,16 @@ namespace PersistenciaVeterinarias.DAOS
             sb.Append("select m.id, m.cedulaCliente, m.tipo, m.nombre, m.edad, m.raza, m.vacunas, c.numero, c.expedido, c.foto");
             sb.Append(" from Mascota m, carnetInscripcion c");
             sb.Append(" where m.id = c.idMascota ");
-            sb.AppendFormat(" and m.cedulaCliente = {0}", Incedula);
+            sb.AppendFormat(" and m.cedulaCliente = @CedulaCliente");
 
             SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+            SqlParameter cedulaClienteParameter = new SqlParameter()
+            {
+                ParameterName = "@CedulaCliente",
+                Value = Incedula,
+                SqlDbType = SqlDbType.BigInt
+            };
+            selectCommand.Parameters.Add(cedulaClienteParameter);
 
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = selectCommand;
@@ -181,7 +188,6 @@ namespace PersistenciaVeterinarias.DAOS
             adapter.Fill(ds, "Mascota");
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-
                 int id = Convert.ToInt32(dr["id"]);
                 long cedula = Convert.ToInt32(dr["cedulaCliente"]);
                 TipoAnimal tipo = (TipoAnimal)Enum.Parse(typeof(TipoAnimal), Convert.ToString(dr["tipo"]));
@@ -193,11 +199,9 @@ namespace PersistenciaVeterinarias.DAOS
                 // datos para el carne 
                 int numero = Convert.ToInt32(dr["numero"]);
                 DateTime expedido = Convert.ToDateTime(dr["expedido"]);
+                byte[] foto = (byte[])dr["foto"];
 
-                //TODO: VER COMO HACER EL CASTEO
-                //byte[] foto = Convert.ToByte(dr["foto"]);
-
-                VOCarnetInscripcion vocarnet = new VOCarnetInscripcion(numero, expedido);
+                VOCarnetInscripcion vocarnet = new VOCarnetInscripcion(numero, expedido, foto);
 
                 VOMascota vomascota = new VOMascota(id, cedula, tipo, nombre, raza, edad, vacunas, vocarnet);
 
