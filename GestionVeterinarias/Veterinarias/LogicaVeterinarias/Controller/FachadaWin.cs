@@ -499,6 +499,7 @@ namespace LogicaVeterinarias.Controller
                 }
             }
         }
+
         public void CrearCliente(VOCliente vocliente)
         {
             string nombre = vocliente.Nombre;
