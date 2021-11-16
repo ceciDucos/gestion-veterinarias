@@ -16,7 +16,7 @@ namespace ConsolaVeterinarias
             VOMascota vomascota = fachadaWin.ObtenerMascota(2);
             DateTime date = DateTime.Today;
             Console.WriteLine(vomascota.Id);
-            fachadaWin.CrearConsulta(new VOConsulta(date, "algo", 10, vomascota));
+            //fachadaWin.CrearConsulta(new VOConsulta(date, "algo", 10, vomascota));
             Console.WriteLine("paso");
 
             //VOMascota vomascota2 = fachadaWin.ObtenerMascota(3);

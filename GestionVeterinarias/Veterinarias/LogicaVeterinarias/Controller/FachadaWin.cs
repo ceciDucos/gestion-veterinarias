@@ -941,8 +941,13 @@ namespace LogicaVeterinarias.Controller
                     Mascota mascota = new Mascota(voMascota.Id, voMascota.cedulaCliente, voMascota.Animal, voMascota.Nombre, voMascota.Raza, voMascota.Edad,
                         voMascota.VacunaAlDia, new CarnetInscripcion(voMascota.CarnetInscripcion.Numero,
                         voMascota.CarnetInscripcion.Expedido, voMascota.CarnetInscripcion.Foto));
+
+                    VOVeterinario voVeterinario = voconsulta.Veterinario;
+                    Veterinario veterinario = new Veterinario(voVeterinario.Cedula, voVeterinario.Nombre, voVeterinario.Telefono,
+                        voVeterinario.IdVeterinaria, voVeterinario.Horario);
+
                     Consulta consulta = new Consulta(voconsulta.Calificacion, voconsulta.Fecha,
-                        voconsulta.Descripcion, mascota);
+                        voconsulta.Descripcion, mascota, veterinario);
                     daoConsultas.Add(connection, consulta);
                 }
                 else
@@ -990,8 +995,12 @@ namespace LogicaVeterinarias.Controller
                         new CarnetInscripcion(voconsulta.Mascota.CarnetInscripcion.Numero,
                         voconsulta.Mascota.CarnetInscripcion.Expedido, voconsulta.Mascota.CarnetInscripcion.Foto));
 
+                    VOVeterinario voVeterinario = voconsulta.Veterinario;
+                    Veterinario veterinario = new Veterinario(voVeterinario.Cedula, voVeterinario.Nombre, voVeterinario.Telefono,
+                        voVeterinario.IdVeterinaria, voVeterinario.Horario);
+
                     Consulta consulta = new Consulta(voconsulta.Numero, voconsulta.Calificacion, voconsulta.Fecha,
-                        voconsulta.Descripcion, mascota);
+                        voconsulta.Descripcion, mascota, veterinario);
 
                     daoConsultas.Edit(connection, consulta);
                 }
@@ -1063,7 +1072,7 @@ namespace LogicaVeterinarias.Controller
             {
                 connection = manejadorConexion.GetConnection();
                 connection.Open();
-                List<VOConsulta> listConsultas = daoConsultas.ListByMascota(connection, idVeterinaria);
+                List<VOConsulta> listConsultas = daoConsultas.ListByVeterinaria(connection, idVeterinaria);
                 return listConsultas;
             }
             catch (SqlException ex)
@@ -1071,8 +1080,9 @@ namespace LogicaVeterinarias.Controller
                 string error = ex.Message;
                 throw new PersistenciaException("Ocurrió un error al obtener los datos");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                string error = ex.Message;
                 throw new GeneralException("Ocurrió un error al ....");
             }
             finally
@@ -1083,5 +1093,65 @@ namespace LogicaVeterinarias.Controller
                 }
             }
         }
+
+        public List<VOConsulta> ObtenerConsultasPorFecha(int idVeterinaria, DateTime desde, DateTime hasta)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                
+                List<VOConsulta> listConsultas = daoConsultas.ListByVeterinariaByDate(connection, idVeterinaria, desde, hasta);
+                return listConsultas;
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                throw new PersistenciaException("Ocurrió un error al obtener los datos");
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public List<VOConsulta> ObtenerConsultasPorMascota(int idMasctota)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                List<VOConsulta> listConsultas = daoConsultas.ListByMascota(connection, idMasctota);
+                return listConsultas;
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                throw new PersistenciaException("Ocurrió un error al obtener los datos");
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
+
     }
 }

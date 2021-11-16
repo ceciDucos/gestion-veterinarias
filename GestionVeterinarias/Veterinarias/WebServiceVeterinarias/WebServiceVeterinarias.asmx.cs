@@ -194,6 +194,18 @@ namespace WebServiceVeterinarias
         {
             return fachada.ObtenerConsultas(idVeterinaria);
         }
+
+        [WebMethod(Description = "Servicio para obtener todas las consultas existentes para un rango de fechas")]
+        public List<VOConsulta> ObtenerConsultasPorFecha(int idVeterinaria, DateTime desde, DateTime hasta)
+        {
+            return fachada.ObtenerConsultasPorFecha(idVeterinaria, desde, hasta);
+        }
+
+        [WebMethod(Description = "Servicio para obtener todas las consultas de una mascota puntual")]
+        public List<VOConsulta> ObtenerConsultasPorMascota(int idMascota)
+        {
+            return fachada.ObtenerConsultasPorMascota(idMascota);
+        }
         #endregion
     }
 }
