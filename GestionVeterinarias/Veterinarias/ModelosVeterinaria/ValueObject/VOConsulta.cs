@@ -14,24 +14,29 @@ namespace ModelosVeterinarias.ValueObject
         public int Calificacion { get; set; }
         public VOMascota Mascota { get; set; }
 
+        public VOVeterinario Veterinario { get; set; }
+
         public VOConsulta() { }
 
 
-        public VOConsulta(DateTime fecha, string descripcion, int calificacion, VOMascota mascota)
+
+        public VOConsulta(DateTime fecha, string descripcion, int calificacion, VOMascota mascota, VOVeterinario veterinario)
         {
             this.Fecha = fecha;
             this.Descripcion = descripcion;
             this.Calificacion = calificacion;
             this.Mascota = mascota;
+            this.Veterinario = veterinario;
         }
 
-        public VOConsulta(int numero, DateTime fecha, string descripcion, int calificacion, VOMascota mascota)
+        public VOConsulta(int numero, DateTime fecha, string descripcion, int calificacion, VOMascota mascota, VOVeterinario veterinario)
         {
             this.Numero = numero;
             this.Fecha = fecha;
             this.Descripcion = descripcion;
             this.Calificacion = calificacion;
             this.Mascota = mascota;
+            this.Veterinario = veterinario;
         }
 
     }

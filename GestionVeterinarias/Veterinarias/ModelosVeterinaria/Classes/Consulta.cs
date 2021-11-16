@@ -15,22 +15,25 @@ namespace ModelosVeterinarias.Classes
         public DateTime Fecha { get; set; }
         public string Descripcion { get; set; }
         public Mascota Mascota { get; set; }
+        public Veterinario Veterinario { get; set; }
 
-        public Consulta(int calif, DateTime fecha, string desc, Mascota mascota)
+        public Consulta(int calif, DateTime fecha, string desc, Mascota mascota, Veterinario veterinario)
         {
             this.Calificacion = calif;
             this.Fecha = fecha;
             this.Descripcion = desc;
             this.Mascota = mascota;
+            this.Veterinario = veterinario;
         }
 
-        public Consulta(int num, int calif, DateTime fecha, string desc, Mascota mascota)
+        public Consulta(int num, int calif, DateTime fecha, string desc, Mascota mascota, Veterinario veterinario)
         {
             this.numero = num;
             this.Calificacion = calif;
             this.Fecha = fecha;
             this.Descripcion = desc;
             this.Mascota = mascota;
+            this.Veterinario = veterinario;
         }
     }
 }

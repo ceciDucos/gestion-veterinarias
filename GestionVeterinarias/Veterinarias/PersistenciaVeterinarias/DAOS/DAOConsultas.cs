@@ -10,6 +10,7 @@ using PersistenciaVeterinarias.DAOS;
 public class DAOConsultas
 {
     private DAOMascotas daomascotas = new DAOMascotas();
+    private DAOVeterinarios daoveterinario = new DAOVeterinarios();
     public DAOConsultas() { }
 
     public bool Member(SqlConnection connection, int idMascota, DateTime fechaConsulta)
@@ -66,8 +67,8 @@ public class DAOConsultas
     public void Add(SqlConnection connection, Consulta consulta)
     {
         StringBuilder sbConsulta = new StringBuilder();
-        sbConsulta.Append("INSERT INTO Consulta(calificacion, fecha, descripcion, idMascota) ");
-        sbConsulta.Append("VALUES (@Calificacion, @Fecha, @Descripcion, @IdMascota);");
+        sbConsulta.Append("INSERT INTO Consulta(calificacion, fecha, descripcion, idMascota, idVeterinario) ");
+        sbConsulta.Append("VALUES (@Calificacion, @Fecha, @Descripcion, @IdMascota, @IdVeterinario);");
 
         SqlCommand commandConsulta = new SqlCommand(sbConsulta.ToString(), connection);
 
@@ -99,10 +100,18 @@ public class DAOConsultas
             SqlDbType = SqlDbType.Int
         };
 
+        SqlParameter IdVeterinarioParameter = new SqlParameter()
+        {
+            ParameterName = "@IdVeterinario",
+            Value = consulta.Mascota.Id,
+            SqlDbType = SqlDbType.Int
+        };
+
         commandConsulta.Parameters.Add(CalificacionParameter);
         commandConsulta.Parameters.Add(FechaParameter);
         commandConsulta.Parameters.Add(DescripcionParameter);
         commandConsulta.Parameters.Add(IdMascotaParameter);
+        commandConsulta.Parameters.Add(IdVeterinarioParameter);
 
         commandConsulta.ExecuteNonQuery();
     }
@@ -126,7 +135,7 @@ public class DAOConsultas
 
         StringBuilder sbConsulta = new StringBuilder();
         sbConsulta.Append("UPDATE Consulta SET calificacion = @Calificacion, fecha = @Fecha, ");
-        sbConsulta.Append("descripcion = @Descripcion, IdMascota = @IdMascota ");
+        sbConsulta.Append("descripcion = @Descripcion, IdMascota = @IdMascota, IdVeterinario = @IdVeterinario ");
         sbConsulta.Append("WHERE numero = @Numero;");
 
         SqlCommand commandConsulta = new SqlCommand(sbConsulta.ToString(), connection);
@@ -166,11 +175,19 @@ public class DAOConsultas
             SqlDbType = SqlDbType.Int
         };
 
+        SqlParameter IdVeterinarioParameter = new SqlParameter()
+        {
+            ParameterName = "@IdVeterinario",
+            Value = consulta.Mascota.Id,
+            SqlDbType = SqlDbType.Int
+        };
+
         commandConsulta.Parameters.Add(CalificacionParameter);
         commandConsulta.Parameters.Add(FechaParameter);
         commandConsulta.Parameters.Add(DescripcionParameter);
         commandConsulta.Parameters.Add(IdMascotaParameter);
         commandConsulta.Parameters.Add(NumeroParameter);
+        commandConsulta.Parameters.Add(IdVeterinarioParameter);
 
         commandConsulta.ExecuteNonQuery();
     }
@@ -208,7 +225,7 @@ public class DAOConsultas
         List<VOConsulta> listConsultas = new List<VOConsulta>();
 
         StringBuilder sb = new StringBuilder();
-        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota");
+        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota, c.IdVeterinario");
         sb.Append(" from Consulta c");
         sb.Append(" where c.idMascota = @IdMascota");
 
@@ -231,13 +248,15 @@ public class DAOConsultas
         foreach (DataRow dr in ds.Tables[0].Rows)
         {
             int numero = Convert.ToInt32(dr["numero"]);
-            int calificacion = Convert.ToInt32(dr["calificacion"]);
+            int calificacion = 0;//Convert.ToInt32(dr["calificacion"]);
             DateTime fecha = Convert.ToDateTime(dr["fecha"]);
             string descripcion = Convert.ToString(dr["descripcion"]);
+            int idVeterinario = Convert.ToInt32(dr["IdVeterinario"]);
 
             VOMascota mascota = daomascotas.Get(connection, idMascota);
+            VOVeterinario veterinario = daoveterinario.Get(connection, idVeterinario);
 
-            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota);
+            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota, veterinario);
 
             listConsultas.Add(voconsulta);
         }
@@ -250,7 +269,7 @@ public class DAOConsultas
         List<VOConsulta> listConsultas = new List<VOConsulta>();
 
         StringBuilder sb = new StringBuilder();
-        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota");
+        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota, c.idVeterinario");
         sb.Append(" from Consulta c, Mascota m, Persona p");
         sb.Append(" where c.idMascota = m.id and m.cedulaCliente = p.cedula and p.idVeterinaria = @IdVeterinaria;");
 
@@ -273,18 +292,120 @@ public class DAOConsultas
         foreach (DataRow dr in ds.Tables[0].Rows)
         {
             int numero = Convert.ToInt32(dr["numero"]);
-            int calificacion = Convert.ToInt32(dr["calificacion"]);
+            int calificacion = 0; //Convert.ToInt32(dr["calificacion"]);
             DateTime fecha = Convert.ToDateTime(dr["fecha"]);
             string descripcion = Convert.ToString(dr["descripcion"]);
             int idMascota = Convert.ToInt32(dr["idMascota"]);
+            int idVeterinario = Convert.ToInt32(dr["IdVeterinario"]);
 
             VOMascota mascota = daomascotas.Get(connection, idMascota);
+            VOVeterinario veterinario = daoveterinario.Get(connection, idVeterinario);
 
-            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota);
+            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota, veterinario);
 
             listConsultas.Add(voconsulta);
         }
 
         return listConsultas;
+    }
+
+    public List<VOConsulta> ListByVeterinariaByDate(SqlConnection connection, int idVeterinaria, DateTime desde, DateTime hasta)
+    {
+        List<VOConsulta> listConsultas = new List<VOConsulta>();
+
+        StringBuilder sb = new StringBuilder();
+        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota, c.idVeterinario");
+        sb.Append(" from Consulta c, Mascota m, Persona p");
+        sb.Append(" where c.idMascota = m.id and m.cedulaCliente = p.cedula and p.idVeterinaria = @IdVeterinaria");
+        sb.Append(" and c.fecha >= @Desde and c.fecha <= @Hasta;");
+
+        SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+        SqlParameter IdVeterinariaParameter = new SqlParameter()
+        {
+            ParameterName = "@IdVeterinaria",
+            Value = idVeterinaria,
+            SqlDbType = SqlDbType.Int
+        };
+
+        SqlParameter DesdeParameter = new SqlParameter()
+        {
+            ParameterName = "@Desde",
+            Value = desde,
+            SqlDbType = SqlDbType.DateTime
+        };
+
+        SqlParameter HastaParameter = new SqlParameter()
+        {
+            ParameterName = "@Hasta",
+            Value = hasta,
+            SqlDbType = SqlDbType.DateTime
+        };
+        selectCommand.Parameters.Add(IdVeterinariaParameter);
+        selectCommand.Parameters.Add(DesdeParameter);
+        selectCommand.Parameters.Add(HastaParameter);
+
+        SqlDataAdapter adapter = new SqlDataAdapter();
+        adapter.SelectCommand = selectCommand;
+
+        // creo y cargo el dataset
+        DataSet ds = new DataSet();
+        adapter.Fill(ds, "Consulta");
+        foreach (DataRow dr in ds.Tables[0].Rows)
+        {
+            int numero = Convert.ToInt32(dr["numero"]);
+            int calificacion = 0; //Convert.ToInt32(dr["calificacion"]);
+            DateTime fecha = Convert.ToDateTime(dr["fecha"]);
+            string descripcion = Convert.ToString(dr["descripcion"]);
+            int idMascota = Convert.ToInt32(dr["idMascota"]);
+            int idVeterinario = Convert.ToInt32(dr["IdVeterinario"]);
+
+            VOMascota mascota = daomascotas.Get(connection, idMascota);
+            VOVeterinario veterinario = daoveterinario.Get(connection, idVeterinario);
+
+            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota, veterinario);
+
+            listConsultas.Add(voconsulta);
+        }
+
+        return listConsultas;
+    }
+
+    public VOConsulta Get(SqlConnection connection, long InNumero)
+    {
+
+
+        StringBuilder sb = new StringBuilder();
+        sb.Append("select *");
+        sb.Append(" from Consulta");
+        sb.AppendFormat(" where numero = {0}", InNumero.ToString());
+
+        SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+        SqlDataAdapter adapter = new SqlDataAdapter();
+        adapter.SelectCommand = selectCommand;
+
+        DataSet ds = new DataSet();
+        adapter.Fill(ds, "Consulta");
+        VOConsulta voconsulta = null;
+        foreach (DataRow dr in ds.Tables[0].Rows)
+        {
+            int numero = Convert.ToInt32(dr["numero"]);
+            int calificacion = 0; //Convert.ToInt32(dr["calificacion"]);
+            DateTime fecha = Convert.ToDateTime(dr["fecha"]);
+            string descripcion = Convert.ToString(dr["descripcion"]);
+            int idMascota = Convert.ToInt32(dr["idMascota"]);
+            int idVeterinario = Convert.ToInt32(dr["IdVeterinario"]);
+
+            VOMascota mascota = daomascotas.Get(connection, idMascota);
+            VOVeterinario veterinario = daoveterinario.Get(connection, idVeterinario);
+
+            voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota, veterinario);
+
+
+        }
+
+        return voconsulta;
+
     }
 }
