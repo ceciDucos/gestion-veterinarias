@@ -1,10 +1,11 @@
 
 public enum TipoAnimal
 {
-    Otro = 1,
-    Gato = 2,
-    Perro = 3,
-    Conejo = 4,
+    Otro = 0,
+    Gato = 1,
+    Perro = 2,
+    Conejo = 3,
+    Huron = 4,
     Cobayo = 5,
     Hamster = 6,
     Tortuga = 7,
@@ -13,5 +14,4 @@ public enum TipoAnimal
     Cerdo = 10,
     Pez = 11,
     Loro = 12,
-    Huron = 13,
 }
