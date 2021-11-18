@@ -947,7 +947,7 @@ namespace LogicaVeterinarias.Controller
                         voVeterinario.IdVeterinaria, voVeterinario.Horario);
 
                     Consulta consulta = new Consulta(voconsulta.Calificacion, voconsulta.Fecha,
-                        voconsulta.Descripcion, mascota, veterinario);
+                        voconsulta.Descripcion, mascota, veterinario, voconsulta.Realizada, voconsulta.Importe);
                     daoConsultas.Add(connection, consulta);
                 }
                 else
@@ -990,17 +990,27 @@ namespace LogicaVeterinarias.Controller
                 connection.Open();
                 if (daoConsultas.MemberId(connection, voconsulta.Numero))
                 {
-                    Mascota mascota = new Mascota(voconsulta.Mascota.Id, voconsulta.Mascota.Animal, voconsulta.Mascota.Nombre, 
-                        voconsulta.Mascota.Raza, voconsulta.Mascota.Edad, voconsulta.Mascota.VacunaAlDia,
-                        new CarnetInscripcion(voconsulta.Mascota.CarnetInscripcion.Numero,
-                        voconsulta.Mascota.CarnetInscripcion.Expedido, voconsulta.Mascota.CarnetInscripcion.Foto));
+                    Mascota mascota = new Mascota(
+                        voconsulta.Mascota.Id,
+                        voconsulta.Mascota.cedulaCliente, 
+                        voconsulta.Mascota.Animal, 
+                        voconsulta.Mascota.Nombre, 
+                        voconsulta.Mascota.Raza, 
+                        voconsulta.Mascota.Edad,
+                        voconsulta.Mascota.VacunaAlDia,
+                        new CarnetInscripcion(
+                            voconsulta.Mascota.CarnetInscripcion.Numero,
+                            voconsulta.Mascota.CarnetInscripcion.Expedido, 
+                            voconsulta.Mascota.CarnetInscripcion.Foto
+                            )
+                        );
 
                     VOVeterinario voVeterinario = voconsulta.Veterinario;
                     Veterinario veterinario = new Veterinario(voVeterinario.Cedula, voVeterinario.Nombre, voVeterinario.Telefono,
                         voVeterinario.IdVeterinaria, voVeterinario.Horario);
 
                     Consulta consulta = new Consulta(voconsulta.Numero, voconsulta.Calificacion, voconsulta.Fecha,
-                        voconsulta.Descripcion, mascota, veterinario);
+                        voconsulta.Descripcion, mascota, veterinario, voconsulta.Realizada, voconsulta.Importe);
 
                     daoConsultas.Edit(connection, consulta);
                 }
@@ -1011,8 +1021,9 @@ namespace LogicaVeterinarias.Controller
                     throw new ConsultaException(error);
                 }
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
+                string error = ex.Message;
                 throw new PersistenciaException("Error al intentar modificar la consulta");
             }
             catch (Exception ex)
@@ -1142,6 +1153,34 @@ namespace LogicaVeterinarias.Controller
             catch (Exception ex)
             {
                 string error = ex.Message;
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public VOConsulta ObtenerConsulta(int numero)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                return daoConsultas.Get(connection, numero);
+
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                throw new PersistenciaException("Ocurrió un error al obtener los datos");
+            }
+            catch (Exception)
+            {
                 throw new GeneralException("Ocurrió un error al ....");
             }
             finally

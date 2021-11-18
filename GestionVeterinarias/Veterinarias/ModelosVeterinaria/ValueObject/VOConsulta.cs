@@ -16,20 +16,25 @@ namespace ModelosVeterinarias.ValueObject
 
         public VOVeterinario Veterinario { get; set; }
 
+        public bool Realizada { get; set; }
+        public double Importe { get; set; }
+
         public VOConsulta() { }
 
 
 
-        public VOConsulta(DateTime fecha, string descripcion, int calificacion, VOMascota mascota, VOVeterinario veterinario)
+        public VOConsulta(DateTime fecha, string descripcion, int calificacion, VOMascota mascota, VOVeterinario veterinario, bool realizada, double importe)
         {
             this.Fecha = fecha;
             this.Descripcion = descripcion;
             this.Calificacion = calificacion;
             this.Mascota = mascota;
             this.Veterinario = veterinario;
+            this.Realizada = realizada;
+            this.Importe = importe;
         }
 
-        public VOConsulta(int numero, DateTime fecha, string descripcion, int calificacion, VOMascota mascota, VOVeterinario veterinario)
+        public VOConsulta(int numero, DateTime fecha, string descripcion, int calificacion, VOMascota mascota, VOVeterinario veterinario, bool realizada, double importe)
         {
             this.Numero = numero;
             this.Fecha = fecha;
@@ -37,6 +42,8 @@ namespace ModelosVeterinarias.ValueObject
             this.Calificacion = calificacion;
             this.Mascota = mascota;
             this.Veterinario = veterinario;
+            this.Realizada = realizada;
+            this.Importe = importe;
         }
 
     }
