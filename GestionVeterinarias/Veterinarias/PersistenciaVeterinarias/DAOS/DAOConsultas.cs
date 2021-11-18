@@ -135,7 +135,8 @@ public class DAOConsultas
 
         StringBuilder sbConsulta = new StringBuilder();
         sbConsulta.Append("UPDATE Consulta SET calificacion = @Calificacion, fecha = @Fecha, ");
-        sbConsulta.Append("descripcion = @Descripcion, IdMascota = @IdMascota, IdVeterinario = @IdVeterinario ");
+        sbConsulta.Append("descripcion = @Descripcion, IdMascota = @IdMascota, IdVeterinario = @IdVeterinario, ");
+        sbConsulta.Append("realizada = @Realizada, importe = @Importe ");
         sbConsulta.Append("WHERE numero = @Numero;");
 
         SqlCommand commandConsulta = new SqlCommand(sbConsulta.ToString(), connection);
@@ -178,8 +179,22 @@ public class DAOConsultas
         SqlParameter IdVeterinarioParameter = new SqlParameter()
         {
             ParameterName = "@IdVeterinario",
-            Value = consulta.Mascota.Id,
+            Value = consulta.Veterinario.Cedula,
             SqlDbType = SqlDbType.Int
+        };
+
+        SqlParameter RealizadaParameter = new SqlParameter()
+        {
+            ParameterName = "@Realizada",
+            Value = consulta.Realizada,
+            SqlDbType = SqlDbType.Bit
+        };
+
+        SqlParameter ImporteParameter = new SqlParameter()
+        {
+            ParameterName = "@Importe",
+            Value = consulta.Importe,
+            SqlDbType = SqlDbType.Bit
         };
 
         commandConsulta.Parameters.Add(CalificacionParameter);
@@ -188,6 +203,8 @@ public class DAOConsultas
         commandConsulta.Parameters.Add(IdMascotaParameter);
         commandConsulta.Parameters.Add(NumeroParameter);
         commandConsulta.Parameters.Add(IdVeterinarioParameter);
+        commandConsulta.Parameters.Add(RealizadaParameter);
+        commandConsulta.Parameters.Add(ImporteParameter);
 
         commandConsulta.ExecuteNonQuery();
     }
@@ -225,7 +242,7 @@ public class DAOConsultas
         List<VOConsulta> listConsultas = new List<VOConsulta>();
 
         StringBuilder sb = new StringBuilder();
-        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota, c.IdVeterinario");
+        sb.Append("select *");
         sb.Append(" from Consulta c");
         sb.Append(" where c.idMascota = @IdMascota");
 
@@ -252,11 +269,13 @@ public class DAOConsultas
             DateTime fecha = Convert.ToDateTime(dr["fecha"]);
             string descripcion = Convert.ToString(dr["descripcion"]);
             int idVeterinario = Convert.ToInt32(dr["IdVeterinario"]);
+            bool realizada = Convert.ToBoolean(dr["realizada"]);
+            double importe = Convert.ToDouble(dr["importe"]);
 
             VOMascota mascota = daomascotas.Get(connection, idMascota);
             VOVeterinario veterinario = daoveterinario.Get(connection, idVeterinario);
 
-            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota, veterinario);
+            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota, veterinario, realizada, importe);
 
             listConsultas.Add(voconsulta);
         }
@@ -269,7 +288,7 @@ public class DAOConsultas
         List<VOConsulta> listConsultas = new List<VOConsulta>();
 
         StringBuilder sb = new StringBuilder();
-        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota, c.idVeterinario");
+        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota, c.idVeterinario, c.realizada, c.importe");
         sb.Append(" from Consulta c, Mascota m, Persona p");
         sb.Append(" where c.idMascota = m.id and m.cedulaCliente = p.cedula and p.idVeterinaria = @IdVeterinaria;");
 
@@ -297,11 +316,13 @@ public class DAOConsultas
             string descripcion = Convert.ToString(dr["descripcion"]);
             int idMascota = Convert.ToInt32(dr["idMascota"]);
             int idVeterinario = Convert.ToInt32(dr["IdVeterinario"]);
+            bool realizada = Convert.ToBoolean(dr["realizada"]);
+            double importe = Convert.ToDouble(dr["importe"]);
 
             VOMascota mascota = daomascotas.Get(connection, idMascota);
             VOVeterinario veterinario = daoveterinario.Get(connection, idVeterinario);
 
-            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota, veterinario);
+            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota, veterinario, realizada, importe);
 
             listConsultas.Add(voconsulta);
         }
@@ -314,7 +335,7 @@ public class DAOConsultas
         List<VOConsulta> listConsultas = new List<VOConsulta>();
 
         StringBuilder sb = new StringBuilder();
-        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota, c.idVeterinario");
+        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota, c.idVeterinario, c.realizada, c.importe");
         sb.Append(" from Consulta c, Mascota m, Persona p");
         sb.Append(" where c.idMascota = m.id and m.cedulaCliente = p.cedula and p.idVeterinaria = @IdVeterinaria");
         sb.Append(" and c.fecha >= @Desde and c.fecha <= @Hasta;");
@@ -359,11 +380,13 @@ public class DAOConsultas
             string descripcion = Convert.ToString(dr["descripcion"]);
             int idMascota = Convert.ToInt32(dr["idMascota"]);
             int idVeterinario = Convert.ToInt32(dr["IdVeterinario"]);
+            bool realizada = Convert.ToBoolean(dr["realizada"]);
+            double importe = Convert.ToDouble(dr["importe"]);
 
             VOMascota mascota = daomascotas.Get(connection, idMascota);
             VOVeterinario veterinario = daoveterinario.Get(connection, idVeterinario);
 
-            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota, veterinario);
+            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota, veterinario, realizada, importe);
 
             listConsultas.Add(voconsulta);
         }
@@ -371,7 +394,7 @@ public class DAOConsultas
         return listConsultas;
     }
 
-    public VOConsulta Get(SqlConnection connection, long InNumero)
+    public VOConsulta Get(SqlConnection connection, int InNumero)
     {
 
 
@@ -396,11 +419,12 @@ public class DAOConsultas
             string descripcion = Convert.ToString(dr["descripcion"]);
             int idMascota = Convert.ToInt32(dr["idMascota"]);
             int idVeterinario = Convert.ToInt32(dr["IdVeterinario"]);
-
+            bool realizada = Convert.ToBoolean(dr["realizada"]);
+            double importe = Convert.ToDouble(dr["importe"]);
             VOMascota mascota = daomascotas.Get(connection, idMascota);
             VOVeterinario veterinario = daoveterinario.Get(connection, idVeterinario);
 
-            voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota, veterinario);
+            voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota, veterinario, realizada, importe);
 
 
         }

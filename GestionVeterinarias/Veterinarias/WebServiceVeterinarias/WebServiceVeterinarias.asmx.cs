@@ -206,6 +206,12 @@ namespace WebServiceVeterinarias
         {
             return fachada.ObtenerConsultasPorMascota(idMascota);
         }
+
+        [WebMethod(Description = "Servicio para obtener una consulta")]
+        public VOConsulta ObtenerConsulta(int numero)
+        {
+            return fachada.ObtenerConsulta(numero);
+        }
         #endregion
     }
 }
