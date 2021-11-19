@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ModelosVeterinarias.Classes;
 using ModelosVeterinarias.ExceptionClasses;
 using ModelosVeterinarias.ValueObject;
 using PersistenciaVeterinarias.DAOS;
@@ -175,6 +176,57 @@ namespace LogicaVeterinarias.Controller
             {
                 throw e;
                 //throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public void CrearCliente(VOCliente vocliente)
+        {
+            string nombre = vocliente.Nombre;
+            long cedula = vocliente.Cedula;
+            string telefono = vocliente.Telefono;
+            int idVeterinaria = vocliente.IdVeterinaria;
+            string direccion = vocliente.Direccion;
+            string correo = vocliente.Correo;
+            string pass = vocliente.Clave;
+            bool activo = vocliente.Activo;
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                if (!daoClientes.Member(connection, cedula))
+                {
+                    Cliente cliente = new Cliente(cedula, nombre, telefono, idVeterinaria, direccion, correo, pass, activo);
+                    daoClientes.Add(connection, cliente);
+                }
+                else
+                {
+                    string error = string.Format("Ya existe una persona con cedula {0} en el sistema", vocliente.Cedula);
+                    throw new PersonaException(error);
+                }
+            }
+            catch (SqlException e)
+            {
+                throw e;
+                //throw new PersistenciaException("Ocurrió un error agregando un nuevo cliente");
+            }
+            catch (Exception ex)
+            {
+                if (ex is PersonaException)
+                {
+                    throw ex;
+                }
+                else
+                {
+                    throw new GeneralException("Ocurrió un error al crear el cliente");
+                }
             }
             finally
             {

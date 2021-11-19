@@ -118,7 +118,7 @@ public class DAOConsultas
         {
             ParameterName = "@Importe",
             Value = consulta.Importe,
-            SqlDbType = SqlDbType.Bit
+            SqlDbType = SqlDbType.Int
         };
 
         commandConsulta.Parameters.Add(CalificacionParameter);
