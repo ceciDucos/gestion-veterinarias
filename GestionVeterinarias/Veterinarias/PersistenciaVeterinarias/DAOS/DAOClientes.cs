@@ -206,15 +206,15 @@ namespace PersistenciaVeterinarias.DAOS
             commandCliente.ExecuteNonQuery();
         }
 
-        public void Remove(SqlConnection connection, long cedula) 
+        public void Remove(SqlConnection connection, long cedula)
         {
-            //Elimino Cliente
-            SqlCommand commandCliente = new SqlCommand($"DELETE FROM Cliente WHERE Cedula = {cedula}", connection);
             //Elimino Persona
             SqlCommand commandPersona = new SqlCommand($"DELETE FROM Persona WHERE Cedula = {cedula}", connection);
+            //Elimino Cliente
+            SqlCommand commandCliente = new SqlCommand($"DELETE FROM Cliente WHERE Cedula = {cedula}", connection);
 
-            commandCliente.ExecuteNonQuery();
             commandPersona.ExecuteNonQuery();
+            commandCliente.ExecuteNonQuery();
         }
 
 

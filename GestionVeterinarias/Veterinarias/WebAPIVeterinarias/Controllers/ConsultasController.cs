@@ -18,10 +18,11 @@ namespace WebAPIVeterinarias.Controllers
             return fachadaWeb.GetConsultas(id);
         }
 
-        // PUT api/consultas/{id}
-        public void SetCalificacion(int numero, int calificacion)
+        // PUT api/consultas/
+        public IHttpActionResult Put(VOConsulta voconsulta)
         {
-            fachadaWeb.SetCalificacion(numero, calificacion);
+            fachadaWeb.SetCalificacion(voconsulta.Numero, voconsulta.Calificacion);
+            return Ok();
         }
     }
 }

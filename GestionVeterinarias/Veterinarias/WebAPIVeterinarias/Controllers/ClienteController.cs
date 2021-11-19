@@ -26,5 +26,12 @@ namespace WebAPIVeterinarias.Controllers
             }
             return Ok(cliente);
         }
+
+        // Post api/cliente/
+        public IHttpActionResult PostCliente(VOCliente vocliente)
+        {            
+            fachadaWeb.CrearCliente(vocliente);
+            return Ok();
+        }
     }
 }
