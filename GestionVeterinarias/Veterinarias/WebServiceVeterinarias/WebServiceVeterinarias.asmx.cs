@@ -207,6 +207,12 @@ namespace WebServiceVeterinarias
             return fachada.ObtenerConsultasPorMascota(idMascota);
         }
 
+        [WebMethod(Description = "Servicio para obtener todas las consultas de un veterinario")]
+        public List<VOConsulta> ObtenerConsultasPorVeterinario(long cedulaCliente, DateTime desde, DateTime hasta)
+        {
+            return fachada.ObtenerConsultasPorVeterinario(cedulaCliente, desde, hasta);
+        }
+
         [WebMethod(Description = "Servicio para obtener una consulta")]
         public VOConsulta ObtenerConsulta(int numero)
         {

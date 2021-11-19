@@ -938,17 +938,56 @@ namespace LogicaVeterinarias.Controller
                 if (!daoConsultas.Member(connection, voconsulta.Mascota.Id, voconsulta.Fecha))
                 {
                     VOMascota voMascota = voconsulta.Mascota;
+
+                    Mascota mascota = new Mascota(
+                        voMascota.Id,
+                        voMascota.cedulaCliente,
+                        voMascota.Animal,
+                        voMascota.Nombre,
+                        voMascota.Raza,
+                        voMascota.Edad,
+                        voMascota.VacunaAlDia,
+                        new CarnetInscripcion(
+                            voMascota.CarnetInscripcion.Numero,
+                            voMascota.CarnetInscripcion.Expedido,
+                            voMascota.CarnetInscripcion.Foto
+                            )
+                        );
+
+                    VOVeterinario voVeterinario = voconsulta.Veterinario;
+                    Veterinario veterinario = new Veterinario(
+                        voVeterinario.Cedula,
+                        voVeterinario.Nombre,
+                        voVeterinario.Telefono,
+                        voVeterinario.IdVeterinaria,
+                        voVeterinario.Horario)
+                        ;
+
+                    Consulta consulta = new Consulta(
+                        voconsulta.Numero,
+                        voconsulta.Calificacion,
+                        voconsulta.Fecha,
+                        voconsulta.Descripcion,
+                        mascota,
+                        veterinario,
+                        voconsulta.Realizada,
+                        voconsulta.Importe
+                        );
+                    daoConsultas.Add(connection, consulta);
+                    /*
+                    VOMascota voMascota = voconsulta.Mascota;
                     Mascota mascota = new Mascota(voMascota.Id, voMascota.cedulaCliente, voMascota.Animal, voMascota.Nombre, voMascota.Raza, voMascota.Edad,
                         voMascota.VacunaAlDia, new CarnetInscripcion(voMascota.CarnetInscripcion.Numero,
                         voMascota.CarnetInscripcion.Expedido, voMascota.CarnetInscripcion.Foto));
-
+                    
                     VOVeterinario voVeterinario = voconsulta.Veterinario;
                     Veterinario veterinario = new Veterinario(voVeterinario.Cedula, voVeterinario.Nombre, voVeterinario.Telefono,
                         voVeterinario.IdVeterinaria, voVeterinario.Horario);
-
+                    
                     Consulta consulta = new Consulta(voconsulta.Calificacion, voconsulta.Fecha,
                         voconsulta.Descripcion, mascota, veterinario, voconsulta.Realizada, voconsulta.Importe);
                     daoConsultas.Add(connection, consulta);
+                    */
                 }
                 else
                 {
@@ -956,8 +995,9 @@ namespace LogicaVeterinarias.Controller
                     throw new ConsultaException(error);
                 }
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
+                string error = ex.Message;
                 throw new PersistenciaException("Ocurrió un error agregando una consulta");
             }
             catch (Exception ex)
@@ -1006,11 +1046,24 @@ namespace LogicaVeterinarias.Controller
                         );
 
                     VOVeterinario voVeterinario = voconsulta.Veterinario;
-                    Veterinario veterinario = new Veterinario(voVeterinario.Cedula, voVeterinario.Nombre, voVeterinario.Telefono,
-                        voVeterinario.IdVeterinaria, voVeterinario.Horario);
+                    Veterinario veterinario = new Veterinario(
+                        voVeterinario.Cedula, 
+                        voVeterinario.Nombre, 
+                        voVeterinario.Telefono,
+                        voVeterinario.IdVeterinaria, 
+                        voVeterinario.Horario)
+                        ;
 
-                    Consulta consulta = new Consulta(voconsulta.Numero, voconsulta.Calificacion, voconsulta.Fecha,
-                        voconsulta.Descripcion, mascota, veterinario, voconsulta.Realizada, voconsulta.Importe);
+                    Consulta consulta = new Consulta(
+                        voconsulta.Numero, 
+                        voconsulta.Calificacion, 
+                        voconsulta.Fecha,
+                        voconsulta.Descripcion, 
+                        mascota, 
+                        veterinario, 
+                        voconsulta.Realizada, 
+                        voconsulta.Importe
+                        );
 
                     daoConsultas.Edit(connection, consulta);
                 }
@@ -1181,6 +1234,35 @@ namespace LogicaVeterinarias.Controller
             }
             catch (Exception)
             {
+                throw new GeneralException("Ocurrió un error al ....");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public List<VOConsulta> ObtenerConsultasPorVeterinario(long cedulaVeterinario, DateTime desde, DateTime hasta)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                List<VOConsulta> listConsultas = daoConsultas.ListByVeterinario(connection, cedulaVeterinario, desde, hasta);
+                return listConsultas;
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                throw new PersistenciaException("Ocurrió un error al obtener los datos");
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
                 throw new GeneralException("Ocurrió un error al ....");
             }
             finally
