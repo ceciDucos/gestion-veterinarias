@@ -48,12 +48,12 @@ namespace LogicaVeterinarias.Controller
             }
             catch (SqlException ex)
             {
-                string error = String.Format("Ocurrió un error al crear las tablas. El error recibido fue {0}", ex.Message);
+                string error = String.Format("Ocurrió un error al crear la base de datos. El error recibido fue {0}", ex.Message);
                 throw new PersistenciaException(error);
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al crear la base de datos.");
             }
             finally
             {
@@ -76,12 +76,12 @@ namespace LogicaVeterinarias.Controller
             }
             catch (SqlException ex)
             {
-                string error = String.Format("Ocurrió un error al crear las tablas. El error recibido fue {0}", ex.Message);
+                string error = String.Format("Ocurrió un error al crear las tablas de la base de datos. El error recibido fue {0}", ex.Message);
                 throw new PersistenciaException(error);
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al crear las tablas de la base de datos");
             }
             finally
             {
@@ -104,12 +104,12 @@ namespace LogicaVeterinarias.Controller
             }
             catch (SqlException ex)
             {
-                string error = String.Format("Ocurrió un error al crear las tablas. El error recibido fue {0}", ex.Message);
+                string error = String.Format("Ocurrió un error al cargar los datos. El error recibido fue {0}", ex.Message);
                 throw new PersistenciaException(error);
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al cargar los datos");
             }
             finally
             {
@@ -194,7 +194,7 @@ namespace LogicaVeterinarias.Controller
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {
@@ -224,7 +224,7 @@ namespace LogicaVeterinarias.Controller
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {
@@ -279,7 +279,7 @@ namespace LogicaVeterinarias.Controller
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {
@@ -348,8 +348,6 @@ namespace LogicaVeterinarias.Controller
                 else { 
                     string error = String.Format("La persona con cedula {0} no existe en el sistema", voveterinario.Cedula);
                     throw new PersistenciaException(error);
-                    // Aca iria esta ex, no se porque no me la reconoce. capaz me falta importarla o algo?
-                    //throw new PersonaNoExisteException(error);
                 }
             }
             catch (SqlException ex)
@@ -388,7 +386,6 @@ namespace LogicaVeterinarias.Controller
                 else { 
                     string error = String.Format("La persona con cedula {0} no existe en el sistema", cedula);
                     throw new PersistenciaException(error);
-                    //throw new PersonaNoExisteException(error);
                 }
             }
             catch (SqlException)
@@ -419,8 +416,6 @@ namespace LogicaVeterinarias.Controller
                 connection.Open();
                 VOVeterinario voveterinario = daoVeterinarios.Get(connection, cedula);
                 return voveterinario;
-
-
             }
             catch (SqlException ex)
             {
@@ -429,7 +424,7 @@ namespace LogicaVeterinarias.Controller
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {
@@ -459,7 +454,7 @@ namespace LogicaVeterinarias.Controller
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {
@@ -489,7 +484,7 @@ namespace LogicaVeterinarias.Controller
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {
@@ -777,7 +772,7 @@ namespace LogicaVeterinarias.Controller
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {
@@ -807,7 +802,7 @@ namespace LogicaVeterinarias.Controller
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {
@@ -857,11 +852,11 @@ namespace LogicaVeterinarias.Controller
             }
             catch (SqlException)
             {
-                throw new PersistenciaException("Ocurrió un error al crear el carnet");
+                throw new PersistenciaException("Ocurrió un error al editar el carnet");
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al crear el carnet");
+                throw new GeneralException("Ocurrió un error al editar el carnet");
             }
             finally
             {
@@ -916,7 +911,7 @@ namespace LogicaVeterinarias.Controller
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {
@@ -974,20 +969,6 @@ namespace LogicaVeterinarias.Controller
                         voconsulta.Importe
                         );
                     daoConsultas.Add(connection, consulta);
-                    /*
-                    VOMascota voMascota = voconsulta.Mascota;
-                    Mascota mascota = new Mascota(voMascota.Id, voMascota.cedulaCliente, voMascota.Animal, voMascota.Nombre, voMascota.Raza, voMascota.Edad,
-                        voMascota.VacunaAlDia, new CarnetInscripcion(voMascota.CarnetInscripcion.Numero,
-                        voMascota.CarnetInscripcion.Expedido, voMascota.CarnetInscripcion.Foto));
-                    
-                    VOVeterinario voVeterinario = voconsulta.Veterinario;
-                    Veterinario veterinario = new Veterinario(voVeterinario.Cedula, voVeterinario.Nombre, voVeterinario.Telefono,
-                        voVeterinario.IdVeterinaria, voVeterinario.Horario);
-                    
-                    Consulta consulta = new Consulta(voconsulta.Calificacion, voconsulta.Fecha,
-                        voconsulta.Descripcion, mascota, veterinario, voconsulta.Realizada, voconsulta.Importe);
-                    daoConsultas.Add(connection, consulta);
-                    */
                 }
                 else
                 {
@@ -1118,7 +1099,7 @@ namespace LogicaVeterinarias.Controller
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al crear el cliente");
+                throw new GeneralException("Ocurrió un error al eliminar la consulta");
             }
             finally
             {
@@ -1147,7 +1128,7 @@ namespace LogicaVeterinarias.Controller
             catch (Exception ex)
             {
                 string error = ex.Message;
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {
@@ -1177,7 +1158,7 @@ namespace LogicaVeterinarias.Controller
             catch (Exception ex)
             {
                 string error = ex.Message;
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {
@@ -1206,7 +1187,7 @@ namespace LogicaVeterinarias.Controller
             catch (Exception ex)
             {
                 string error = ex.Message;
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {
@@ -1234,7 +1215,7 @@ namespace LogicaVeterinarias.Controller
             }
             catch (Exception)
             {
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {
@@ -1263,7 +1244,7 @@ namespace LogicaVeterinarias.Controller
             catch (Exception ex)
             {
                 string error = ex.Message;
-                throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener los datos");
             }
             finally
             {

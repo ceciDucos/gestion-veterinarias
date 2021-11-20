@@ -281,7 +281,7 @@ public class DAOConsultas
         foreach (DataRow dr in ds.Tables[0].Rows)
         {
             int numero = Convert.ToInt32(dr["numero"]);
-            int calificacion = 0;//Convert.ToInt32(dr["calificacion"]);
+            int calificacion = Convert.ToInt32(dr["calificacion"]);//0;
             DateTime fecha = Convert.ToDateTime(dr["fecha"]);
             string descripcion = Convert.ToString(dr["descripcion"]);
             int idVeterinario = Convert.ToInt32(dr["IdVeterinario"]);
@@ -327,7 +327,7 @@ public class DAOConsultas
         foreach (DataRow dr in ds.Tables[0].Rows)
         {
             int numero = Convert.ToInt32(dr["numero"]);
-            int calificacion = 0; //Convert.ToInt32(dr["calificacion"]);
+            int calificacion = Convert.ToInt32(dr["calificacion"]); //0;
             DateTime fecha = Convert.ToDateTime(dr["fecha"]);
             string descripcion = Convert.ToString(dr["descripcion"]);
             int idMascota = Convert.ToInt32(dr["idMascota"]);
@@ -391,7 +391,7 @@ public class DAOConsultas
         foreach (DataRow dr in ds.Tables[0].Rows)
         {
             int numero = Convert.ToInt32(dr["numero"]);
-            int calificacion = 0; //Convert.ToInt32(dr["calificacion"]);
+            int calificacion = Convert.ToInt32(dr["calificacion"]); //0;
             DateTime fecha = Convert.ToDateTime(dr["fecha"]);
             string descripcion = Convert.ToString(dr["descripcion"]);
             int idMascota = Convert.ToInt32(dr["idMascota"]);
@@ -455,7 +455,7 @@ public class DAOConsultas
         foreach (DataRow dr in ds.Tables[0].Rows)
         {
             int numero = Convert.ToInt32(dr["numero"]);
-            int calificacion = 0;//Convert.ToInt32(dr["calificacion"]);
+            int calificacion = Convert.ToInt32(dr["calificacion"]); //0;
             DateTime fecha = Convert.ToDateTime(dr["fecha"]);
             string descripcion = Convert.ToString(dr["descripcion"]);
             int idMascota = Convert.ToInt32(dr["idMascota"]);
@@ -493,7 +493,7 @@ public class DAOConsultas
         foreach (DataRow dr in ds.Tables[0].Rows)
         {
             int numero = Convert.ToInt32(dr["numero"]);
-            int calificacion = 0; //Convert.ToInt32(dr["calificacion"]);
+            int calificacion = Convert.ToInt32(dr["calificacion"]); //0;
             DateTime fecha = Convert.ToDateTime(dr["fecha"]);
             string descripcion = Convert.ToString(dr["descripcion"]);
             int idMascota = Convert.ToInt32(dr["idMascota"]);
