@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "a1bba49b-8a44-4dc0-879c-8498b90c5af0",
+		"name": "GestionVeterinarias",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Veterinarias",
+			"item": [
+				{
+					"name": "ListVeterinarias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44373/api/veterinaria",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44373",
+							"path": [
+								"api",
+								"veterinaria"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetVeterinaria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44373/api/veterinaria/2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44373",
+							"path": [
+								"api",
+								"veterinaria",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consultas",
+			"item": [
+				{
+					"name": "GetByVeterinaria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44373/api/consultas/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44373",
+							"path": [
+								"api",
+								"consultas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SetCalificacion",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numero\": 1,\r\n    \"calificacion\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44373/api/consultas/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44373",
+							"path": [
+								"api",
+								"consultas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44373/api/cliente/1234",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44373",
+							"path": [
+								"api",
+								"cliente",
+								"1234"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nombre\": \"Fede\",\r\n    \"Cedula\": 12345,\r\n    \"Telefono\": \"56756\",\r\n    \"IdVeterinaria\": 1,\r\n    \"Direccion\": \"asduhj dfgdf dfg\",\r\n    \"Correo\": \"asda@fgd.com\",\r\n    \"Pass\": \"123asd\",\r\n    \"Activo\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44373/api/cliente/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44373",
+							"path": [
+								"api",
+								"cliente",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

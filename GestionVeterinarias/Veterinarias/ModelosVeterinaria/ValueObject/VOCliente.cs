@@ -14,7 +14,7 @@ namespace ModelosVeterinarias.ValueObject
         public int IdVeterinaria { get; set; }
         public string Direccion { get; set; }
         public string Correo { get; set; }
-        public string Clave { get; set; }
+        public string Pass { get; set; }
         public bool Activo { get; set; }
         public List<VOMascota> Mascotas { get; set; }
 
@@ -28,7 +28,7 @@ namespace ModelosVeterinarias.ValueObject
             this.IdVeterinaria = idVeterinaria;
             this.Direccion = direccion;
             this.Correo = correo;
-            this.Clave = pass;
+            this.Pass = pass;
             this.Activo = activo;
             this.Mascotas = new List<VOMascota>();
         }
@@ -41,7 +41,7 @@ namespace ModelosVeterinarias.ValueObject
             this.IdVeterinaria = idVeterinaria;
             this.Direccion = direccion;
             this.Correo = correo;
-            this.Clave = pass;
+            this.Pass = pass;
             this.Activo = activo;
             this.Mascotas = mascotas;
         }
