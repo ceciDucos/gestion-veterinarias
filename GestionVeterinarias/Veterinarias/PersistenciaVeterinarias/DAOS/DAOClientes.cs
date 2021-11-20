@@ -270,7 +270,7 @@ namespace PersistenciaVeterinarias.DAOS
         {
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("select p.cedula, p.nombre, p.telefono, p.idVeterinaria, c.direccion, c.correo, c.pass, c.activo ");
+            sb.Append("select p.cedula, p.nombre, p.telefono, p.idVeterinaria, c.direccion, c.correo, c.activo ");
             sb.Append(" from Persona p, Cliente c");
             sb.AppendFormat(" where p.cedula = @InCedula and p.cedula = c.cedula");
 
@@ -299,7 +299,7 @@ namespace PersistenciaVeterinarias.DAOS
                 int idVeterinaria = Convert.ToInt32(dr["idVeterinaria"]);
                 string direccion = Convert.ToString(dr["direccion"]);
                 string correo = Convert.ToString(dr["correo"]);
-                string pass = Convert.ToString(dr["pass"]);
+                string pass = "";
                 bool activo = Convert.ToBoolean(dr["activo"]);
                 DAOMascotas daoMascotas = new DAOMascotas();
                 List<VOMascota> mascotas = daoMascotas.List(connection, InCedula);
@@ -307,6 +307,39 @@ namespace PersistenciaVeterinarias.DAOS
             }
 
             return vocliente;
+        }
+
+        public string GetHash(SqlConnection connection, long InCedula)
+        {
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("select c.pass ");
+            sb.Append(" from Cliente c");
+            sb.AppendFormat(" where c.cedula = @InCedula");
+
+            SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+            SqlParameter InCedulaParameter = new SqlParameter()
+            {
+                ParameterName = "@InCedula",
+                Value = InCedula,
+                SqlDbType = SqlDbType.BigInt
+            };
+            selectCommand.Parameters.Add(InCedulaParameter);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = selectCommand;
+
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Cliente");
+            string pass = "";
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                pass = Convert.ToString(dr["pass"]);
+            }
+
+            return pass;
         }
     }
 }

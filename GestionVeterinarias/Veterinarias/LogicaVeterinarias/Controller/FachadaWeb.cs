@@ -4,10 +4,12 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ModelosVeterinaria.ValueObject;
 using ModelosVeterinarias.Classes;
 using ModelosVeterinarias.ExceptionClasses;
 using ModelosVeterinarias.ValueObject;
 using PersistenciaVeterinarias.DAOS;
+using System.Security.Cryptography;
 
 namespace LogicaVeterinarias.Controller
 {
@@ -194,11 +196,20 @@ namespace LogicaVeterinarias.Controller
             int idVeterinaria = vocliente.IdVeterinaria;
             string direccion = vocliente.Direccion;
             string correo = vocliente.Correo;
-            string pass = vocliente.Pass;
             bool activo = true;
+
             SqlConnection connection = null;
             try
             {
+                RNGCryptoServiceProvider saltCellar = new RNGCryptoServiceProvider();
+                byte[] salt = new byte[24];
+                saltCellar.GetBytes(salt);
+
+                Rfc2898DeriveBytes hashTool = new Rfc2898DeriveBytes(vocliente.Pass, salt);
+                hashTool.IterationCount = 1000;
+                byte[] hash = hashTool.GetBytes(24);
+                string pass = "1000:" + Convert.ToBase64String(salt) + ":" + Convert.ToBase64String(hash);
+
                 connection = manejadorConexion.GetConnection();
                 connection.Open();
                 if (!daoClientes.Member(connection, cedula))
@@ -227,6 +238,54 @@ namespace LogicaVeterinarias.Controller
                 {
                     throw new GeneralException("Ocurrió un error al crear el cliente");
                 }
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public bool Login(VOLogin login)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                bool passwordMatches = false;
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                string pass = daoClientes.GetHash(connection, Convert.ToInt32(login.Username));
+
+                if (pass != "")
+                {
+                    string[] hashParts = pass.Split(':');
+                    int iterations = Int32.Parse(hashParts[0]);
+                    byte[] originalSalt = Convert.FromBase64String(hashParts[1]);
+                    byte[] originalHash = Convert.FromBase64String(hashParts[2]);
+
+                    Rfc2898DeriveBytes hashTool = new Rfc2898DeriveBytes(login.Password, originalSalt);
+                    hashTool.IterationCount = iterations;
+                    byte[] testHash = hashTool.GetBytes(originalHash.Length);
+
+                    uint differences = (uint)originalHash.Length ^ (uint)testHash.Length;
+                    for (int position = 0; position < Math.Min(originalHash.Length,
+                      testHash.Length); position++)
+                        differences |= (uint)(originalHash[position] ^ testHash[position]);
+                    passwordMatches = (differences == 0);
+                }
+
+                return passwordMatches;
+            }
+            catch (SqlException ex)
+            {
+                string error = ex.Message;
+                throw new PersistenciaException("Ocurrió un error al obtener los datos");
+            }
+            catch (Exception)
+            {
+                throw new GeneralException("Ocurrió un error al loguearse");
             }
             finally
             {

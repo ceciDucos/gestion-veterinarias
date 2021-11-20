@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using LogicaVeterinarias.Controller;
@@ -14,14 +15,16 @@ namespace WebAPIVeterinarias.Controllers
     {
         private FachadaWeb fachadaWeb = FachadaWeb.GetInstance();
 
-        // GET api/cliente/{id}
-        public IHttpActionResult GetCliente(int id)
+        // GET api/cliente/
+        [Authorize]
+        public IHttpActionResult GetCliente()
         {
+            var identity = Thread.CurrentPrincipal.Identity;
             List<VOCliente> vocliente = new List<VOCliente>();
-            VOCliente pepe = fachadaWeb.GetCliente(id);
+            VOCliente pepe = fachadaWeb.GetCliente(Convert.ToInt32(identity.Name));
             vocliente.Add(pepe);
 
-            var cliente = vocliente.FirstOrDefault((p) => p.Cedula == id);
+            var cliente = vocliente.FirstOrDefault((p) => p.Cedula == Convert.ToInt32(identity.Name));
             if (cliente == null)
             {
                 return NotFound();
