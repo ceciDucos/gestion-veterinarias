@@ -58,6 +58,7 @@
     <Compile Include="ValueObject\VOCarnetInscripcion.cs" />
     <Compile Include="ValueObject\VOCliente.cs" />
     <Compile Include="ValueObject\VOConsulta.cs" />
+    <Compile Include="ValueObject\VOLogin.cs" />
     <Compile Include="ValueObject\VOMascota.cs" />
     <Compile Include="ValueObject\VOVeterinaria.cs" />
     <Compile Include="ValueObject\VOVeterinario.cs" />
