@@ -503,8 +503,8 @@ namespace LogicaVeterinarias.Controller
             int idVeterinaria = vocliente.IdVeterinaria;
             string direccion = vocliente.Direccion;
             string correo = vocliente.Correo;
-            string pass = vocliente.Clave;
-            bool activo = vocliente.Activo;
+            string pass = vocliente.Pass;
+            bool activo = true;
             SqlConnection connection = null;
             try
             {
@@ -556,7 +556,7 @@ namespace LogicaVeterinarias.Controller
                 if (daoClientes.Member(connection, vocliente.Cedula))
                 {
                     Cliente cliente = new Cliente(vocliente.Cedula, vocliente.Nombre, vocliente.Telefono, vocliente.IdVeterinaria,
-                        vocliente.Direccion, vocliente.Correo, vocliente.Clave, vocliente.Activo);
+                        vocliente.Direccion, vocliente.Correo, vocliente.Pass, vocliente.Activo);
 
                     daoClientes.Edit(connection, cliente);
                 }
