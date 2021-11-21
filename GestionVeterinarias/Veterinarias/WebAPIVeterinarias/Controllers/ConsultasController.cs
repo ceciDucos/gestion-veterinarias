@@ -15,12 +15,13 @@ namespace WebAPIVeterinarias.Controllers
     {
         private FachadaWeb fachadaWeb = FachadaWeb.GetInstance();
 
-        // GET api/consultas/{id}
-        public IEnumerable<VOConsulta> Get(int id)
+        // GET api/consultas/
+        public IEnumerable<VOConsulta> Get()
         {
             try
             {
-                return fachadaWeb.GetConsultas(id);
+                var identity = Thread.CurrentPrincipal.Identity;
+                return fachadaWeb.GetConsultas(Convert.ToInt32(identity.Name));
             }
             catch (Exception)
             {
