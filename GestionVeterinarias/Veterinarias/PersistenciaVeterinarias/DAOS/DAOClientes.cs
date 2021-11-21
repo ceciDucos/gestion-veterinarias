@@ -158,8 +158,8 @@ namespace PersistenciaVeterinarias.DAOS
             commandPersona.ExecuteNonQuery();
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("UPDATE Cliente SET direccion=@Direccion, correo=@Correo, pass=@Pass");
-            sb.Append("activo=@Activo WHERE cedula = @Cedula");
+            sb.Append("UPDATE Cliente SET direccion=@Direccion, correo=@Correo, pass=@Pass,");
+            sb.Append(" activo=@Activo WHERE cedula = @Cedula");
 
             SqlCommand commandCliente = new SqlCommand(sb.ToString(), connection);
 

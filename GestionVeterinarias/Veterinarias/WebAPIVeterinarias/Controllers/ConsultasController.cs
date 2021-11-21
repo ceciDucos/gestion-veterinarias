@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using LogicaVeterinarias.Controller;
@@ -17,13 +18,30 @@ namespace WebAPIVeterinarias.Controllers
         // GET api/consultas/{id}
         public IEnumerable<VOConsulta> Get(int id)
         {
-            return fachadaWeb.GetConsultas(id);
+            try
+            {
+                return fachadaWeb.GetConsultas(id);
+            }
+            catch (Exception)
+            {
+                return new List<VOConsulta>();
+            }
         }
 
         // PUT api/consultas/
+        [Authorize]
         public IHttpActionResult Put(VOConsulta voconsulta)
         {
-            fachadaWeb.SetCalificacion(voconsulta.Numero, voconsulta.Calificacion);
+            try
+            {
+                var identity = Thread.CurrentPrincipal.Identity;
+                fachadaWeb.SetCalificacion(Convert.ToInt32(identity.Name), voconsulta.Numero, voconsulta.Calificacion);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+
             return Ok();
         }
     }

@@ -88,10 +88,9 @@ namespace LogicaVeterinarias.Controller
                 string error = ex.Message;
                 throw new PersistenciaException("Ocurrió un error al obtener los datos");
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
-                //throw new GeneralException("Ocurrió un error al ....");
+                throw new GeneralException("Ocurrió un error al obtener las consultas");
             }
             finally
             {
@@ -102,14 +101,14 @@ namespace LogicaVeterinarias.Controller
             }
         }
 
-        public void SetCalificacion(int numero, int calificacion)
+        public void SetCalificacion(long cedula, int numero, int calificacion)
         {
             SqlConnection connection = null;
             try
             {
                 connection = manejadorConexion.GetConnection();
                 connection.Open();
-                daoConsultas.SetCalification(connection, numero, calificacion);
+                daoConsultas.SetCalification(connection, cedula, numero, calificacion);
             }
             catch (SqlException ex)
             {
@@ -237,6 +236,60 @@ namespace LogicaVeterinarias.Controller
                 else
                 {
                     throw new GeneralException("Ocurrió un error al crear el cliente");
+                }
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public void EditarCliente(VOCliente vocliente)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                if (daoClientes.Member(connection, vocliente.Cedula))
+                {
+                    RNGCryptoServiceProvider saltCellar = new RNGCryptoServiceProvider();
+                    byte[] salt = new byte[24];
+                    saltCellar.GetBytes(salt);
+
+                    Rfc2898DeriveBytes hashTool = new Rfc2898DeriveBytes(vocliente.Pass, salt);
+                    hashTool.IterationCount = 1000;
+                    byte[] hash = hashTool.GetBytes(24);
+                    string pass = "1000:" + Convert.ToBase64String(salt) + ":" + Convert.ToBase64String(hash);
+
+                    Cliente cliente = new Cliente(vocliente.Cedula, vocliente.Nombre, vocliente.Telefono, vocliente.IdVeterinaria,
+                        vocliente.Direccion, vocliente.Correo, pass, vocliente.Activo);
+
+                    daoClientes.Edit(connection, cliente);
+                }
+                else
+                {
+                    string error = string.Format("La persona con cedula {0} no existe en el sistema", vocliente.Cedula);
+                    throw new PersonaException(error);
+                }
+            }
+            catch (SqlException)
+            {
+                string error = string.Format("Error al intentar modificar el cliente con cedula {0} ", vocliente.Cedula);
+                throw new PersistenciaException(error);
+            }
+            catch (Exception ex)
+            {
+                if (ex is PersistenciaException || ex is PersonaException)
+                {
+                    throw ex;
+                }
+                else
+                {
+                    throw new GeneralException("Ocurrió un error al modificar el cliente");
                 }
             }
             finally

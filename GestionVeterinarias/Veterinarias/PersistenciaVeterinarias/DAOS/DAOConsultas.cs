@@ -225,13 +225,22 @@ public class DAOConsultas
         commandConsulta.ExecuteNonQuery();
     }
 
-    public void SetCalification(SqlConnection connection, int numero, int calificacion)
+    public void SetCalification(SqlConnection connection, long cedula, int numero, int calificacion)
     {
         StringBuilder sbConsulta = new StringBuilder();
         sbConsulta.Append("UPDATE Consulta SET calificacion = @Calificacion ");
-        sbConsulta.Append("WHERE numero = @Numero;");
+        sbConsulta.Append("FROM Consulta co, Mascota ma ");
+        sbConsulta.Append("WHERE co.numero = @Numero and co.idMascota = ma.id and ma.cedulaCliente = @Cedula;");
 
         SqlCommand commandConsulta = new SqlCommand(sbConsulta.ToString(), connection);
+
+
+        SqlParameter CedulaParameter = new SqlParameter()
+        {
+            ParameterName = "@Cedula",
+            Value = cedula,
+            SqlDbType = SqlDbType.BigInt
+        };
 
         SqlParameter NumeroParameter = new SqlParameter()
         {
@@ -247,6 +256,7 @@ public class DAOConsultas
             SqlDbType = SqlDbType.Int
         };
 
+        commandConsulta.Parameters.Add(CedulaParameter);
         commandConsulta.Parameters.Add(NumeroParameter);
         commandConsulta.Parameters.Add(CalificacionParameter);
 
