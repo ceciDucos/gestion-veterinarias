@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ModelosVeterinaria.ValueObject;
 using ModelosVeterinarias.Classes;
 using ModelosVeterinarias.ExceptionClasses;
 using ModelosVeterinarias.ValueObject;
@@ -80,7 +79,7 @@ namespace LogicaVeterinarias.Controller
             {
                 connection = manejadorConexion.GetConnection();
                 connection.Open();
-                List<VOConsulta> listConsultas = daoConsultas.ListByVeterinaria(connection, idVeterinaria);
+                List<VOConsulta> listConsultas = daoConsultas.ListByCliente(connection, idVeterinaria);
                 return listConsultas;
             }
             catch (SqlException ex)

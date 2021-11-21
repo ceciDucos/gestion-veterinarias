@@ -519,6 +519,51 @@ public class DAOConsultas
         }
 
         return voconsulta;
+    }
 
+    public List<VOConsulta> ListByCliente(SqlConnection connection, int cedulaCliente)
+    {
+        List<VOConsulta> listConsultas = new List<VOConsulta>();
+
+        StringBuilder sb = new StringBuilder();
+        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota, c.idVeterinario, c.realizada, c.importe");
+        sb.Append(" from Consulta c, Mascota m, Cliente cl");
+        sb.Append(" where c.idMascota = m.id and m.cedulaCliente = cl.cedula and cl.cedula = @CedulaCliente;");
+
+        SqlCommand selectCommand = new SqlCommand(sb.ToString(), connection);
+
+        SqlParameter IdVeterinariaParameter = new SqlParameter()
+        {
+            ParameterName = "@CedulaCliente",
+            Value = cedulaCliente,
+            SqlDbType = SqlDbType.BigInt
+        };
+        selectCommand.Parameters.Add(IdVeterinariaParameter);
+
+        SqlDataAdapter adapter = new SqlDataAdapter();
+        adapter.SelectCommand = selectCommand;
+
+        DataSet ds = new DataSet();
+        adapter.Fill(ds, "Consulta");
+        foreach (DataRow dr in ds.Tables[0].Rows)
+        {
+            int numero = Convert.ToInt32(dr["numero"]);
+            int calificacion = Convert.ToInt32(dr["calificacion"]);
+            DateTime fecha = Convert.ToDateTime(dr["fecha"]);
+            string descripcion = Convert.ToString(dr["descripcion"]);
+            int idMascota = Convert.ToInt32(dr["idMascota"]);
+            int idVeterinario = Convert.ToInt32(dr["IdVeterinario"]);
+            bool realizada = Convert.ToBoolean(dr["realizada"]);
+            double importe = Convert.ToDouble(dr["importe"]);
+
+            VOMascota mascota = daomascotas.Get(connection, idMascota);
+            VOVeterinario veterinario = daoveterinario.Get(connection, idVeterinario);
+
+            VOConsulta voconsulta = new VOConsulta(numero, fecha, descripcion, calificacion, mascota, veterinario, realizada, importe);
+
+            listConsultas.Add(voconsulta);
+        }
+
+        return listConsultas;
     }
 }
