@@ -6,6 +6,7 @@ using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using LogicaVeterinarias.Controller;
+using ModelosVeterinarias.ExceptionClasses;
 using ModelosVeterinarias.ValueObject;
 
 namespace WebAPIVeterinarias.Controllers
@@ -19,23 +20,65 @@ namespace WebAPIVeterinarias.Controllers
         [Authorize]
         public IHttpActionResult GetCliente()
         {
-            var identity = Thread.CurrentPrincipal.Identity;
-            List<VOCliente> vocliente = new List<VOCliente>();
-            VOCliente pepe = fachadaWeb.GetCliente(Convert.ToInt32(identity.Name));
-            vocliente.Add(pepe);
-
-            var cliente = vocliente.FirstOrDefault((p) => p.Cedula == Convert.ToInt32(identity.Name));
-            if (cliente == null)
+            try
             {
-                return NotFound();
+                var identity = Thread.CurrentPrincipal.Identity;
+                List<VOCliente> vocliente = new List<VOCliente>();
+                VOCliente pepe = fachadaWeb.GetCliente(Convert.ToInt32(identity.Name));
+                vocliente.Add(pepe);
+
+                var cliente = vocliente.FirstOrDefault((p) => p.Cedula == Convert.ToInt32(identity.Name));
+                if (cliente == null)
+                {
+                    return NotFound();
+                }
+                return Ok(cliente);
             }
-            return Ok(cliente);
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
         }
 
         // Post api/cliente/
         public IHttpActionResult PostCliente(VOCliente vocliente)
-        {            
-            fachadaWeb.CrearCliente(vocliente);
+        {
+            try
+            {
+                fachadaWeb.CrearCliente(vocliente);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+            return Ok();
+        }
+
+
+        // PUT api/cliente/
+        [Authorize]
+        public IHttpActionResult PutCliente(VOCliente vocliente)
+        {
+            var identity = Thread.CurrentPrincipal.Identity;
+
+            if (vocliente.Cedula == Convert.ToInt32(identity.Name))
+            {
+                try
+                {
+                    fachadaWeb.EditarCliente(vocliente);
+                }
+                catch (PersonaException)
+                {
+                    return NotFound();
+                }
+                catch (Exception)
+                {
+                    return InternalServerError();
+                }
+            } else
+            {
+                return BadRequest();
+            }
             return Ok();
         }
     }
