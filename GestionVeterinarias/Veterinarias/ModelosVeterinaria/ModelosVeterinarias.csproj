@@ -52,6 +52,7 @@
     <Compile Include="Classes\Veterinario.cs" />
     <Compile Include="ExceptionClasses\ConsultaException.cs" />
     <Compile Include="ExceptionClasses\GeneralException.cs" />
+    <Compile Include="ExceptionClasses\PasswordException.cs" />
     <Compile Include="ExceptionClasses\PersistenciaException.cs" />
     <Compile Include="ExceptionClasses\PersonaException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="ValueObject\VOConsulta.cs" />
     <Compile Include="ValueObject\VOLogin.cs" />
     <Compile Include="ValueObject\VOMascota.cs" />
+    <Compile Include="ValueObject\VOPassword.cs" />
     <Compile Include="ValueObject\VOVeterinaria.cs" />
     <Compile Include="ValueObject\VOVeterinario.cs" />
   </ItemGroup>

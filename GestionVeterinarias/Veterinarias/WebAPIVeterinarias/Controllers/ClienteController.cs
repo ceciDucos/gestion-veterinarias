@@ -54,6 +54,31 @@ namespace WebAPIVeterinarias.Controllers
             return Ok();
         }
 
+        // PUT api/cliente/
+        [Route("api/cliente/password")]
+        [Authorize]
+        public IHttpActionResult PutChangePassword(VOPassword voPassword)
+        {
+            var identity = Thread.CurrentPrincipal.Identity;
+
+            try
+            {
+                fachadaWeb.EditarPassword(identity.Name, voPassword);
+            }
+            catch (PersonaException)
+            {
+                return NotFound();
+            }
+            catch (PasswordException)
+            {
+                return BadRequest("La contraseña actual no coincide");
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+            return Ok();
+        }
 
         // PUT api/cliente/
         [Authorize]
