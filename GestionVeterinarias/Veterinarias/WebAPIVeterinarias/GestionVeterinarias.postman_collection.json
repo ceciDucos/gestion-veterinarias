@@ -57,6 +57,16 @@
 				{
 					"name": "GetByVeterinaria",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEyMzQ1ODkiLCJuYmYiOjE2Mzc1MzYyMjksImV4cCI6MTYzNzUzODAyOSwiaWF0IjoxNjM3NTM2MjI5LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQ0MzczIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo0NDM3MyJ9.SovUKilHzIwDngzVENo_vPtIG_u5dtWuDwQZVYbJDgI",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -90,7 +100,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:44373/api/consultas/1",
+							"raw": "https://localhost:44373/api/consultas",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -98,8 +108,7 @@
 							"port": "44373",
 							"path": [
 								"api",
-								"consultas",
-								"1"
+								"consultas"
 							]
 						}
 					},
@@ -113,10 +122,20 @@
 				{
 					"name": "Get",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEyMzQ1ODkiLCJuYmYiOjE2Mzc1NDA1NTAsImV4cCI6MTYzNzU0MjM1MCwiaWF0IjoxNjM3NTQwNTUwLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQ0MzczIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo0NDM3MyJ9.vNr1QpQNNJy36ldINm19TgrALz0GV6QCFdYtSktx9aA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:44373/api/cliente/1234",
+							"raw": "https://localhost:44373/api/cliente/",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -125,7 +144,7 @@
 							"path": [
 								"api",
 								"cliente",
-								"1234"
+								""
 							]
 						}
 					},
@@ -138,7 +157,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Nombre\": \"Fede\",\r\n    \"Cedula\": 12345,\r\n    \"Telefono\": \"56756\",\r\n    \"IdVeterinaria\": 1,\r\n    \"Direccion\": \"asduhj dfgdf dfg\",\r\n    \"Correo\": \"asda@fgd.com\",\r\n    \"Pass\": \"123asd\",\r\n    \"Activo\": true\r\n}",
+							"raw": "{\r\n    \"Nombre\": \"Fede\",\r\n    \"Cedula\": 1234589,\r\n    \"Telefono\": \"56756\",\r\n    \"IdVeterinaria\": 1,\r\n    \"Direccion\": \"asduhj dfgdf dfg\",\r\n    \"Correo\": \"asda@fgd.com\",\r\n    \"Pass\": \"123asd\",\r\n    \"Activo\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -156,6 +175,163 @@
 								"api",
 								"cliente",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEyMzQ1ODkiLCJuYmYiOjE2Mzc1NDA1MTksImV4cCI6MTYzNzU0MjMxOSwiaWF0IjoxNjM3NTQwNTE5LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQ0MzczIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo0NDM3MyJ9.sjWfY2GrYM8HZyRFCk00EsNxUxSzR9aqAo16mTmHD00",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nombre\": \"Fede\",\r\n    \"Cedula\": 1234589,\r\n    \"Telefono\": \"56756\",\r\n    \"IdVeterinaria\": 1,\r\n    \"Direccion\": \"asduhj dfgdf dfg\",\r\n    \"Correo\": \"asda@fgd2.com\",\r\n    \"Activo\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44373/api/cliente/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44373",
+							"path": [
+								"api",
+								"cliente",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ChangePassword",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEyMzQ1ODkiLCJuYmYiOjE2Mzc1Mzk2MDIsImV4cCI6MTYzNzU0MTQwMiwiaWF0IjoxNjM3NTM5NjAyLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQ0MzczIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo0NDM3MyJ9.WzcFqCIc__GD0XMEfaydVB0tkI2NGbi8-jpBnCv_d7A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"CurrentPassword\": \"123asd2\",\r\n    \"NewPassword\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44373/api/cliente/password",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44373",
+							"path": [
+								"api",
+								"cliente",
+								"password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\": \"1234589\",\r\n    \"Password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44373/api/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44373",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VerifyAuth",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFkbWluIiwibmJmIjoxNjM3NDQ2OTYzLCJleHAiOjE2Mzc0NDg3NjMsImlhdCI6MTYzNzQ0Njk2MywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0NDM3MyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDQzNzMifQ.OuFCknDmphu747uCw6akYf5GwPLBJfZzEdCWu_iUiAY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\": \"admin\",\r\n    \"Password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44373/api/login/echouser",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44373",
+							"path": [
+								"api",
+								"login",
+								"echouser"
 							]
 						}
 					},
