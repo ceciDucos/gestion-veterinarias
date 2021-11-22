@@ -255,17 +255,8 @@ namespace LogicaVeterinarias.Controller
                 connection.Open();
                 if (daoClientes.Member(connection, vocliente.Cedula))
                 {
-                    RNGCryptoServiceProvider saltCellar = new RNGCryptoServiceProvider();
-                    byte[] salt = new byte[24];
-                    saltCellar.GetBytes(salt);
-
-                    Rfc2898DeriveBytes hashTool = new Rfc2898DeriveBytes(vocliente.Pass, salt);
-                    hashTool.IterationCount = 1000;
-                    byte[] hash = hashTool.GetBytes(24);
-                    string pass = "1000:" + Convert.ToBase64String(salt) + ":" + Convert.ToBase64String(hash);
-
                     Cliente cliente = new Cliente(vocliente.Cedula, vocliente.Nombre, vocliente.Telefono, vocliente.IdVeterinaria,
-                        vocliente.Direccion, vocliente.Correo, pass, vocliente.Activo);
+                        vocliente.Direccion, vocliente.Correo, vocliente.Pass, vocliente.Activo);
 
                     daoClientes.Edit(connection, cliente);
                 }
@@ -338,6 +329,59 @@ namespace LogicaVeterinarias.Controller
             catch (Exception)
             {
                 throw new GeneralException("Ocurrió un error al loguearse");
+            }
+            finally
+            {
+                if (connection.State.Equals("Open"))
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public void EditarPassword(string cedula, VOPassword voPassword)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = manejadorConexion.GetConnection();
+                connection.Open();
+                if (daoClientes.Member(connection, Convert.ToInt32(cedula)))
+                {
+                    if (Login(new VOLogin(cedula, voPassword.CurrentPassword))) {
+                        RNGCryptoServiceProvider saltCellar = new RNGCryptoServiceProvider();
+                        byte[] salt = new byte[24];
+                        saltCellar.GetBytes(salt);
+
+                        Rfc2898DeriveBytes hashTool = new Rfc2898DeriveBytes(voPassword.NewPassword, salt);
+                        hashTool.IterationCount = 1000;
+                        byte[] hash = hashTool.GetBytes(24);
+                        string pass = "1000:" + Convert.ToBase64String(salt) + ":" + Convert.ToBase64String(hash);
+
+                        daoClientes.EditPassword(connection, Convert.ToInt32(cedula), pass);
+                    } else throw new PasswordException("Contraseña actual no coincide");
+                }
+                else
+                {
+                    string error = string.Format("La persona con cedula {0} no existe en el sistema", cedula);
+                    throw new PersonaException(error);
+                }
+            }
+            catch (SqlException)
+            {
+                string error = string.Format("Error al intentar modificar el cliente con cedula {0} ", cedula);
+                throw new PersistenciaException(error);
+            }
+            catch (Exception ex)
+            {
+                if (ex is PersistenciaException || ex is PersonaException || ex is PasswordException)
+                {
+                    throw ex;
+                }
+                else
+                {
+                    throw new GeneralException("Ocurrió un error al modificar el cliente");
+                }
             }
             finally
             {

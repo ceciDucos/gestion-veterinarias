@@ -158,7 +158,7 @@ namespace PersistenciaVeterinarias.DAOS
             commandPersona.ExecuteNonQuery();
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("UPDATE Cliente SET direccion=@Direccion, correo=@Correo, pass=@Pass,");
+            sb.Append("UPDATE Cliente SET direccion=@Direccion, correo=@Correo,");
             sb.Append(" activo=@Activo WHERE cedula = @Cedula");
 
             SqlCommand commandCliente = new SqlCommand(sb.ToString(), connection);
@@ -184,13 +184,6 @@ namespace PersistenciaVeterinarias.DAOS
                 SqlDbType = SqlDbType.VarChar
             };
 
-            SqlParameter PassParameter = new SqlParameter()
-            {
-                ParameterName = "@Pass",
-                Value = cliente.Pass,
-                SqlDbType = SqlDbType.VarChar
-            };
-
             SqlParameter ActivoParameter = new SqlParameter()
             {
                 ParameterName = "@Activo",
@@ -201,7 +194,6 @@ namespace PersistenciaVeterinarias.DAOS
             commandCliente.Parameters.Add(CedulaParameterDos);
             commandCliente.Parameters.Add(DireccionParameter);
             commandCliente.Parameters.Add(CorreoParameter);
-            commandCliente.Parameters.Add(PassParameter);
             commandCliente.Parameters.Add(ActivoParameter);
             commandCliente.ExecuteNonQuery();
         }
@@ -340,6 +332,33 @@ namespace PersistenciaVeterinarias.DAOS
             }
 
             return pass;
+        }
+
+        public void EditPassword(SqlConnection connection, long cedula, string newPassword)
+        {            
+            StringBuilder sb = new StringBuilder();
+            sb.Append("UPDATE Cliente SET pass=@Pass");
+            sb.Append(" WHERE cedula = @Cedula");
+
+            SqlCommand commandCliente = new SqlCommand(sb.ToString(), connection);
+
+            SqlParameter CedulaParameterDos = new SqlParameter()
+            {
+                ParameterName = "@Cedula",
+                Value = cedula,
+                SqlDbType = SqlDbType.BigInt
+            };
+
+            SqlParameter PassParameter = new SqlParameter()
+            {
+                ParameterName = "@Pass",
+                Value = newPassword,
+                SqlDbType = SqlDbType.VarChar
+            };
+
+            commandCliente.Parameters.Add(CedulaParameterDos);
+            commandCliente.Parameters.Add(PassParameter);
+            commandCliente.ExecuteNonQuery();
         }
     }
 }
