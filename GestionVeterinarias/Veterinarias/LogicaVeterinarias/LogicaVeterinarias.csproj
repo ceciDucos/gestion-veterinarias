@@ -44,8 +44,6 @@
   <ItemGroup>
     <Compile Include="Controller\FachadaWeb.cs" />
     <Compile Include="Controller\FachadaWin.cs" />
-    <Compile Include="Controller\IFachadaWeb.cs" />
-    <Compile Include="Controller\IFachadaWin.cs" />
     <Compile Include="Controller\ManejadorConexion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
