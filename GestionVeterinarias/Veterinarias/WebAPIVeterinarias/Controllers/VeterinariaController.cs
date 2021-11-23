@@ -15,12 +15,14 @@ namespace WebAPIVeterinarias.Controllers
         private FachadaWeb fachadaWeb = FachadaWeb.GetInstance();
 
         // GET api/veterinaria
+        [Authorize]
         public IEnumerable<VOVeterinaria> Get() 
         {
             return fachadaWeb.GetVeterinarias();
         }
 
         // GET api/veterinaria/{id}
+        [Authorize]
         public IHttpActionResult GetVeterinaria(int id)
         {
             var vet = fachadaWeb.GetVeterinarias().FirstOrDefault((p) => p.Id == id); // LINQ
