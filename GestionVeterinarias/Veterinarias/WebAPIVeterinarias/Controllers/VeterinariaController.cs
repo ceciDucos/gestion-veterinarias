@@ -15,7 +15,6 @@ namespace WebAPIVeterinarias.Controllers
         private FachadaWeb fachadaWeb = FachadaWeb.GetInstance();
 
         // GET api/veterinaria
-        [Authorize]
         public IEnumerable<VOVeterinaria> Get() 
         {
             return fachadaWeb.GetVeterinarias();
