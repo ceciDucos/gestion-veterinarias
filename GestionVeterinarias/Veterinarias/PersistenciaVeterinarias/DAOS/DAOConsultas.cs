@@ -526,7 +526,7 @@ public class DAOConsultas
         List<VOConsulta> listConsultas = new List<VOConsulta>();
 
         StringBuilder sb = new StringBuilder();
-        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota, c.idVeterinario, c.realizada, c.importe");
+        sb.Append("select c.numero, c.calificacion, c.fecha, c.descripcion, c.idMascota, c.idVeterinario, c.realizada, c.importe, m.Nombre");
         sb.Append(" from Consulta c, Mascota m, Cliente cl");
         sb.Append(" where c.idMascota = m.id and m.cedulaCliente = cl.cedula and cl.cedula = @CedulaCliente;");
 
