@@ -51,7 +51,8 @@ namespace WebAPIVeterinarias.Controllers
             {
                 return InternalServerError();
             }
-            return Ok();
+            var token = TokenGenerator.GenerateTokenJwt(Convert.ToString(vocliente.Cedula));
+            return Ok(token);
         }
 
         // PUT api/cliente/
