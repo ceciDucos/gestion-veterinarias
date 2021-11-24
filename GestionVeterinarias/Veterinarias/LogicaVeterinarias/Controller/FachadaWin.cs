@@ -1039,16 +1039,15 @@ namespace LogicaVeterinarias.Controller
                         ;
 
                     Consulta consulta = new Consulta(
-                        voconsulta.Numero, 
-                        voconsulta.Calificacion, 
+                        voconsulta.Numero,
+                        voconsulta.Calificacion,
                         voconsulta.Fecha,
-                        voconsulta.Descripcion, 
-                        mascota, 
-                        veterinario, 
-                        voconsulta.Realizada, 
+                        voconsulta.Descripcion,
+                        mascota,
+                        veterinario,
+                        voconsulta.Realizada,
                         voconsulta.Importe
                         );
-
                     daoConsultas.Edit(connection, consulta);
                 }
                 else
