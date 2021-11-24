@@ -19,7 +19,6 @@ namespace LogicaVeterinarias.Controller
         private DAOClientes daoClientes;
         private DAOMascotas daoMascotas;
         private DAOVeterinarios daoVeterinarios;
-        private DAOSistema daoSistema;
         private ManejadorConexion manejadorConexion;
         private DAOConsultas daoConsultas;
         private static FachadaWeb instance;
@@ -30,7 +29,6 @@ namespace LogicaVeterinarias.Controller
             daoClientes = new DAOClientes();
             daoMascotas = new DAOMascotas();
             daoVeterinarios = new DAOVeterinarios();
-            daoSistema = new DAOSistema();
             manejadorConexion = ManejadorConexion.GetInstance();
             daoConsultas = new DAOConsultas();
         }

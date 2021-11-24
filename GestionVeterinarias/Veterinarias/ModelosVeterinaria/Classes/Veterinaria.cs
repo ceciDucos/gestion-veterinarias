@@ -41,29 +41,6 @@ namespace ModelosVeterinarias.Classes
             this.DiccionarioConsultas = new Dictionary<int, Consulta>();
         }
 
-        public void AddVeterinario(Veterinario veterinario)
-        {
-            this.DiccionarioVeterinarios.Add(veterinario.Cedula, veterinario);
-        }
-
-        public void AddCliente(Cliente cliente)
-        {
-            this.DiccionarioClientes.Add(cliente.Cedula, cliente);
-        }
-
-        public void AddConsulta(Consulta consulta)
-        {
-            this.DiccionarioConsultas.Add(consulta.Numero, consulta);
-        }
-
-        public void RemoveVeterinario(long cedula)
-        {
-             this.DiccionarioVeterinarios.Remove(cedula);
-        }
-
-        public void RemoveCliente(long cedula)
-        {
-             this.DiccionarioClientes.Remove(cedula);
-        }
+        
     }
 }
