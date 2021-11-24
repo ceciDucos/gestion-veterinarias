@@ -118,7 +118,7 @@ public class DAOConsultas
         {
             ParameterName = "@Importe",
             Value = consulta.Importe,
-            SqlDbType = SqlDbType.Int
+            SqlDbType = SqlDbType.Float
         };
 
         commandConsulta.Parameters.Add(CalificacionParameter);
@@ -210,7 +210,7 @@ public class DAOConsultas
         {
             ParameterName = "@Importe",
             Value = consulta.Importe,
-            SqlDbType = SqlDbType.Bit
+            SqlDbType = SqlDbType.Float
         };
 
         commandConsulta.Parameters.Add(CalificacionParameter);
